@@ -138,6 +138,7 @@
     <Compile Include="App_Start\Ninject.Web.Common.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ComponentController.cs" />
+    <Compile Include="Controllers\TestResultsController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -167,6 +168,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Views\Component\List.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\TestResults\Create.cshtml" />
+    <Content Include="Views\TestResults\Delete.cshtml" />
+    <Content Include="Views\TestResults\Edit.cshtml" />
+    <Content Include="Views\TestResults\TestResultsList.cshtml" />
+    <Content Include="Views\Component\TestResults.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

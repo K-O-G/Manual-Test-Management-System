@@ -18,6 +18,7 @@ namespace WebUI
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Component", action = "List", id = UrlParameter.Optional }
             );
+
         }
     }
 }

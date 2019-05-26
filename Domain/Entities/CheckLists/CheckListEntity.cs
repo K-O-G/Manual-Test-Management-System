@@ -16,7 +16,7 @@ namespace Domain.Entities.CheckLists
         public ICollection<Component> Components { get; set; }
         public Priority Priority { get; set; }
         public User CreatorCheckListUser { get; set; }
-        public User LastEditorCheckListUser { get; set; }
-        public DateTime LastEditionDateTime { get; set; }
+        public virtual User LastEditorCheckListUser { get; set; }
+        public virtual DateTime LastEditionDateTime { get; set; }
     }
 }
