@@ -42,6 +42,8 @@ namespace WebUI.Controllers
         // GET: CheckLists/Create
         public ActionResult Create()
         {
+            SelectList priority = new SelectList(db.Priorities, "PriorityId", "PriorityName");
+            ViewBag.Priorities = priority;
             return View();
         }
 

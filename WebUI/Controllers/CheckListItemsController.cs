@@ -70,6 +70,8 @@ namespace WebUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            SelectList testResults = new SelectList(db.TestResults, "TestResultId", "TestResultValue");
+            ViewBag.TestResults = testResults;
             CheckListItem checkListItem = db.CheckListItems.Find(id);
             if (checkListItem == null)
             {
