@@ -1,0 +1,82 @@
+﻿@model Domain.Entities.CheckLists.CheckListEntity
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CheckListEntity</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Check List: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CheckListName)
+        </dd>
+        <dt>
+            Last Edition:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastEditionDateTime)
+        </dd>
+
+    </dl>
+
+    <table class="table">
+    <tr>
+        <th>
+            Procedure
+        </th>
+        <th>
+            Expected Result
+        </th>
+        <th>
+            Comment
+        </th>
+        <th>
+            Last Executor
+        </th>
+        <th>
+            Last Execution
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.CheckListItems) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckListId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Procedure)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpectedResult)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckListComment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastExecutorCheckListUser.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastExecutionDateTime)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.CheckListItemId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.CheckListItemId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.CheckListItemId })
+            </td>
+        </tr>
+    }
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CheckListEntityId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

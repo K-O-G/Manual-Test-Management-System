@@ -1,0 +1,64 @@
+﻿@model Domain.Entities.CheckLists.CheckListItem
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>CheckListItem</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CheckListId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CheckListId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Procedure)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Procedure)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpectedResult)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpectedResult)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CheckListComment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CheckListComment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastExecutionDateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastExecutionDateTime)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

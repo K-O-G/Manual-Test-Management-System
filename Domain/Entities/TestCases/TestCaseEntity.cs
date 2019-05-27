@@ -14,8 +14,8 @@ namespace Domain.Entities.TestCases
         public int TestCaseEntityId { get; set; }
         public string TestCaseDescription { get; set; }
         public Priority Priority { get; set; }
-        public ICollection<Case> Cases { get; set; }
-        public ICollection<Component> Components { get; set; }
+        public IEnumerable<Case> Cases { get; set; }
+        public IEnumerable<Component> Components { get; set; }
         public User CreatorCaseUser { get; set; }
         public User LastEditorCaseUser { get; set; }
         public DateTime LastEditionDateTime { get; set; }

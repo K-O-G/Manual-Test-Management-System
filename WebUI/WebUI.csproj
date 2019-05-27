@@ -137,7 +137,9 @@
   <ItemGroup>
     <Compile Include="App_Start\Ninject.Web.Common.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\ComponentController.cs" />
+    <Compile Include="Controllers\CheckListItemsController.cs" />
+    <Compile Include="Controllers\CheckListsController.cs" />
+    <Compile Include="Controllers\ComponentsController.cs" />
     <Compile Include="Controllers\TestResultsController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -166,13 +168,25 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
-    <Content Include="Views\Component\List.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\TestResults\Create.cshtml" />
     <Content Include="Views\TestResults\Delete.cshtml" />
     <Content Include="Views\TestResults\Edit.cshtml" />
     <Content Include="Views\TestResults\TestResultsList.cshtml" />
-    <Content Include="Views\Component\TestResults.cshtml" />
+    <Content Include="Views\Components\Create.cshtml" />
+    <Content Include="Views\Components\Delete.cshtml" />
+    <Content Include="Views\Components\Edit.cshtml" />
+    <Content Include="Views\Components\ComponentsList.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\CheckLists\Create.cshtml" />
+    <Content Include="Views\CheckLists\Delete.cshtml" />
+    <Content Include="Views\CheckLists\Details.cshtml" />
+    <Content Include="Views\CheckLists\Edit.cshtml" />
+    <Content Include="Views\CheckLists\Index.cshtml" />
+    <Content Include="Views\CheckListItems\Create.cshtml" />
+    <Content Include="Views\CheckListItems\Delete.cshtml" />
+    <Content Include="Views\CheckListItems\Details.cshtml" />
+    <Content Include="Views\CheckListItems\Edit.cshtml" />
+    <Content Include="Views\CheckListItems\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,39 @@
+﻿@using System.Data.Entity.Core.Mapping
+@model IEnumerable<Domain.Entities.Component>
+
+@{
+    ViewBag.Title = "Components List";
+}
+
+<h2>Components</h2>
+
+<p>
+    @Html.ActionLink("Create new Component", "Create", null, new { @class = "btn btn-default" })
+</p>
+<table class="table">
+    <tr>
+        <th style="width: 20%">
+            Component
+        </th>
+        <th style="width: 60%">
+            Description
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ComponentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ComponentDescription)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ComponentId }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Delete", "Delete", new { id=item.ComponentId }, new { @class = "btn btn-default" })
+        </td>
+    </tr>
+}
+
+</table>

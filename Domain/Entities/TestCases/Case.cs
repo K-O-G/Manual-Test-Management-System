@@ -13,7 +13,7 @@ namespace Domain.Entities.TestCases
         public TestCaseEntity TestCase { get; set; }
         public string CaseSummary { get; set; }
         public string CasePreconditions { get; set; }
-        public ICollection<CaseStep> CaseSteps { get; set; }
+        public IEnumerable<CaseStep> CaseSteps { get; set; }
         public virtual string CaseComment { get; set; }
         public virtual User LastExecutorCaseUser { get; set; }
         public virtual DateTime LastExecutionDateTime { get; set; }
