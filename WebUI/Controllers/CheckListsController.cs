@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Castle.Core.Internal;
 using Domain.Concrete;
 using Domain.Entities;
 using Domain.Entities.CheckLists;
@@ -17,7 +18,7 @@ namespace WebUI.Controllers
         private EFDbContext db = new EFDbContext();
 
         // GET: CheckLists
-        public ActionResult Index()
+        public ActionResult CheckLists()
         {
             return View(db.CheckLists.ToList());
         }
@@ -30,12 +31,20 @@ namespace WebUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             CheckListEntity checkListEntity = db.CheckLists.Find(id);
-            checkListEntity.CheckListItems =
-                db.CheckListItems.Where(c => c.CheckListId == checkListEntity.CheckListEntityId);
             if (checkListEntity == null)
             {
                 return HttpNotFound();
             }
+            checkListEntity.CheckListItems =
+                db.CheckListItems.Where(c => c.CheckListId == checkListEntity.CheckListEntityId);
+            if (checkListEntity.CheckListItems == null)
+            {
+                return HttpNotFound();
+            }
+//            checkListEntity.CheckListItems.GetEnumerator().Current.CheckListTestResult =
+//                db.TestResults.Find(checkListEntity.CheckListItems.GetEnumerator().Current.CheckListTestResult
+//                    .TestResultId);
+
             return View(checkListEntity);
         }
 
@@ -60,12 +69,59 @@ namespace WebUI.Controllers
                 checkListEntity.LastEditorCheckListUser = user;
                 db.CheckLists.Add(checkListEntity);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("CheckLists");
             }
 
             return View(checkListEntity);
         }
 
+        public ActionResult Execute(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CheckListEntity checkListEntity = db.CheckLists.Find(id);
+            if (checkListEntity == null)
+            {
+                return HttpNotFound();
+            }
+            SelectList testResult = new SelectList(db.TestResults, "TestResultId", "TestResultValue");
+            ViewBag.TestResults = testResult;
+            checkListEntity.CheckListItems =
+                db.CheckListItems.Where(c => c.CheckListId == checkListEntity.CheckListEntityId);
+            if (checkListEntity.CheckListItems == null)
+            {
+                return HttpNotFound();
+            }
+            return View(checkListEntity);
+        }
+
+        // POST: CheckLists/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Execute([Bind(Include = "CheckListEntityId,CheckListName")] CheckListEntity checkListEntity, User user)
+        {
+            //TODO exception 
+            if (ModelState.IsValid)
+            {
+//                checkListEntity.CheckListItems =
+//                    db.CheckListItems.Where(c => c.CheckListId == checkListEntity.CheckListEntityId);
+                if (checkListEntity.CheckListItems == null)
+                {
+                    return HttpNotFound();
+                }
+                checkListEntity.CheckListItems.GetEnumerator().Current.LastExecutionDateTime = DateTime.Now;
+                checkListEntity.CheckListItems.GetEnumerator().Current.LastExecutorCheckListUser = user;
+                db.Entry(checkListEntity.CheckListItems.GetEnumerator().Current).State = EntityState.Modified;
+                db.SaveChanges();
+//                return View(checkListEntity);
+            }
+
+            return View(checkListEntity);
+        }
         // GET: CheckLists/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -96,7 +152,7 @@ namespace WebUI.Controllers
                 checkListEntity.LastEditorCheckListUser = user;
                 db.Entry(checkListEntity).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("CheckLists");
             }
             return View(checkListEntity);
         }
@@ -121,10 +177,20 @@ namespace WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            //todo recursively delete items?
             CheckListEntity checkListEntity = db.CheckLists.Find(id);
+            checkListEntity.CheckListItems =
+                db.CheckListItems.Where(c => c.CheckListId == checkListEntity.CheckListEntityId);
+            if (!checkListEntity.CheckListItems.IsNullOrEmpty())
+            {
+                foreach (var item in checkListEntity.CheckListItems)
+                {
+                    db.CheckListItems.Remove(checkListEntity.CheckListItems.GetEnumerator().Current);
+                }
+            }
             db.CheckLists.Remove(checkListEntity);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("CheckLists");
         }
 
         protected override void Dispose(bool disposing)

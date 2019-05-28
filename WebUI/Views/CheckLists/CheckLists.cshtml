@@ -1,0 +1,42 @@
+﻿@using Domain.Entities.CheckLists
+@model IEnumerable<Domain.Entities.CheckLists.CheckListEntity>
+
+
+@{
+    ViewBag.Title = "CheckLists";
+}
+
+<h2>CheckLists</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            CheckList
+        </th>
+        <th>
+            Last Edition Date
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CheckListName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastEditionDateTime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit CheckList", "Edit", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Execute CheckList", "Execute", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Details", "Details", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Delete CheckList", "Delete", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
+        </td>
+    </tr>
+}
+
+</table>

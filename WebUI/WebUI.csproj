@@ -126,6 +126,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\ManualTestMangementSystem - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -141,6 +142,7 @@
     <Compile Include="Controllers\CheckListsController.cs" />
     <Compile Include="Controllers\ComponentsController.cs" />
     <Compile Include="Controllers\TestResultsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -152,6 +154,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -181,12 +184,18 @@
     <Content Include="Views\CheckLists\Delete.cshtml" />
     <Content Include="Views\CheckLists\Details.cshtml" />
     <Content Include="Views\CheckLists\Edit.cshtml" />
-    <Content Include="Views\CheckLists\Index.cshtml" />
+    <Content Include="Views\CheckLists\CheckLists.cshtml" />
     <Content Include="Views\CheckListItems\Create.cshtml" />
     <Content Include="Views\CheckListItems\Delete.cshtml" />
     <Content Include="Views\CheckListItems\Details.cshtml" />
     <Content Include="Views\CheckListItems\Edit.cshtml" />
     <Content Include="Views\CheckListItems\Index.cshtml" />
+    <Content Include="Views\CheckLists\Execute.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -196,7 +205,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">
