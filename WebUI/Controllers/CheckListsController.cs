@@ -10,6 +10,7 @@ using Castle.Core.Internal;
 using Domain.Concrete;
 using Domain.Entities;
 using Domain.Entities.CheckLists;
+using Domain.Helpers;
 
 namespace WebUI.Controllers
 {
@@ -121,6 +122,22 @@ namespace WebUI.Controllers
             }
 
             return View(checkListEntity);
+        }
+
+        [HttpPost]
+        public ActionResult SaveExecute(int id, int resultId)
+        {
+           var item = db.CheckListItems.Include(c=>c.CheckListTestResult).FirstOrDefault(i => i.CheckListItemId == id);
+           if (item != null)
+           {
+               item.LastExecutorCheckListUser = Repository.CurrentUser;
+               item.LastExecutorCheckListUser.UserId = Repository.CurrentUser.UserId;
+               item.LastExecutionDateTime = DateTime.Now;
+               var testResult = db.TestResults.FirstOrDefault(r => r.TestResultId == resultId);
+               item.CheckListTestResult = testResult;
+               db.SaveChanges();
+           }
+           return Json(new {result = "success"});
         }
         // GET: CheckLists/Edit/5
         public ActionResult Edit(int? id)

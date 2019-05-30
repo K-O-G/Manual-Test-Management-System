@@ -14,9 +14,9 @@ namespace Domain.Entities.CheckLists
         public CheckListEntity CheckListEntity { get; set; }
         public string Procedure { get; set; }
         public string ExpectedResult { get; set; }
-        public TestResult CheckListTestResult { get; set; }
+        public virtual TestResult CheckListTestResult { get; set; }
         public virtual string CheckListComment { get; set; }
         public virtual User LastExecutorCheckListUser { get; set; }// будет заполняться самостоятельно, после выполнения
-        public virtual DateTime LastExecutionDateTime { get; set; }
+        public virtual DateTime? LastExecutionDateTime { get; set; }
     }
 }

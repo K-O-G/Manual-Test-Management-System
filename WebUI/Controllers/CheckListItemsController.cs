@@ -7,7 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Domain.Concrete;
+using Domain.Entities;
 using Domain.Entities.CheckLists;
+using Domain.Helpers;
 
 namespace WebUI.Controllers
 {
@@ -15,12 +17,6 @@ namespace WebUI.Controllers
     {
         private EFDbContext db = new EFDbContext();
 
-        // GET: CheckListItems
-        public ActionResult Index()
-        {
-
-            return View(db.CheckListItems.ToList());
-        }
 
         // GET: CheckListItems/Details/5
         public ActionResult Details(int? id)
@@ -54,10 +50,14 @@ namespace WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                checkListItem.LastExecutionDateTime = DateTime.Now;
+                checkListItem.LastExecutorCheckListUser = Repository.CurrentUser;
+//                checkListItem.LastExecutionDateTime = null;
+                checkListItem.CheckListEntity = db.CheckLists.Find(checkListItem.CheckListId);
+//                checkListItem.CheckListTestResult =
+//                    db.TestResults.Where(new TestResult().TestResultValue == "Not Executed"); todo fix it!!!!
                 db.CheckListItems.Add(checkListItem);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details","CheckLists",new{id=checkListItem.CheckListId});
             }
 
             return View(checkListItem);
@@ -73,6 +73,8 @@ namespace WebUI.Controllers
             SelectList testResults = new SelectList(db.TestResults, "TestResultId", "TestResultValue");
             ViewBag.TestResults = testResults;
             CheckListItem checkListItem = db.CheckListItems.Find(id);
+            SelectList checkList = new SelectList(db.CheckLists, "CheckListEntityId", "CheckListName");
+            ViewBag.CheckLists = checkList;
             if (checkListItem == null)
             {
                 return HttpNotFound();

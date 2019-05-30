@@ -26,25 +26,28 @@
         </dd>
 
     </dl>
+    <p>
+        @Html.ActionLink("Create New", "Create", "CheckListItems",new { id = Model.CheckListEntityId }, new { @class = "btn btn-default" })
+    </p>
 
     <table class="table">
         <tr>
-            <th>
+            <th style="max-width: 25%">
                 Procedure
             </th>
-            <th>
+            <th >
                 Expected Result
             </th>
-            <th>
+            <th style="max-width: 25%">
                 Test Result
             </th>
-            <th>
+            <th style="max-width: 25%">
                 Comment
             </th>
             <th>
                 Last Executor
             </th>
-            <th>
+            <th style="max-width: 20%">
                 Last Execution
             </th>
             <th></th>
@@ -62,9 +65,6 @@
             @Html.DisplayFor(modelItem => item.CheckListTestResult.TestResultDescription)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CheckListTestResult)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.CheckListComment)
         </td>
         <td>
@@ -74,8 +74,8 @@
             @Html.DisplayFor(modelItem => item.LastExecutionDateTime)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.CheckListItemId })
-            @Html.ActionLink("Delete", "Delete", new { id = item.CheckListItemId })
+            @Html.ActionLink("Edit", "Edit","CheckListItems", new { id = item.CheckListItemId }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Delete", "Delete", "CheckListItems",new { id = item.CheckListItemId }, new { @class = "btn btn-default" })
         </td>
     </tr>
     }

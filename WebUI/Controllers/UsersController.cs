@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Domain.Concrete;
 using Domain.Entities;
+using Domain.Helpers;
 using WebUI.Models;
 
 namespace WebUI.Controllers
@@ -111,33 +112,34 @@ namespace WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model)
+        public ActionResult Login(User model)
         {
             if (ModelState.IsValid)
             {
                 // поиск пользователя в бд
                 User user = null;
-                using (EFDbContext db = new EFDbContext())
+                using (db)
                 {
-                    user = db.Users.FirstOrDefault(u => (u.UserName == model.Name || u.UserEmail==model.Name) && u.UserPassword == model.Password);
+                    user = db.Users.FirstOrDefault(u => (u.UserName == model.UserName || u.UserEmail==model.UserName && u.UserPassword == model.UserPassword));
 
                 }
                 if (user != null)
                 {
-                    FormsAuthentication.SetAuthCookie(model.Name, true);
-                    if (user.UserAdmin)
-                    {
-//                        return RedirectToAction("CheckLists", "CheckLists"); //todo заменить на админпанель когда она будет
-                        return RedirectToAction("Index");
-                    }
-                    else if (user.UserTestCreator)
-                    {
-                        return RedirectToAction("TestResultsList","TestResults");
-                    }
-                    else
-                    {
-                        return RedirectToAction("ComponentsList", "Components");
-                    }
+//                    FormsAuthentication.SetAuthCookie(model.UserName, true);
+                    Repository.CurrentUser = user;
+                    //                    if (user.UserAdmin)
+                    //                    {
+                    ////                        return RedirectToAction("CheckLists", "CheckLists"); //todo заменить на админпанель когда она будет
+                    //                        return RedirectToAction("Index");
+                    //                    }
+                    //                    else if (user.UserTestCreator)
+                    //                    {
+                    //                        return RedirectToAction("TestResultsList","TestResults");
+                    //                    }
+                    //                    else
+                    //                    {
+                    return RedirectToAction("CheckLists", "CheckLists"); //todo заменить на админпанель когда она будет
+                                                                         //                    }
 
                 }
                 else
