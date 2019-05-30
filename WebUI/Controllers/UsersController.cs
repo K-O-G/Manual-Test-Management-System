@@ -10,7 +10,6 @@ using System.Web.Security;
 using Domain.Concrete;
 using Domain.Entities;
 using Domain.Helpers;
-using WebUI.Models;
 
 namespace WebUI.Controllers
 {
@@ -40,6 +39,8 @@ namespace WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
+                UserSecurity security = new UserSecurity();
+                user.UserPassword = security.CalculateMD5Hash(user.UserPassword);
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -72,6 +73,8 @@ namespace WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
+                UserSecurity security = new UserSecurity();
+                user.UserPassword = security.CalculateMD5Hash(user.UserPassword);
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -118,29 +121,17 @@ namespace WebUI.Controllers
             {
                 // поиск пользователя в бд
                 User user = null;
+                UserSecurity security = new UserSecurity();
                 using (db)
                 {
-                    user = db.Users.FirstOrDefault(u => (u.UserName == model.UserName || u.UserEmail==model.UserName && u.UserPassword == model.UserPassword));
+                    user = db.Users.FirstOrDefault(u => (u.UserName == model.UserName || u.UserEmail==model.UserName) && security.CalculateMD5Hash(u.UserPassword) == model.UserPassword);
 
                 }
                 if (user != null)
                 {
-//                    FormsAuthentication.SetAuthCookie(model.UserName, true);
+                    FormsAuthentication.SetAuthCookie(model.UserName, true);
                     Repository.CurrentUser = user;
-                    //                    if (user.UserAdmin)
-                    //                    {
-                    ////                        return RedirectToAction("CheckLists", "CheckLists"); //todo заменить на админпанель когда она будет
-                    //                        return RedirectToAction("Index");
-                    //                    }
-                    //                    else if (user.UserTestCreator)
-                    //                    {
-                    //                        return RedirectToAction("TestResultsList","TestResults");
-                    //                    }
-                    //                    else
-                    //                    {
                     return RedirectToAction("CheckLists", "CheckLists"); //todo заменить на админпанель когда она будет
-                                                                         //                    }
-
                 }
                 else
                 {
@@ -150,6 +141,15 @@ namespace WebUI.Controllers
 
             return View(model);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Logout()
+        {
+            Repository.CurrentUser = null;
+            return RedirectToAction("Login");
+        }
+
 
         protected override void Dispose(bool disposing)
         {

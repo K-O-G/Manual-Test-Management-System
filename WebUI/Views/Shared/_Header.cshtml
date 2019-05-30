@@ -1,0 +1,30 @@
+﻿@using Domain.Helpers
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Manual Test Management System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <ul class="navbar-collapse collapse">
+            @if (Repository.CurrentUser.UserAdmin)
+                {
+                    <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                    <li>@Html.ActionLink("Test results", "TestResultsList", "TestResults")</li>
+                    <li>@Html.ActionLink("Components", "ComponentsList", "Components")</li>
+                }
+                @if (Repository.CurrentUser.UserTestExecutor || Repository.CurrentUser.UserTestCreator)
+                {
+                    <li>@Html.ActionLink("Test Cases", "About", "Home")</li>
+                    <li>@Html.ActionLink("CheckLists", "CheckLists", "CheckLists")</li>
+                }kd
+        </ul>
+    </div>
+    <div class="navbar-collapse collapse right">
+        @Html.DisplayForModel(Repository.CurrentUser)
+        @Html.ActionLink("Logout", "Logout", "Users", null, new { @class = "btn btn-default" })
+    </div>
+</div>

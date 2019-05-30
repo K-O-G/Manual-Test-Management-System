@@ -115,7 +115,7 @@ namespace WebUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Execute([Bind(Include = "CheckListEntityId,CheckListName")] CheckListEntity checkListEntity, User user)
+        public ActionResult Execute([Bind(Include = "CheckListEntityId,CheckListName")] CheckListEntity checkListEntity)
         {
             //TODO exception 
             if (ModelState.IsValid)
@@ -127,7 +127,7 @@ namespace WebUI.Controllers
                     return HttpNotFound();
                 }
                 checkListEntity.CheckListItems.GetEnumerator().Current.LastExecutionDateTime = DateTime.Now;
-                checkListEntity.CheckListItems.GetEnumerator().Current.LastExecutorCheckListUser = user;
+                checkListEntity.CheckListItems.GetEnumerator().Current.LastExecutorCheckListUser = Repository.CurrentUser;
                 db.Entry(checkListEntity.CheckListItems.GetEnumerator().Current).State = EntityState.Modified;
                 db.SaveChanges();
 //                return View(checkListEntity);
@@ -143,7 +143,6 @@ namespace WebUI.Controllers
            if (item != null)
            {
                item.LastExecutorCheckListUser = Repository.CurrentUser;
-               item.LastExecutorCheckListUser.UserId = Repository.CurrentUser.UserId;
                item.LastExecutionDateTime = DateTime.Now;
                var testResult = db.TestResults.FirstOrDefault(r => r.TestResultId == resultId);
                item.CheckListTestResult = testResult;

@@ -39,8 +39,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TestResultColor, "Color", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input name="colorpicker" id="color1" type="color" onchange="testResultColor(colorpicker.value);"/>
-                @Html.TextBoxFor(m => m.TestResultColor, new { htmlAttributes = new { @class = "form-control" }, id ="color" })
+                @Html.TextBoxFor(m => m.TestResultColor, new { id = "color", @class = "form-control", type = "color" })
                 @Html.ValidationMessageFor(model => model.TestResultColor, "", new { @class = "text-danger" })
             </div>
         </div>
