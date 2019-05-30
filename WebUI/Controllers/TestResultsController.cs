@@ -37,6 +37,7 @@ namespace WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
+                testResult.TestResultColor.ToString();
                 db.TestResults.Add(testResult);
                 db.SaveChanges();
                 return RedirectToAction("TestResultsList");

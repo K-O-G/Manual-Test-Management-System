@@ -1,4 +1,5 @@
-﻿@model Domain.Entities.CheckLists.CheckListEntity
+﻿@using Domain.Entities
+@model Domain.Entities.CheckLists.CheckListEntity
 
 @{
     ViewBag.Title = "Edit";
@@ -31,6 +32,16 @@
                 @Html.ValidationMessageFor(model => model.LastEditionDateTime, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Components, "Componentst", htmlAttributes: new { @class = "control-label col-md-2" })</div>
+        @{
+            List<Component> components = ViewBag.Components;
+            foreach (Component c in components)
+            {
+                <input type="checkbox" name="selectedComponents" value="@c.ComponentId"
+                       @(Model.Components.Contains(c) ? "checked=\"checked\"" : "") />@c.ComponentName <br />
+            }
+        }
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

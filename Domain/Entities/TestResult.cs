@@ -11,6 +11,7 @@ namespace Domain.Entities
         public int TestResultId { get; set; }
         public string TestResultValue { get; set; }
         public string TestResultDescription { get; set; }
+        public string TestResultColor { get; set; }
         //not executed - test case cannot be executed
         //passed, failed, blocked, error
         //blocked - A test case that cannot be executed because the preconditions for its execution are not fulfilled.

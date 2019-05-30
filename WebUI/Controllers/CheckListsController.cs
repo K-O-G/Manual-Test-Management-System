@@ -37,7 +37,7 @@ namespace WebUI.Controllers
                 return HttpNotFound();
             }
             checkListEntity.CheckListItems =
-                db.CheckListItems.Where(c => c.CheckListId == checkListEntity.CheckListEntityId);
+                new List<CheckListItem>(db.CheckListItems.Where(c => c.CheckListId == checkListEntity.CheckListEntityId));
             if (checkListEntity.CheckListItems == null)
             {
                 return HttpNotFound();
@@ -54,6 +54,7 @@ namespace WebUI.Controllers
         {
             SelectList priority = new SelectList(db.Priorities, "PriorityId", "PriorityName");
             ViewBag.Priorities = priority;
+            ViewBag.Components = db.Components.ToList();
             return View();
         }
 
@@ -62,12 +63,23 @@ namespace WebUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CheckListEntityId,CheckListName,LastEditionDateTime")] CheckListEntity checkListEntity, User user)
+        public ActionResult Create([Bind(Include = "CheckListEntityId,CheckListName,LastEditionDateTime")] CheckListEntity checkListEntity, int[] selectedComponents)
         {
             if (ModelState.IsValid)
             {
                 checkListEntity.LastEditionDateTime = DateTime.Now;
-                checkListEntity.LastEditorCheckListUser = user;
+                checkListEntity.LastEditorCheckListUser = Repository.CurrentUser;
+                if(selectedComponents != null)
+                {
+                    List<Component> components = new List<Component>();
+                    //получаем выбранные курсы
+                    foreach (var c in db.Components.Where(co => selectedComponents.Contains(co.ComponentId)))
+                    {
+                         components.Add(c);
+                    }
+
+                    checkListEntity.Components = components;
+                }
                 db.CheckLists.Add(checkListEntity);
                 db.SaveChanges();
                 return RedirectToAction("CheckLists");
@@ -90,7 +102,7 @@ namespace WebUI.Controllers
             SelectList testResult = new SelectList(db.TestResults, "TestResultId", "TestResultValue");
             ViewBag.TestResults = testResult;
             checkListEntity.CheckListItems =
-                db.CheckListItems.Where(c => c.CheckListId == checkListEntity.CheckListEntityId);
+                new List<CheckListItem>(db.CheckListItems.Where(c => c.CheckListId == checkListEntity.CheckListEntityId));
             if (checkListEntity.CheckListItems == null)
             {
                 return HttpNotFound();
@@ -153,6 +165,7 @@ namespace WebUI.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Components = db.Components.ToList();
             return View(checkListEntity);
         }
 
@@ -161,12 +174,23 @@ namespace WebUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CheckListEntityId,CheckListName,LastEditionDateTime")] CheckListEntity checkListEntity, User user)
+        public ActionResult Edit([Bind(Include = "CheckListEntityId,CheckListName,LastEditionDateTime")] CheckListEntity checkListEntity, int[] selectedComponents)
         {
             if (ModelState.IsValid)
             {
                 checkListEntity.LastEditionDateTime = DateTime.Now;
-                checkListEntity.LastEditorCheckListUser = user;
+                checkListEntity.LastEditorCheckListUser = Repository.CurrentUser;
+                if (selectedComponents != null)
+                {
+                    List<Component> components = new List<Component>();
+                    //получаем выбранные курсы
+                    foreach (var c in db.Components.Where(co => selectedComponents.Contains(co.ComponentId)))
+                    {
+                        components.Add(c);
+                    }
+
+                    checkListEntity.Components = components;
+                }
                 db.Entry(checkListEntity).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("CheckLists");
@@ -197,7 +221,7 @@ namespace WebUI.Controllers
             //todo recursively delete items?
             CheckListEntity checkListEntity = db.CheckLists.Find(id);
             checkListEntity.CheckListItems =
-                db.CheckListItems.Where(c => c.CheckListId == checkListEntity.CheckListEntityId);
+                new List<CheckListItem>(db.CheckListItems.Where(c => c.CheckListId == checkListEntity.CheckListEntityId));
             if (!checkListEntity.CheckListItems.IsNullOrEmpty())
             {
                 foreach (var item in checkListEntity.CheckListItems)

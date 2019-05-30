@@ -1,0 +1,40 @@
+﻿@using System.Drawing
+@model IEnumerable<Domain.Entities.TestResult>
+
+@{
+    ViewBag.Title = "Test Results List";
+}
+
+<h2>Test Results List</h2>
+
+<p>
+    @Html.ActionLink("Create new Test Result", "Create",null, new { @class = "btn btn-default" })
+</p>
+<table class="table">
+    <tr>
+        <th style="width: 30%">
+            Test Result
+        </th>
+        <th style="width: 50%">
+            Description
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.TestResultValue,"MyColor")
+    </td>
+    <td >
+        @Html.DisplayFor(modelItem => item.TestResultDescription)
+    </td>
+
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.TestResultId }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Delete", "Delete", new { id = item.TestResultId }, new { @class = "btn btn-default" })
+    </td>
+</tr>
+}
+
+</table>

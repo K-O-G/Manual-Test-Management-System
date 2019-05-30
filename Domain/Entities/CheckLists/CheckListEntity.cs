@@ -12,8 +12,8 @@ namespace Domain.Entities.CheckLists
         [Column("CheckListId")]
         public int CheckListEntityId { get; set; }
         public string CheckListName { get; set; }
-        public IEnumerable<CheckListItem> CheckListItems { get; set; }
-        public IEnumerable<Component> Components { get; set; }
+        public List<CheckListItem> CheckListItems { get; set; }
+        public List<Component> Components { get; set; }
         public Priority Priority { get; set; }
         public User CreatorCheckListUser { get; set; }
         public virtual User LastEditorCheckListUser { get; set; }
