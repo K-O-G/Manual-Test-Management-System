@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Domain.Entities.Priority>
+
+@{
+    ViewBag.Title = "Priorities";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Priorities</h2>
+
+<p>
+    @Html.ActionLink("Create new Priority", "Create", null, new { @class = "btn btn-default" }) 
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Priority
+        </th>
+        <th>
+            Description
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <span style="color: @item.PriorityColor">@item.PriorityName</span>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriorityDescription)
+        </td>
+        <td>
+
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.PriorityId }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Delete", "Delete", new { id = item.PriorityId }, new { @class = "btn btn-default" })
+        </td>
+    </tr>
+}
+
+</table>

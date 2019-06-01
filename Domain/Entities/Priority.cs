@@ -12,6 +12,7 @@ namespace Domain.Entities
         public int PriorityId { get; set; }
         public string PriorityName { get; set; }
         public string PriorityDescription { get; set; }
+        public string PriorityColor { get; set; }
 
     }
 }

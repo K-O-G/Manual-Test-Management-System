@@ -14,13 +14,7 @@
     <div class="form-horizontal">
         <h4>CheckList</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Priority, "Priority", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model=>model.Priority, ViewBag.Priorities as SelectList)
-            </div>
-        </div>
+
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -30,12 +24,20 @@
                 @Html.ValidationMessageFor(model => model.CheckListName, "", new { @class = "text-danger" })
             </div>
         </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Priority, "Priority", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model=>model.Priority.PriorityId, ViewBag.Priorities as SelectList)
+            </div>
+        </div>
+
         
         <div class="editor-label">
             @Html.LabelFor(model => model.Components, "Componentst", htmlAttributes: new { @class = "control-label col-md-2" })</div>
             @{
                 List<Component> components = ViewBag.Components;
-                foreach (Component c in components)
+                foreach (var c in components)
                 {
                     <input type="checkbox" name="selectedComponents" value="@c.ComponentId"
                            @(Model.Components.Contains(c) ? "checked=\"checked\"" : "") />@c.ComponentName <br />

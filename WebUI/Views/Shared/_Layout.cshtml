@@ -6,24 +6,27 @@
     <title>@ViewBag.Title - Manual Test Management System</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/FooterBottom.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
 </head>
 <body>
-@{
-    Html.RenderPartial("_Header");   
-}
+    <div id="wrapper">
+        @{
+            Html.RenderPartial("_Header");
+        }
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
+        <div class="container body-content">
+            @RenderBody()
+        </div>
         <footer>
-            <p>&copy; @DateTime.Now.Year - Manual Test Management System</p>
+            <hr />
+            <p style="margin-left: 40%">&copy; @DateTime.Now.Year - Manual Test Management System</p>
         </footer>
     </div>
 
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/main.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/main.js"></script>
 
 </body>
 </html>

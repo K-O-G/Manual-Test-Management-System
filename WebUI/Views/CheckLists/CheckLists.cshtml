@@ -1,4 +1,5 @@
 ﻿@using Domain.Entities.CheckLists
+@using Domain.Helpers
 @model IEnumerable<Domain.Entities.CheckLists.CheckListEntity>
 
 
@@ -9,7 +10,7 @@
 <h2>CheckLists</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create new CheckList", "Create",null,new{@class="btn btn-default"})
 </p>
 <table class="table">
     <tr>
@@ -17,26 +18,47 @@
             CheckList
         </th>
         <th>
+            Priority
+        </th>
+        <th>
+            Last Editor
+        </th>
+        <th>
             Last Edition Date
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CheckListName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastEditionDateTime)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
-            @Html.ActionLink("Execute", "Execute", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
-            @Html.ActionLink("Details", "Details", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
-            @Html.ActionLink("Delete", "Delete", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckListName)
+            </td>
+            <td>
+                <span style="color: @item.Priority.PriorityColor">@item.Priority.PriorityDescription</span>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastEditorCheckListUser.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastEditionDateTime)
+            </td>
+            <td>
+                @if (Repository.CurrentUser.UserTestCreator)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
+                }@if (Repository.CurrentUser.UserTestExecutor)
+                {
+                    @Html.ActionLink("Execute", "Execute", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
+                }
+                @if (Repository.CurrentUser.UserTestCreator)
+                {
+                    @Html.ActionLink("Details", "Details", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
+                }
+            </td>
+        </tr>
+    }
 
 </table>

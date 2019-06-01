@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<Domain.Entities.User>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Users";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Users</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add user", "Create",null,new { @class = "btn btn-default" })
 </p>
 <table class="table">
     <tr>
@@ -18,19 +18,20 @@
         <th>
             Email
         </th>
-        <th>
+        <th style="text-align: center">
             Admin right
         </th>
-        <th>
+        <th style="text-align: center">
             Test Creator right
         </th>
-        <th>
+        <th style="text-align: center">
             Test Executor right
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.UserName)
@@ -38,18 +39,18 @@
         <td>
             @Html.DisplayFor(modelItem => item.UserEmail)
         </td>
-        <td>
+        <td style="text-align: center">
             @Html.DisplayFor(modelItem => item.UserAdmin)
         </td>
-        <td>
+        <td style="text-align: center">
             @Html.DisplayFor(modelItem => item.UserTestCreator)
         </td>
-        <td>
+        <td style="text-align: center">
             @Html.DisplayFor(modelItem => item.UserTestExecutor)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserId })
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.UserId },new { @class = "btn btn-default" })
+            @Html.ActionLink("Delete", "Delete", new { id=item.UserId },new { @class = "btn btn-default" })
         </td>
     </tr>
 }

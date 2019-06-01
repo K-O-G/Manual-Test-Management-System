@@ -63,7 +63,7 @@ namespace WebUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CheckListEntityId,CheckListName,LastEditionDateTime")] CheckListEntity checkListEntity, int[] selectedComponents)
+        public ActionResult Create([Bind(Include = "CheckListEntityId,CheckListName,Priority,LastEditionDateTime")] CheckListEntity checkListEntity, int[] selectedComponents)
         {
             if (ModelState.IsValid)
             {

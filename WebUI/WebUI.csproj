@@ -120,6 +120,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\FooterBottom.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -142,6 +143,7 @@
     <Compile Include="Controllers\CheckListItemsController.cs" />
     <Compile Include="Controllers\CheckListsController.cs" />
     <Compile Include="Controllers\ComponentsController.cs" />
+    <Compile Include="Controllers\PrioritiesController.cs" />
     <Compile Include="Controllers\TestResultsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Default.aspx.cs">
@@ -195,8 +197,12 @@
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\Login.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\MyColor.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Shared\_Layout - Copy.cshtml" />
+    <Content Include="Views\Priorities\Create.cshtml" />
+    <Content Include="Views\Priorities\Delete.cshtml" />
+    <Content Include="Views\Priorities\Edit.cshtml" />
+    <Content Include="Views\Priorities\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

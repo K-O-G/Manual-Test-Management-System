@@ -122,9 +122,10 @@ namespace WebUI.Controllers
                 // поиск пользователя в бд
                 User user = null;
                 UserSecurity security = new UserSecurity();
+                string pass = security.CalculateMD5Hash(model.UserPassword);
                 using (db)
                 {
-                    user = db.Users.FirstOrDefault(u => (u.UserName == model.UserName || u.UserEmail==model.UserName) && security.CalculateMD5Hash(u.UserPassword) == model.UserPassword);
+                    user = db.Users.FirstOrDefault(u => ((u.UserName == model.UserName || u.UserEmail==model.UserName) && pass == u.UserPassword));
 
                 }
                 if (user != null)
@@ -142,8 +143,6 @@ namespace WebUI.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Logout()
         {
             Repository.CurrentUser = null;
