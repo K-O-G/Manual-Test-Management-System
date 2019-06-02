@@ -104,7 +104,6 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Helpers\Repository.cs" />
     <Compile Include="Helpers\UserSecurity.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -79,7 +79,6 @@ namespace WebUI.Controllers
 
                     checkListEntity.Components = components;
                 }
-//                checkListEntity.Priority = db.CheckLists.Find();
                 db.CheckLists.Add(checkListEntity);
                 db.SaveChanges();
                 return RedirectToAction("CheckLists");
@@ -101,6 +100,7 @@ namespace WebUI.Controllers
             }
             SelectList testResult = new SelectList(db.TestResults, "TestResultId", "TestResultValue");
             ViewBag.TestResults = testResult;
+            ViewBag.Components = db.Components.ToList();
             checkListEntity.CheckListItems =
                 new List<CheckListItem>(db.CheckListItems.Where(c => c.CheckListId == checkListEntity.CheckListEntityId));
             if (!checkListEntity.CheckListItems.IsNullOrEmpty())

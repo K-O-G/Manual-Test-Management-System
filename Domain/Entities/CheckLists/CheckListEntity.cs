@@ -18,5 +18,9 @@ namespace Domain.Entities.CheckLists
         public virtual User CreatorCheckListUser { get; set; }
         public virtual User LastEditorCheckListUser { get; set; }
         public virtual DateTime LastEditionDateTime { get; set; }
+        public CheckListEntity()
+        {
+            this.Components = new List<Component>();
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace WebUI
             // Code that runs on application startup
            AreaRegistration.RegisterAllAreas();
            RouteConfig.RegisterRoutes(RouteTable.Routes);
-           Database.SetInitializer(new DropCreateDatabaseIfModelChanges<EFDbContext>());
+           Database.SetInitializer(new TestInitializerDb());
 
         }
     }
