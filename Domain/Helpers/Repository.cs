@@ -21,7 +21,7 @@ namespace Domain.Helpers
                     return HttpContext.Current.Session["CurrentUser"] as User;
                 throw new UnauthorizedAccessException();
             }
-            set { HttpContext.Current.Session["CurrentUser"] = value; }
+            set => HttpContext.Current.Session["CurrentUser"] = value;
         }
     }
 }

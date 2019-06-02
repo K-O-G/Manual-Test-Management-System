@@ -53,8 +53,6 @@ namespace WebUI.Controllers
                 checkListItem.LastExecutorCheckListUser = Repository.CurrentUser;
 //                checkListItem.LastExecutionDateTime = null;
                 checkListItem.CheckListEntity = db.CheckLists.Find(checkListItem.CheckListId);
-//                checkListItem.CheckListTestResult =
-//                    db.TestResults.Where(new TestResult().TestResultValue == "Not Executed"); todo fix it!!!!
                 db.CheckListItems.Add(checkListItem);
                 db.SaveChanges();
                 return RedirectToAction("Details","CheckLists",new{id=checkListItem.CheckListId});
@@ -91,9 +89,11 @@ namespace WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
+                checkListItem.CheckListTestResult =
+                    db.TestResults.FirstOrDefault(t => t.TestResultDescription == "Not Executed");
                 db.Entry(checkListItem).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details","CheckLists",checkListItem.CheckListId);
             }
             return View(checkListItem);
         }

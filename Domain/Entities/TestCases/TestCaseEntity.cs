@@ -13,11 +13,11 @@ namespace Domain.Entities.TestCases
         [Column("TestCaseId")]
         public int TestCaseEntityId { get; set; }
         public string TestCaseDescription { get; set; }
-        public Priority Priority { get; set; }
+        public virtual Priority Priority { get; set; }
         public List<Case> Cases { get; set; }
         public List<Component> Components { get; set; }
-        public User CreatorCaseUser { get; set; }
-        public User LastEditorCaseUser { get; set; }
+        public virtual User CreatorCaseUser { get; set; }
+        public virtual User LastEditorCaseUser { get; set; }
         public DateTime LastEditionDateTime { get; set; }
     }
 }

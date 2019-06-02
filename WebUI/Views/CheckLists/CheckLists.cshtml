@@ -36,7 +36,10 @@
                 @Html.DisplayFor(modelItem => item.CheckListName)
             </td>
             <td>
-                <span style="color: @item.Priority.PriorityColor">@item.Priority.PriorityDescription</span>
+                @if (Model != null)
+                {
+                    <span style="color: @item.Priority.PriorityColor">@item.Priority.PriorityName</span>
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LastEditorCheckListUser.UserName)

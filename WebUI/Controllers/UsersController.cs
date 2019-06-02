@@ -132,11 +132,11 @@ namespace WebUI.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, true);
                     Repository.CurrentUser = user;
-                    return RedirectToAction("CheckLists", "CheckLists"); //todo заменить на админпанель когда она будет
+                    return RedirectToAction("CheckLists", "CheckLists"); //todo заменить на статистику когда она будет
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
+                    ModelState.AddModelError("", "Cannot find user with this name and password");
                 }
             }
 

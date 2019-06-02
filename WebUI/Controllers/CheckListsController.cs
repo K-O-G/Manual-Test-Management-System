@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using Castle.Core.Internal;
 using Domain.Concrete;
 using Domain.Entities;
@@ -21,6 +22,7 @@ namespace WebUI.Controllers
         // GET: CheckLists
         public ActionResult CheckLists()
         {
+            
             return View(db.CheckLists.ToList());
         }
 
@@ -42,9 +44,6 @@ namespace WebUI.Controllers
             {
                 return HttpNotFound();
             }
-//            checkListEntity.CheckListItems.GetEnumerator().Current.CheckListTestResult =
-//                db.TestResults.Find(checkListEntity.CheckListItems.GetEnumerator().Current.CheckListTestResult
-//                    .TestResultId);
 
             return View(checkListEntity);
         }
@@ -63,12 +62,12 @@ namespace WebUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CheckListEntityId,CheckListName,Priority,LastEditionDateTime")] CheckListEntity checkListEntity, int[] selectedComponents)
+        public ActionResult Create([Bind(Include = "CheckListEntityId,CheckListName,LastEditionDateTime,Priority")] CheckListEntity checkListEntity, int[] selectedComponents)
         {
             if (ModelState.IsValid)
             {
                 checkListEntity.LastEditionDateTime = DateTime.Now;
-                checkListEntity.LastEditorCheckListUser = Repository.CurrentUser;
+                checkListEntity.CreatorCheckListUser = db.Users.Find(Repository.CurrentUser.UserId);
                 if(selectedComponents != null)
                 {
                     List<Component> components = new List<Component>();
@@ -80,6 +79,7 @@ namespace WebUI.Controllers
 
                     checkListEntity.Components = components;
                 }
+//                checkListEntity.Priority = db.CheckLists.Find();
                 db.CheckLists.Add(checkListEntity);
                 db.SaveChanges();
                 return RedirectToAction("CheckLists");
@@ -103,6 +103,15 @@ namespace WebUI.Controllers
             ViewBag.TestResults = testResult;
             checkListEntity.CheckListItems =
                 new List<CheckListItem>(db.CheckListItems.Where(c => c.CheckListId == checkListEntity.CheckListEntityId));
+            if (!checkListEntity.CheckListItems.IsNullOrEmpty())
+            {
+                foreach (var item in checkListEntity.CheckListItems)
+                {
+                    item.CheckListTestResult = db.TestResults.FirstOrDefault(c => c.TestResultValue == "Not Executed");
+                    db.Entry(item).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
             if (checkListEntity.CheckListItems == null)
             {
                 return HttpNotFound();
@@ -110,31 +119,6 @@ namespace WebUI.Controllers
             return View(checkListEntity);
         }
 
-        // POST: CheckLists/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Execute([Bind(Include = "CheckListEntityId,CheckListName")] CheckListEntity checkListEntity)
-        {
-            //TODO exception 
-            if (ModelState.IsValid)
-            {
-//                checkListEntity.CheckListItems =
-//                    db.CheckListItems.Where(c => c.CheckListId == checkListEntity.CheckListEntityId);
-                if (checkListEntity.CheckListItems == null)
-                {
-                    return HttpNotFound();
-                }
-                checkListEntity.CheckListItems.GetEnumerator().Current.LastExecutionDateTime = DateTime.Now;
-                checkListEntity.CheckListItems.GetEnumerator().Current.LastExecutorCheckListUser = Repository.CurrentUser;
-                db.Entry(checkListEntity.CheckListItems.GetEnumerator().Current).State = EntityState.Modified;
-                db.SaveChanges();
-//                return View(checkListEntity);
-            }
-
-            return View(checkListEntity);
-        }
 
         [HttpPost]
         public ActionResult SaveExecute(int id, int resultId)
@@ -142,8 +126,8 @@ namespace WebUI.Controllers
            var item = db.CheckListItems.Include(c=>c.CheckListTestResult).FirstOrDefault(i => i.CheckListItemId == id);
            if (item != null)
            {
-               item.LastExecutorCheckListUser = Repository.CurrentUser;
-               item.LastExecutionDateTime = DateTime.Now;
+               item.LastExecutorCheckListUser = db.Users.Find(Repository.CurrentUser.UserId);
+                item.LastExecutionDateTime = DateTime.Now;
                var testResult = db.TestResults.FirstOrDefault(r => r.TestResultId == resultId);
                item.CheckListTestResult = testResult;
                db.SaveChanges();
@@ -178,7 +162,7 @@ namespace WebUI.Controllers
             if (ModelState.IsValid)
             {
                 checkListEntity.LastEditionDateTime = DateTime.Now;
-                checkListEntity.LastEditorCheckListUser = Repository.CurrentUser;
+                checkListEntity.LastEditorCheckListUser = db.Users.Find(Repository.CurrentUser.UserId);
                 if (selectedComponents != null)
                 {
                     List<Component> components = new List<Component>();
@@ -219,16 +203,22 @@ namespace WebUI.Controllers
         {
             //todo recursively delete items?
             CheckListEntity checkListEntity = db.CheckLists.Find(id);
-            checkListEntity.CheckListItems =
-                new List<CheckListItem>(db.CheckListItems.Where(c => c.CheckListId == checkListEntity.CheckListEntityId));
-            if (!checkListEntity.CheckListItems.IsNullOrEmpty())
+            if (checkListEntity != null)
             {
-                foreach (var item in checkListEntity.CheckListItems)
+//                checkListEntity.CheckListItems =
+//                    new List<CheckListItem>(db.CheckListItems.Where(c =>
+//                        c.CheckListId == checkListEntity.CheckListEntityId));
+                if (!checkListEntity.CheckListItems.IsNullOrEmpty())
                 {
-                    db.CheckListItems.Remove(checkListEntity.CheckListItems.GetEnumerator().Current);
+                    foreach (var item in checkListEntity.CheckListItems)
+                    {
+                        db.CheckListItems.Remove(item);
+                    }
                 }
+
+                db.CheckLists.Remove(checkListEntity);
             }
-            db.CheckLists.Remove(checkListEntity);
+
             db.SaveChanges();
             return RedirectToAction("CheckLists");
         }

@@ -12,10 +12,10 @@ namespace Domain.Entities.TestCases
 
         public int CaseStepId { get; set; }
         public int? CaseId { get; set; }
-        public Case Case { get; set; }
+        public virtual Case Case { get; set; }
         public int CaseStepNumber { get; set; }
         public string CaseStepDescription { get; set; }
         public string CaseStepExpectedResult { get; set; }
-        public  TestResult CaseStepResult { get; set; }
+        public  virtual TestResult CaseStepResult { get; set; }
     }
 }
