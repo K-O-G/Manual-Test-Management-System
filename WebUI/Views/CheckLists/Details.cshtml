@@ -12,7 +12,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Check List: 
+            Check List:
         </dt>
 
         <dd>
@@ -42,12 +42,12 @@
 
                     <li>@c.ComponentName</li>
                 }
-            </ul >
+            </ul>
         </dd>
 
     </dl>
     <p>
-        @Html.ActionLink("Create New", "Create", "CheckListItems",new { id = Model.CheckListEntityId }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Create New", "Create", "CheckListItems", new { id = Model.CheckListEntityId }, new { @class = "btn btn-default" })
     </p>
 
     <table class="table">
@@ -55,7 +55,7 @@
             <th style="max-width: 25%">
                 Procedure
             </th>
-            <th >
+            <th>
                 Expected Result
             </th>
             <th style="max-width: 25%">
@@ -73,32 +73,33 @@
             <th></th>
         </tr>
 
-    @foreach (var item in Model.CheckListItems) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Procedure)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpectedResult)
-        </td>
-        <td>
-            @* <span style="color: @item.CheckListTestResult.TestResultColor">@item.CheckListTestResult.TestResultValue</span> *@
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CheckListComment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastExecutorCheckListUser.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastExecutionDateTime)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit","CheckListItems", new { id = item.CheckListItemId }, new { @class = "btn btn-default" })
-            @Html.ActionLink("Delete", "Delete", "CheckListItems",new { id = item.CheckListItemId }, new { @class = "btn btn-default" })
-        </td>
-    </tr>
-    }
+        @foreach (var item in Model.CheckListItems)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Procedure)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpectedResult)
+                </td>
+                <td>
+                    @* <span style="color: @item.CheckListTestResult.TestResultColor">@item.CheckListTestResult.TestResultValue</span> *@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckListComment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastExecutorCheckListUser.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastExecutionDateTime)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "CheckListItems", new { id = item.CheckListItemId }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Delete", "Delete", "CheckListItems", new { id = item.CheckListItemId }, new { @class = "btn btn-default" })
+                </td>
+            </tr>
+        }
     </table>
 </div>
 <p>

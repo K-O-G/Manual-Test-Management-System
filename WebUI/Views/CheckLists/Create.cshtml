@@ -36,14 +36,14 @@
         <div class="editor-label">
             @Html.LabelFor(model => model.Components, "Components", htmlAttributes: new { @class = "control-label col-md-2" })
         </div>
-         @{
-             List<Component> components = ViewBag.Components;
-             foreach (var c in components)
-             {
-                 <input type="checkbox" name="selectedComponents" value="@c.ComponentId"
-                        @(Model.Components.Contains(c) ? "checked=\"checked\"" : "") />@c.ComponentName <br />
-                 }
-         }
+          @{
+              List<Component> components = ViewBag.Components;
+              foreach (var c in components)
+              {
+                  <input type="checkbox" name="selectedComponents" value="@c.ComponentId"
+                         @*@(Model.Components.Contains(c) ? "checked=\"checked\"" : "")*@ />@c.ComponentName <br />
+                  }
+          }
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

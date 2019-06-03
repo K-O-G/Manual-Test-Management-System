@@ -125,14 +125,14 @@ namespace WebUI.Controllers
                 string pass = security.CalculateMD5Hash(model.UserPassword);
                 using (db)
                 {
-                    user = db.Users.FirstOrDefault(u => ((u.UserName == model.UserName || u.UserEmail==model.UserName) && pass == u.UserPassword));
+                    user = db.Users.FirstOrDefault(u => ((u.UserName.ToUpper() == model.UserName.ToUpper() || u.UserEmail.ToUpper()==model.UserName.ToUpper()) && pass == u.UserPassword));
 
                 }
                 if (user != null)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, true);
                     Repository.CurrentUser = user;
-                    return RedirectToAction("Index", "Home"); //todo заменить на статистику когда она будет
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {

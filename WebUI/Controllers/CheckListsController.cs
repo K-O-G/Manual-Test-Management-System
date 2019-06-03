@@ -22,7 +22,7 @@ namespace WebUI.Controllers
         // GET: CheckLists
         public ActionResult CheckLists()
         {
-            
+
             return View(db.CheckLists.ToList());
         }
 
@@ -68,6 +68,8 @@ namespace WebUI.Controllers
             {
                 checkListEntity.LastEditionDateTime = DateTime.Now;
                 checkListEntity.CreatorCheckListUser = db.Users.Find(Repository.CurrentUser.UserId);
+                var priority = db.Priorities.FirstOrDefault(r => r.PriorityId == checkListEntity.Priority.PriorityId);
+                checkListEntity.Priority = priority;
                 if (selectedComponents != null)
                 {
                     List<Component> components = new List<Component>();
@@ -123,16 +125,16 @@ namespace WebUI.Controllers
         [HttpPost]
         public ActionResult SaveExecute(int id, int resultId)
         {
-           var item = db.CheckListItems.Include(c=>c.CheckListTestResult).FirstOrDefault(i => i.CheckListItemId == id);
-           if (item != null)
-           {
-               item.LastExecutorCheckListUser = db.Users.Find(Repository.CurrentUser.UserId);
+            var item = db.CheckListItems.Include(c => c.CheckListTestResult).FirstOrDefault(i => i.CheckListItemId == id);
+            if (item != null)
+            {
+                item.LastExecutorCheckListUser = db.Users.Find(Repository.CurrentUser.UserId);
                 item.LastExecutionDateTime = DateTime.Now;
-               var testResult = db.TestResults.FirstOrDefault(r => r.TestResultId == resultId);
-               item.CheckListTestResult = testResult;
-               db.SaveChanges();
-           }
-           return Json(new {result = "success"});
+                var testResult = db.TestResults.FirstOrDefault(r => r.TestResultId == resultId);
+                item.CheckListTestResult = testResult;
+                db.SaveChanges();
+            }
+            return Json(new { result = "success" });
         }
         // GET: CheckLists/Edit/5
         public ActionResult Edit(int? id)
@@ -143,12 +145,14 @@ namespace WebUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             CheckListEntity checkListEntity = db.CheckLists.Find(id);
-            
+
             if (checkListEntity == null)
             {
                 return HttpNotFound();
             }
             ViewBag.Components = db.Components.ToList();
+            SelectList priority = new SelectList(db.Priorities, "PriorityId", "PriorityName");
+            ViewBag.Priorities = priority;
             return View(checkListEntity);
         }
 
@@ -163,6 +167,8 @@ namespace WebUI.Controllers
             {
                 checkListEntity.LastEditionDateTime = DateTime.Now;
                 checkListEntity.LastEditorCheckListUser = db.Users.Find(Repository.CurrentUser.UserId);
+                var priority = db.Priorities.FirstOrDefault(r => r.PriorityId == checkListEntity.Priority.PriorityId);
+                checkListEntity.Priority = priority;
                 if (selectedComponents != null)
                 {
                     List<Component> components = new List<Component>();
@@ -205,17 +211,6 @@ namespace WebUI.Controllers
             CheckListEntity checkListEntity = db.CheckLists.Find(id);
             if (checkListEntity != null)
             {
-//                checkListEntity.CheckListItems =
-//                    new List<CheckListItem>(db.CheckListItems.Where(c =>
-//                        c.CheckListId == checkListEntity.CheckListEntityId));
-                if (!checkListEntity.CheckListItems.IsNullOrEmpty())
-                {
-                    foreach (var item in checkListEntity.CheckListItems)
-                    {
-                        db.CheckListItems.Remove(item);
-                    }
-                }
-
                 db.CheckLists.Remove(checkListEntity);
             }
 
