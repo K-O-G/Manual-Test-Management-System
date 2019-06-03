@@ -13,7 +13,7 @@ namespace Domain.Entities.CheckLists
         public int CheckListEntityId { get; set; }
         public string CheckListName { get; set; }
         public List<CheckListItem> CheckListItems { get; set; }
-        public List<Component> Components { get; set; }
+        public virtual List<Component> Components { get; set; }
         public virtual Priority Priority { get; set; }
         public virtual User CreatorCheckListUser { get; set; }
         public virtual User LastEditorCheckListUser { get; set; }

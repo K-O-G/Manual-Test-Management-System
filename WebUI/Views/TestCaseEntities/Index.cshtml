@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Domain.Entities.TestCases.TestCaseEntity>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Test Case
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Creator
+        </th>
+        <th>
+            Last Editor
+        </th>
+        <th>
+            Last Edition
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestCaseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestCaseDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatorCaseUser.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastEditorCaseUser.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastEditionDateTime)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TestCaseEntityId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.TestCaseEntityId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.TestCaseEntityId })
+            </td>
+        </tr>
+    }
+
+</table>

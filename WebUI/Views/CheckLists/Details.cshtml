@@ -36,14 +36,14 @@
             Components
         </dt>
         <dd class="tooltip">
-            @foreach (Component c in Model.Components)
-            {
-                <ul>
-                    <li>@c.ComponentName</li>
+            <ul>
+                @foreach (Component c in Model.Components)
+                {
 
-                </ul>
-                <span class="tooltip-arrow">@c.ComponentDescription</span>
-            }
+                    <li>@c.ComponentName</li>
+                    <span class="tooltip-arrow" > @c.ComponentDescription </span >
+                }
+            </ul >
         </dd>
 
     </dl>

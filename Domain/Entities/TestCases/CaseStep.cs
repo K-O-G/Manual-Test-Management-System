@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -17,5 +18,6 @@ namespace Domain.Entities.TestCases
         public string CaseStepDescription { get; set; }
         public string CaseStepExpectedResult { get; set; }
         public  virtual TestResult CaseStepResult { get; set; }
+
     }
 }

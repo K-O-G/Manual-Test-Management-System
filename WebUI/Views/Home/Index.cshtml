@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Start Page</h2>
+@{
+    Layout =;
+}
+ 
+    <script>
+        window.onload = function () {
+
+            var chart = new CanvasJS.Chart("checkLists", {
+                animationEnabled: true,
+                title: {
+                    text: "CheckLists execution statistic"
+                },
+                data: [{
+                    type: "doughnut",
+                    startAngle: 60,
+                    indexLabelFontSize: 16,
+                    indexLabel: "{label} - {y}%",
+                    toolTipContent: "<b>{label}:</b> {y}%",
+                    dataPoints: @Html.Raw(ViewBag.CheckLists)
+                }]
+            });
+            chart.render();
+        }
+    </script>
+    <script>
+        window.onload = function () {
+
+            var chart = new CanvasJS.Chart("testCases", {
+                animationEnabled: true,
+                title: {
+                    text: "Test Cases execution statistic"
+                },
+                data: [{
+                    type: "doughnut",
+                    startAngle: 60,
+                    indexLabelFontSize: 16,
+                    indexLabel: "{label} - {y}%",
+                    toolTipContent: "<b>{label}:</b> {y}%",
+                    dataPoints: @Html.Raw(ViewBag.TestCases)
+                }]
+            });
+            chart.render();
+        }
+    </script>
+<div id="checkLists" style="height: 300px; width: 100%;"></div>
+<br/>
+<div id="testCases" style="height: 300px; width: 100%;"></div>
+<script src="~/Scripts/canvasjs.min.js"></script>	
+                 

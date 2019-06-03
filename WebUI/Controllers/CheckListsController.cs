@@ -68,13 +68,13 @@ namespace WebUI.Controllers
             {
                 checkListEntity.LastEditionDateTime = DateTime.Now;
                 checkListEntity.CreatorCheckListUser = db.Users.Find(Repository.CurrentUser.UserId);
-                if(selectedComponents != null)
+                if (selectedComponents != null)
                 {
                     List<Component> components = new List<Component>();
                     //получаем выбранные курсы
                     foreach (var c in db.Components.Where(co => selectedComponents.Contains(co.ComponentId)))
                     {
-                         components.Add(c);
+                        components.Add(c);
                     }
 
                     checkListEntity.Components = components;

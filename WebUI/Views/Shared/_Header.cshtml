@@ -21,7 +21,7 @@
                 }
                 @if (Repository.CurrentUser.UserTestExecutor || Repository.CurrentUser.UserTestCreator)
                 {
-                    <li>@Html.ActionLink("Test Cases", "About", "Home")</li>
+                    <li>@Html.ActionLink("Test Cases", "Index", "TestCaseEntities")</li>
                     <li>@Html.ActionLink("CheckLists", "CheckLists", "CheckLists")</li>
                 }
             </ul>

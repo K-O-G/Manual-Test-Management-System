@@ -7,10 +7,10 @@
 
 <h2>Create CheckList</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>CheckList</h4>
         <hr />
@@ -18,7 +18,7 @@
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.CheckListName,"Check List", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CheckListName, "Check List", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CheckListName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CheckListName, "", new { @class = "text-danger" })
@@ -28,28 +28,29 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Priority, "Priority", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model=>model.Priority.PriorityId, ViewBag.Priorities as SelectList)
+                @Html.DropDownListFor(model => model.Priority.PriorityId, ViewBag.Priorities as SelectList)
             </div>
         </div>
 
-        
+
         <div class="editor-label">
-            @Html.LabelFor(model => model.Components, "Components", htmlAttributes: new { @class = "control-label col-md-2" })</div>
-            @{
-                List<Component> components = ViewBag.Components;
-                foreach (var c in components)
-                {
-                    <input type="checkbox" name="selectedComponents" value="@c.ComponentId"
-                           @(Model.Components.Contains(c) ? "checked=\"checked\"" : "") />@c.ComponentName <br />
-                    }
-            }
+            @Html.LabelFor(model => model.Components, "Components", htmlAttributes: new { @class = "control-label col-md-2" })
+        </div>
+        @{
+            List<Component> components = ViewBag.Components;
+            foreach (var c in components)
+            {
+                <input type="checkbox" name="selectedComponents" value="@c.ComponentId"
+                       @(Model.Components.Contains(c) ? "checked=\"checked\"" : "") />@c.ComponentName <br />
+                }
+        }
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
+    </div>
 }
 
 <div>

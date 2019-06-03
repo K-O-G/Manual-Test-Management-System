@@ -1,0 +1,129 @@
+﻿@using Domain.Entities.TestCases
+@model Domain.Entities.TestCases.TestCaseEntity
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TestCaseEntity</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Test Case:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestCaseName)
+        </dd>
+        <dt>
+            Description:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestCaseDescription)
+        </dd>
+        <dt>
+            Creator:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatorCaseUser.UserName)
+        </dd>
+        <dt>
+            Last Editor:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastEditorCaseUser.UserName)
+        </dd>
+
+        <dt>
+            Last Edition:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastEditionDateTime)
+        </dd>
+
+    </dl>
+    <table class="table">
+        <tr>
+            <th style="max-width: 25%">
+                Summary
+            </th>
+            <th>
+                Preconditions
+            </th>
+            <th>
+                Case steps
+            </th>
+            <th>
+                Test result
+            </th>
+            <th>
+                Comment
+            </th>
+            <th>
+                Last Executor
+            </th>
+            <th>
+                Last Excecution
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Cases) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CaseSummary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CasePreconditions)
+        </td>
+        <td>
+            <table class="table">
+                @foreach (var step in item.CaseSteps)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(caseStep => step.CaseStepNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(caseStep => step.CaseStepDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(caseStep=>step.CaseStepExpectedResult)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(caseStep=>step.CaseStepResult.TestResultValue)
+                    </td>
+                </tr>
+                }
+            </table>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CaseComment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastExecutorCaseUser.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastExecutionDateTime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", "CheckListItems", new { id = item.TestCaseId }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Delete", "Delete", "CheckListItems", new { id = item.TestCaseId}, new { @class = "btn btn-default" })
+        </td>
+    </tr>
+        }
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TestCaseEntityId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

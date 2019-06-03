@@ -63,6 +63,9 @@
     <Reference Include="Moq, Version=4.10.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.10.1\lib\net45\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
     </Reference>
@@ -76,6 +79,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
@@ -129,10 +133,13 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\ManualTestMangementSystem - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\canvasjs.min.js" />
+    <Content Include="Scripts\canvasjs.react.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery.canvasjs.min.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
@@ -140,10 +147,13 @@
   <ItemGroup>
     <Compile Include="App_Start\Ninject.Web.Common.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CasesController.cs" />
     <Compile Include="Controllers\CheckListItemsController.cs" />
     <Compile Include="Controllers\CheckListsController.cs" />
     <Compile Include="Controllers\ComponentsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PrioritiesController.cs" />
+    <Compile Include="Controllers\TestCaseEntitiesController.cs" />
     <Compile Include="Controllers\TestResultsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Default.aspx.cs">
@@ -203,6 +213,17 @@
     <Content Include="Views\Priorities\Delete.cshtml" />
     <Content Include="Views\Priorities\Edit.cshtml" />
     <Content Include="Views\Priorities\Index.cshtml" />
+    <Content Include="Views\TestCaseEntities\Create.cshtml" />
+    <Content Include="Views\TestCaseEntities\Delete.cshtml" />
+    <Content Include="Views\TestCaseEntities\Details.cshtml" />
+    <Content Include="Views\TestCaseEntities\Edit.cshtml" />
+    <Content Include="Views\TestCaseEntities\Index.cshtml" />
+    <Content Include="Views\Cases\Create.cshtml" />
+    <Content Include="Views\Cases\Delete.cshtml" />
+    <Content Include="Views\Cases\Details.cshtml" />
+    <Content Include="Views\Cases\Edit.cshtml" />
+    <Content Include="Views\Cases\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
