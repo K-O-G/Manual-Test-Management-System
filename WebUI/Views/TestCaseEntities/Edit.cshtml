@@ -18,18 +18,18 @@
         @Html.HiddenFor(model => model.TestCaseEntityId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TestCaseDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TestCaseName,"Test Case", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TestCaseDescription, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TestCaseDescription, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.TestCaseName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TestCaseName, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.LastEditionDateTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TestCaseDescription,"Description", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.LastEditionDateTime, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LastEditionDateTime, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.TestCaseDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TestCaseDescription, "", new { @class = "text-danger" })
             </div>
         </div>
 

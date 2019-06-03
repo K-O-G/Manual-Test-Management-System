@@ -95,7 +95,7 @@
                         @Html.DisplayFor(modelItem => item.LastExecutionDateTime)
                     </td>
                     <td>
-                        <input value="Save Execute" class="btn btn-default _saveExecute" data-id="@item.CheckListItemId" />
+                        <input value="Save Execute" type="button" class="btn btn-default _saveExecute" data-id="@item.CheckListItemId" />
                         @Html.ActionLink("Details", "Details", "CheckListItems", new { id = item.CheckListItemId }, new { @class = "btn btn-default" })
 
                     </td>
