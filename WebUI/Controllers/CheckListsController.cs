@@ -211,6 +211,12 @@ namespace WebUI.Controllers
             CheckListEntity checkListEntity = db.CheckLists.Find(id);
             if (checkListEntity != null)
             {
+//                foreach (var item in checkListEntity.CheckListItems)
+//                {
+//                    var it = db.CheckListItems.Find(item);
+//                    db.CheckListItems.Remove(it ?? throw new InvalidOperationException());
+//
+//                }
                 db.CheckLists.Remove(checkListEntity);
             }
 

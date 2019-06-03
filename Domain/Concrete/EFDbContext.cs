@@ -50,6 +50,19 @@ namespace Domain.Concrete
                     cs.MapRightKey("CourseRefId");
                     cs.ToTable("TestCase_Component");
                 });
+            modelBuilder.Entity<CheckListItem>()
+                .HasOptional<CheckListEntity>( c=>c.CheckListEntity)
+                .WithMany()
+                .WillCascadeOnDelete(true);
+            modelBuilder.Entity<CaseStep>()
+                .HasOptional<Case>(c => c.Case)
+                .WithMany()
+                .WillCascadeOnDelete(true);
+            modelBuilder.Entity<Case>()
+                .HasOptional<TestCaseEntity>(c => c.TestCase)
+                .WithMany()
+                .WillCascadeOnDelete(true);
+            
         }
     }
 }
@@ -62,10 +75,10 @@ public class TestInitializerDb : DropCreateDatabaseIfModelChanges<EFDbContext>
         Priority priority = new Priority { PriorityId = 1, PriorityName = "Minor", PriorityDescription = "In this category, all the suggestions, and small UI changes or product improvements will be included. They will not affect the software usage in anyway and can be avoided if there is tight deadline.", PriorityColor = "#00ac00" };
         string pass = new UserSecurity().CalculateMD5Hash("12345");
         User user = new User { UserId = 1, UserName = "Admin", UserEmail = "akatyryna@ukr.net", UserPassword = pass, UserAdmin = true, UserTestCreator = true, UserTestExecutor = true };
-//        User user1 = new User {UserId = 2,UserName = "V_I_I",UserEmail = "irina.vitkovska@livenau.net",UserPassword = pass, UserAdmin = true, UserTestCreator = true, UserTestExecutor = true };
+        User user1 = new User {UserId = 2,UserName = "V_I_I",UserEmail = "irina.vitkovska@livenau.net",UserPassword = pass, UserAdmin = true, UserTestCreator = true, UserTestExecutor = true };
         context.TestResults.Add(testResult);
         context.Priorities.Add(priority);
         context.Users.Add(user);
-//        context.Users.Add(user1);
+        context.Users.Add(user1);
     }
 }
