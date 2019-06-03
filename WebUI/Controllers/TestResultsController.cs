@@ -66,7 +66,7 @@ namespace WebUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TestResultId,TestResultValue,TestResultDescription")] TestResult testResult)
+        public ActionResult Edit([Bind(Include = "TestResultId,TestResultValue,TestResultDescription,TestResultColor")] TestResult testResult)
         {
             if (ModelState.IsValid)
             {

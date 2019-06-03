@@ -132,7 +132,7 @@ namespace WebUI.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, true);
                     Repository.CurrentUser = user;
-                    return RedirectToAction("CheckLists", "CheckLists"); //todo заменить на статистику когда она будет
+                    return RedirectToAction("Index", "Home"); //todo заменить на статистику когда она будет
                 }
                 else
                 {

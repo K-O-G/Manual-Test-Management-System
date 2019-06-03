@@ -2,7 +2,7 @@
 @model Domain.Entities.CheckLists.CheckListEntity
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create CheckList";
 }
 
 <h2>Create CheckList</h2>
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>CheckList</h4>
+        <h4> Cherate CheckList</h4>
         <hr />
 
 
@@ -36,14 +36,14 @@
         <div class="editor-label">
             @Html.LabelFor(model => model.Components, "Components", htmlAttributes: new { @class = "control-label col-md-2" })
         </div>
-        @{
-            List<Component> components = ViewBag.Components;
-            foreach (var c in components)
-            {
-                <input type="checkbox" name="selectedComponents" value="@c.ComponentId"
-                       @(Model.Components.Contains(c) ? "checked=\"checked\"" : "") />@c.ComponentName <br />
-                }
-        }
+         @{
+             List<Component> components = ViewBag.Components;
+             foreach (var c in components)
+             {
+                 <input type="checkbox" name="selectedComponents" value="@c.ComponentId"
+                        @(Model.Components.Contains(c) ? "checked=\"checked\"" : "") />@c.ComponentName <br />
+                 }
+         }
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

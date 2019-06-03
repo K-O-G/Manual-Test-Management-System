@@ -71,7 +71,7 @@ namespace WebUI.Controllers
                 if (selectedComponents != null)
                 {
                     List<Component> components = new List<Component>();
-                    //получаем выбранные курсы
+                    //получаем выбранные компоненты
                     foreach (var c in db.Components.Where(co => selectedComponents.Contains(co.ComponentId)))
                     {
                         components.Add(c);

@@ -50,7 +50,7 @@ namespace WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                checkListItem.LastExecutorCheckListUser = Repository.CurrentUser;
+                checkListItem.CheckListTestResult = db.TestResults.FirstOrDefault(t => t.TestResultId == 0);
 //                checkListItem.LastExecutionDateTime = null;
                 checkListItem.CheckListEntity = db.CheckLists.Find(checkListItem.CheckListId);
                 db.CheckListItems.Add(checkListItem);
@@ -68,8 +68,6 @@ namespace WebUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SelectList testResults = new SelectList(db.TestResults, "TestResultId", "TestResultValue");
-            ViewBag.TestResults = testResults;
             CheckListItem checkListItem = db.CheckListItems.Find(id);
             SelectList checkList = new SelectList(db.CheckLists, "CheckListEntityId", "CheckListName");
             ViewBag.CheckLists = checkList;
@@ -90,7 +88,9 @@ namespace WebUI.Controllers
             if (ModelState.IsValid)
             {
                 checkListItem.CheckListTestResult =
-                    db.TestResults.FirstOrDefault(t => t.TestResultDescription == "Not Executed");
+                    db.TestResults.FirstOrDefault(t => t.TestResultId==0);
+                checkListItem.CheckListComment = "";
+                checkListItem.LastExecutionDateTime = null;
                 db.Entry(checkListItem).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Details","CheckLists",checkListItem.CheckListId);
@@ -119,9 +119,10 @@ namespace WebUI.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             CheckListItem checkListItem = db.CheckListItems.Find(id);
+            var idCheckList = checkListItem.CheckListId;
             db.CheckListItems.Remove(checkListItem);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details","CheckLists", new{id=idCheckList});
         }
 
         protected override void Dispose(bool disposing)
