@@ -5,9 +5,6 @@
 }
 
 <h2>Start Page</h2>
-@{
-    Layout =;
-}
  
     <script>
         window.onload = function () {
@@ -27,12 +24,8 @@
                 }]
             });
             chart.render();
-        }
-    </script>
-    <script>
-        window.onload = function () {
 
-            var chart = new CanvasJS.Chart("testCases", {
+            var chart1 = new CanvasJS.Chart("testCases", {
                 animationEnabled: true,
                 title: {
                     text: "Test Cases execution statistic"
@@ -46,9 +39,10 @@
                     dataPoints: @Html.Raw(ViewBag.TestCases)
                 }]
             });
-            chart.render();
+            chart1.render();
         }
     </script>
+
 <div id="checkLists" style="height: 300px; width: 100%;"></div>
 <br/>
 <div id="testCases" style="height: 300px; width: 100%;"></div>
