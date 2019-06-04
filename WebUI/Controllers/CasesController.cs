@@ -8,6 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using Domain.Concrete;
 using Domain.Entities.TestCases;
+using Domain.Helpers;
+using Newtonsoft.Json;
+using WebUI.Models;
 
 namespace WebUI.Controllers
 {
@@ -53,17 +56,20 @@ namespace WebUI.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CaseId,TestCaseId,CaseSummary,CasePreconditions,CaseComment,LastExecutionDateTime")] Case @case)
+        public ActionResult Create(string caseModelJson)
         {
-            if (ModelState.IsValid)
+            TestCaseViewModel caseModel = (TestCaseViewModel)JsonConvert.DeserializeObject(caseModelJson, typeof(TestCaseViewModel));
+            var dbCase = new Case() { TestCaseId = caseModel.TestCaseId, CaseId = caseModel.CaseId, CaseSummary = caseModel.CaseSummary, CasePreconditions = caseModel.CasePreconditions };
+            dbCase.LastExecutionDateTime = DateTime.Now;
+            dbCase.LastExecutorCaseUser = Repository.CurrentUser;
+            if (dbCase.CaseSteps == null) dbCase.CaseSteps = new List<CaseStep>();
+            foreach (var caseModelCaseStep in caseModel.CaseSteps)
             {
-                db.Cases.Add(@case);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                dbCase.CaseSteps.Add(new CaseStep() { CaseStepNumber = caseModelCaseStep.CaseStepNumber, CaseStepDescription = caseModelCaseStep.CaseStepDescription, CaseStepExpectedResult = caseModelCaseStep.CaseStepExpectedResult });
             }
-
-            return View(@case);
+            db.Cases.Add(dbCase);
+            db.SaveChanges();
+            return Json(new { @url = Url.Action("Index") });
         }
 
         // GET: Cases/Edit/5

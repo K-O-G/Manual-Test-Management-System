@@ -131,6 +131,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ClassDiagramWEB_UI.cd" />
     <None Include="Properties\PublishProfiles\ManualTestMangementSystem - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\canvasjs.min.js" />
@@ -167,6 +168,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
+    <Compile Include="Models\TestCaseViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -220,9 +222,7 @@
     <Content Include="Views\TestCaseEntities\Index.cshtml" />
     <Content Include="Views\Cases\Create.cshtml" />
     <Content Include="Views\Cases\Delete.cshtml" />
-    <Content Include="Views\Cases\Details.cshtml" />
     <Content Include="Views\Cases\Edit.cshtml" />
-    <Content Include="Views\Cases\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\TestCaseEntities\Execute.cshtml" />
     <None Include="Web.Debug.config">
@@ -234,7 +234,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">

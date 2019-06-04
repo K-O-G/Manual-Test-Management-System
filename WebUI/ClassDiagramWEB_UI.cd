@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="WebUI.Controllers.CasesController">
+    <Position X="10.25" Y="18.5" Width="2.75" />
+    <AssociationLine Name="db" Type="Domain.Concrete.EFDbContext" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="11.594" Y="18.5" />
+        <Point X="11.594" Y="17.55" />
+        <Point X="13.312" Y="17.55" />
+        <Point X="13.312" Y="17.175" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACARAACAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\CasesController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="db" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="WebUI.Controllers.CheckListItemsController">
+    <Position X="22.5" Y="18.75" Width="2" />
+    <AssociationLine Name="db" Type="Domain.Concrete.EFDbContext" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="23.5" Y="18.75" />
+        <Point X="23.5" Y="16.563" />
+        <Point X="15" Y="16.563" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACARAACAAAAAAAAAAAEAAEACAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\CheckListItemsController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="db" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="WebUI.Controllers.CheckListsController">
+    <Position X="13.25" Y="20.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACARAASAAAAACAAAAAEAAEACAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\CheckListsController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="db" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="WebUI.Controllers.ComponentsController">
+    <Position X="25" Y="18" Width="2" />
+    <AssociationLine Name="db" Type="Domain.Concrete.EFDbContext" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="26" Y="18" />
+        <Point X="26" Y="16.313" />
+        <Point X="15" Y="16.313" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAQAACAAAAAAAAAAAEAAEACAAAEAAAAAAA=</HashCode>
+      <FileName>Controllers\ComponentsController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="db" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="WebUI.Controllers.HomeController">
+    <Position X="8" Y="21" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="db" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="WebUI.Controllers.PrioritiesController">
+    <Position X="2" Y="17.25" Width="2.75" />
+    <AssociationLine Name="db" Type="Domain.Concrete.EFDbContext" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.953" Y="17.25" />
+        <Point X="2.953" Y="16.125" />
+        <Point X="13" Y="16.125" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAQAACAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\PrioritiesController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="db" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="WebUI.Controllers.TestCaseEntitiesController">
+    <Position X="15.5" Y="20" Width="2.75" />
+    <AssociationLine Name="db" Type="Domain.Concrete.EFDbContext" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="16.344" Y="20" />
+        <Point X="16.344" Y="17.55" />
+        <Point X="14.75" Y="17.55" />
+        <Point X="14.75" Y="17.175" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACARAASAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\TestCaseEntitiesController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="db" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="WebUI.Controllers.TestResultsController">
+    <Position X="5" Y="20" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAQAASAAAAAAAAAAAEAAEACAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\TestResultsController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="db" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="WebUI.Controllers.UsersController">
+    <Position X="19" Y="22" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAQAACAAAAAAAIAAAEAAEACAAEQAAAAAAA=</HashCode>
+      <FileName>Controllers\UsersController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="db" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Domain.Concrete.EFDbContext">
+    <Position X="13" Y="15.75" Width="2" />
+    <AssociationLine Name="Cases" Type="Domain.Entities.TestCases.Case" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.625" Y="15.75" />
+        <Point X="13.625" Y="3.312" />
+        <Point X="8.75" Y="3.312" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="CheckListItems" Type="Domain.Entities.CheckLists.CheckListItem" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13" Y="15.875" />
+        <Point X="2.438" Y="15.875" />
+        <Point X="2.438" Y="12.459" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="CaseSteps" Type="Domain.Entities.TestCases.CaseStep" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="14.312" Y="15.75" />
+        <Point X="14.312" Y="3.959" />
+        <Point X="13.99" Y="3.959" Type="JumpStart" />
+        <Point X="13.823" Y="3.959" Type="JumpEnd" />
+        <Point X="13.708" Y="3.959" Type="JumpStart" />
+        <Point X="13.542" Y="3.959" Type="JumpEnd" />
+        <Point X="7.583" Y="3.959" Type="JumpStart" />
+        <Point X="7.417" Y="3.959" Type="JumpEnd" />
+        <Point X="4.156" Y="3.959" />
+        <Point X="4.156" Y="3.574" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="CheckLists" Type="Domain.Entities.CheckLists.CheckListEntity" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="15" Y="15.875" />
+        <Point X="15.375" Y="15.875" />
+        <Point X="15.375" Y="6.817" />
+        <Point X="20.729" Y="6.817" Type="JumpStart" />
+        <Point X="20.896" Y="6.817" Type="JumpEnd" />
+        <Point X="21.864" Y="6.817" Type="JumpStart" />
+        <Point X="22.031" Y="6.817" Type="JumpEnd" />
+        <Point X="23.145" Y="6.817" Type="JumpStart" />
+        <Point X="23.312" Y="6.817" Type="JumpEnd" />
+        <Point X="24.75" Y="6.817" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Priorities" Type="Domain.Entities.Priority" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="15" Y="16" />
+        <Point X="20.812" Y="16" />
+        <Point X="20.812" Y="6.132" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="TestResults" Type="Domain.Entities.TestResult" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.188" Y="15.75" />
+        <Point X="13.188" Y="6.062" />
+        <Point X="7.583" Y="6.062" Type="JumpStart" />
+        <Point X="7.417" Y="6.062" Type="JumpEnd" />
+        <Point X="3.5" Y="6.062" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Users" Type="Domain.Entities.User" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="14.812" Y="15.75" />
+        <Point X="14.812" Y="9.5" />
+        <Point X="15.292" Y="9.5" Type="JumpStart" />
+        <Point X="15.458" Y="9.5" Type="JumpEnd" />
+        <Point X="16" Y="9.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsCollectionAssociation>
+      <Property Name="Cases" />
+      <Property Name="CheckListItems" />
+      <Property Name="Components" />
+      <Property Name="CaseSteps" />
+      <Property Name="CheckLists" />
+      <Property Name="Priorities" />
+      <Property Name="TestCases" />
+      <Property Name="TestResults" />
+      <Property Name="Users" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Domain.Entities.TestCases.Case">
+    <Position X="6.25" Y="1" Width="2.5" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="LastExecutorCaseUser" />
+      <Property Name="TestCase" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Domain.Entities.CheckLists.CheckListItem">
+    <Position X="1.25" Y="9.75" Width="2.75" />
+    <AssociationLine Name="CheckListTestResult" Type="Domain.Entities.TestResult" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.125" Y="9.75" />
+        <Point X="2.125" Y="6.382" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="CheckListEntity" />
+      <Property Name="CheckListTestResult" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Domain.Entities.Component">
+    <Position X="15" Y="4" Width="2.5" />
+    <TypeIdentifier />
+    <ShowAsCollectionAssociation>
+      <Property Name="TestCases" />
+      <Property Name="CheckLists" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Domain.Entities.TestCases.CaseStep">
+    <Position X="2.25" Y="1.25" Width="2.5" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="Case" />
+      <Property Name="CaseStepResult" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Domain.Entities.CheckLists.CheckListEntity">
+    <Position X="24.75" Y="5.5" Width="2.5" />
+    <AssociationLine Name="CheckListItems" Type="Domain.Entities.CheckLists.CheckListItem" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="26.562" Y="5.5" />
+        <Point X="26.562" Y="5.125" />
+        <Point X="27.625" Y="5.125" />
+        <Point X="27.625" Y="0.325" />
+        <Point X="0.875" Y="0.325" />
+        <Point X="0.875" Y="11.125" />
+        <Point X="1.25" Y="11.125" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="LastEditorCheckListUser" />
+      <Property Name="CreatorCheckListUser" />
+      <Property Name="Priority" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="CheckListItems" />
+      <Property Name="Components" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Domain.Entities.Priority">
+    <Position X="19.5" Y="4" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Domain.Entities.TestCases.TestCaseEntity">
+    <Position X="21.5" Y="1.75" Width="2.5" />
+    <AssociationLine Name="Components" Type="Domain.Entities.Component" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="21.5" Y="3.5" />
+        <Point X="17" Y="3.5" />
+        <Point X="17" Y="4" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="CreatorCaseUser" />
+      <Property Name="LastEditorCaseUser" />
+      <Property Name="Priority" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Cases" />
+      <Property Name="Components" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Domain.Entities.TestResult">
+    <Position X="1.25" Y="4.25" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Domain.Entities.User">
+    <Position X="16" Y="8.5" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -10,11 +10,12 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
+    @Html.HiddenFor(model => model.TestCaseId)
+    @Html.HiddenFor(model => model.CaseId)
     <div class="form-horizontal">
         <div class="form-group">
             <div class=" col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" id="Create" />
             </div>
         </div>
         <hr />
@@ -55,9 +56,25 @@
                     </th>
                     <th>Expected Result</th>
                 </tr>
-                <tr>
+
+                <tr class="_footerTr">
                     <td colspan="3">
-                        <button id="add_step" , class="btn btn-default" style="width: 100%"> Add Step </button>
+                        <button type="button" id="add_step" , class="btn btn-default" style="width: 100%"> Add Step </button>
+                    </td>
+                </tr>
+
+                <tr id="rowTemplate" style="display: none">
+                    <td>
+                        <p class="_stepNumber"></p>
+                    </td>
+                    <td>
+                        <input type="text" class="_stepDescription" />
+                    </td>
+                    <td>
+                        <input type="text" class="_stepExpectedResult" />
+                    </td>
+                    <td>
+                        <button type="button" class="_removeStep" value="Remove">Remove</button>
                     </td>
                 </tr>
             </table>

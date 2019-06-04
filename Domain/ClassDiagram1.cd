@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Domain.Entities.Component">
+    <Position X="10.25" Y="5.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAIAAAAAAAEAEAAAAAAACAAAAAA=</HashCode>
+      <FileName>Entities\Component.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Entities.Priority">
+    <Position X="14.25" Y="8.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAABAEAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Priority.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Entities.TestResult">
+    <Position X="1.5" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Entities\TestResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Entities.User">
+    <Position X="7.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAgAAAAAAAAoAQAACAIAAAA=</HashCode>
+      <FileName>Entities\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Entities.CheckLists.CheckListEntity">
+    <Position X="13.75" Y="0.5" Width="1.75" />
+    <AssociationLine Name="Components" Type="Domain.Entities.Component" ManuallyRouted="true">
+      <Path>
+        <Point X="14.844" Y="2.44" />
+        <Point X="14.844" Y="6.662" />
+        <Point X="12.25" Y="6.662" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="LastEditorCheckListUser" Type="Domain.Entities.User" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.977" Y="2.44" />
+        <Point X="13.977" Y="3.375" />
+        <Point X="8.75" Y="3.375" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Priority" Type="Domain.Entities.Priority" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="15.188" Y="2.44" />
+        <Point X="15.188" Y="6.5" />
+        <Point X="15.188" Y="6.5" />
+        <Point X="15.188" Y="8.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAEAhAIAEAAAAAAACBAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\CheckLists\CheckListEntity.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CreatorCheckListUser" />
+      <Property Name="LastEditorCheckListUser" />
+      <Property Name="Priority" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="CheckListItems" />
+      <Property Name="Components" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Domain.Entities.CheckLists.CheckListItem">
+    <Position X="3" Y="0.5" Width="2" />
+    <AssociationLine Name="CheckListTestResult" Type="Domain.Entities.TestResult" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.125" Y="2.565" />
+        <Point X="4.125" Y="2.875" />
+        <Point X="1.875" Y="2.875" />
+        <Point X="1.875" Y="3.25" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="LastExecutorCheckListUser" Type="Domain.Entities.User" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.594" Y="2.565" />
+        <Point X="4.594" Y="2.94" />
+        <Point X="8.062" Y="2.94" />
+        <Point X="8.062" Y="3.25" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAABEAAAQAAAAAgAAAAAAAAAEEAAAIAAAgAAAQAAAA=</HashCode>
+      <FileName>Entities\CheckLists\CheckListItem.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CheckListEntity" />
+      <Property Name="CheckListTestResult" />
+      <Property Name="LastExecutorCheckListUser" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Domain.Entities.TestCases.Case">
+    <Position X="4" Y="8.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAQACAAAAAAEAAFAAAAggAABAAAAA=</HashCode>
+      <FileName>Entities\TestCases\Case.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="LastExecutorCaseUser" />
+      <Property Name="TestCase" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="CaseSteps" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Domain.Entities.TestCases.CaseStep">
+    <Position X="1" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AICAAAAABAAAAAAAAIAAAAAAAAAgAAAAAEAAABAAAAA=</HashCode>
+      <FileName>Entities\TestCases\CaseStep.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Case" />
+      <Property Name="CaseStepResult" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Domain.Entities.TestCases.TestCaseEntity">
+    <Position X="7.75" Y="8.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAQJAEAAAAAAAOAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Entities\TestCases\TestCaseEntity.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="LastEditorCaseUser" />
+      <Property Name="CreatorCaseUser" />
+      <Property Name="Priority" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Components" />
+      <Property Name="Cases" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
