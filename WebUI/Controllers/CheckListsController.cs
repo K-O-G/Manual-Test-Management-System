@@ -45,6 +45,13 @@ namespace WebUI.Controllers
                 return HttpNotFound();
             }
 
+            foreach (var item in checkListEntity.CheckListItems)
+            {
+                var resultId = item.CheckListTestResult.TestResultId;
+                if (item.CheckListTestResult != null)
+                    item.CheckListTestResult = db.TestResults.FirstOrDefault(r => r.TestResultId == resultId);
+            }
+
             return View(checkListEntity);
         }
 
@@ -105,15 +112,15 @@ namespace WebUI.Controllers
             ViewBag.Components = db.Components.ToList();
             checkListEntity.CheckListItems =
                 new List<CheckListItem>(db.CheckListItems.Where(c => c.CheckListId == checkListEntity.CheckListEntityId));
-            if (!checkListEntity.CheckListItems.IsNullOrEmpty())
-            {
-                foreach (var item in checkListEntity.CheckListItems)
-                {
-                    item.CheckListTestResult = db.TestResults.FirstOrDefault(c => c.TestResultValue == "Not Executed");
-                    db.Entry(item).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-            }
+            //            if (!checkListEntity.CheckListItems.IsNullOrEmpty())
+            //            {
+            //                foreach (var item in checkListEntity.CheckListItems)
+            //                {
+            //                    item.CheckListTestResult = db.TestResults.FirstOrDefault(c => c.TestResultValue == "Not Executed");
+            //                    db.Entry(item).State = EntityState.Modified;
+            //                    db.SaveChanges();
+            //                }
+            //            }
             if (checkListEntity.CheckListItems == null)
             {
                 return HttpNotFound();
@@ -123,7 +130,7 @@ namespace WebUI.Controllers
 
 
         [HttpPost]
-        public ActionResult SaveExecute(int id, int resultId)
+        public ActionResult SaveExecute(int id, int resultId, string comment)
         {
             var item = db.CheckListItems.Include(c => c.CheckListTestResult).FirstOrDefault(i => i.CheckListItemId == id);
             if (item != null)
@@ -132,10 +139,13 @@ namespace WebUI.Controllers
                 item.LastExecutionDateTime = DateTime.Now;
                 var testResult = db.TestResults.FirstOrDefault(r => r.TestResultId == resultId);
                 item.CheckListTestResult = testResult;
+                item.CheckListComment = comment;
                 db.SaveChanges();
+                return Json(new { color = testResult != null ? testResult.TestResultColor : String.Empty });
             }
-            return Json(new { result = "success" });
+            return Json(new { result = "failed" });
         }
+
         // GET: CheckLists/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -211,12 +221,12 @@ namespace WebUI.Controllers
             CheckListEntity checkListEntity = db.CheckLists.Find(id);
             if (checkListEntity != null)
             {
-//                foreach (var item in checkListEntity.CheckListItems)
-//                {
-//                    var it = db.CheckListItems.Find(item);
-//                    db.CheckListItems.Remove(it ?? throw new InvalidOperationException());
-//
-//                }
+                //                foreach (var item in checkListEntity.CheckListItems)
+                //                {
+                //                    var it = db.CheckListItems.Find(item);
+                //                    db.CheckListItems.Remove(it ?? throw new InvalidOperationException());
+                //
+                //                }
                 db.CheckLists.Remove(checkListEntity);
             }
 

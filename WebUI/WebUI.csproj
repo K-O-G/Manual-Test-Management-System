@@ -224,6 +224,7 @@
     <Content Include="Views\Cases\Edit.cshtml" />
     <Content Include="Views\Cases\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\TestCaseEntities\Execute.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

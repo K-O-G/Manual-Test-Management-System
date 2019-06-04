@@ -67,7 +67,7 @@ namespace Domain.Concrete
     }
 }
 
-public class TestInitializerDb : DropCreateDatabaseIfModelChanges<EFDbContext>
+public class TestInitializerDb : CreateDatabaseIfNotExists<EFDbContext>
 {
     protected override void Seed(EFDbContext context)
     {

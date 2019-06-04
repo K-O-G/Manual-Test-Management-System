@@ -16,8 +16,8 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.CheckListId, "CheckList", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model=>model.CheckListId, ViewBag.CheckLists as SelectList)
+            <div class="col-md-10" style="margin-top: 6px;">
+                @Html.DisplayFor(model=>model.CheckListEntity.CheckListName)
                 </div>
         </div>
 
@@ -48,6 +48,6 @@
 
 @*todo bug "Object Reference" *@
 
-@* <div> *@
-@*     @Html.ActionLink("Back to List", "Details","CheckLists",new { id = Model.CheckListId}, new { @class = "btn btn-default" }) *@
-@* </div> *@
+<div>
+    @Html.ActionLink("Back to List", "Details","CheckLists",new { id = Model.CheckListEntity.CheckListEntityId}, new { @class = "btn btn-default" })
+</div>

@@ -30,7 +30,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Priority.PriorityDescription)
+            <span style="color: @Model.Priority.PriorityColor">@Model.Priority.PriorityName</span>
         </dd>
         <dt>
             Components
@@ -83,7 +83,7 @@
                     @Html.DisplayFor(modelItem => item.ExpectedResult)
                 </td>
                 <td>
-                    @* <span style="color: @item.CheckListTestResult.TestResultColor">@item.CheckListTestResult.TestResultValue</span> *@
+                    <span style="color: @item.CheckListTestResult.TestResultColor">@item.CheckListTestResult.TestResultValue</span>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CheckListComment)

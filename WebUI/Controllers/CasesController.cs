@@ -37,9 +37,16 @@ namespace WebUI.Controllers
         }
 
         // GET: Cases/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            TestCaseEntity testCaseEntity = db.TestCases.Find(id);
+            var @case = new Case() { TestCase = testCaseEntity };
+            return View(@case);
         }
 
         // POST: Cases/Create

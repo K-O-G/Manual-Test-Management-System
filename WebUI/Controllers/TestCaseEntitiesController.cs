@@ -150,6 +150,42 @@ namespace WebUI.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Execute(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            TestCaseEntity testCaseEntity = db.TestCases.Find(id);
+            if (testCaseEntity == null)
+            {
+                return HttpNotFound();
+            }
+            SelectList testResult = new SelectList(db.TestResults, "TestResultId", "TestResultValue");
+            ViewBag.TestResults = testResult;
+            ViewBag.Components = db.Components.ToList();
+            testCaseEntity.Cases =
+                new List<Case>(db.Cases.Where(c => c.TestCaseId == testCaseEntity.TestCaseEntityId));
+            foreach (var @case in testCaseEntity.Cases)
+            {
+               @case.CaseSteps = new List<CaseStep>(db.CaseSteps.Where(cs=>cs.CaseId==@case.CaseId)); 
+            }
+            //            if (!checkListEntity.CheckListItems.IsNullOrEmpty())
+            //            {
+            //                foreach (var item in checkListEntity.CheckListItems)
+            //                {
+            //                    item.CheckListTestResult = db.TestResults.FirstOrDefault(c => c.TestResultValue == "Not Executed");
+            //                    db.Entry(item).State = EntityState.Modified;
+            //                    db.SaveChanges();
+            //                }
+            //            }
+            if (testCaseEntity.Cases == null)
+            {
+                return HttpNotFound();
+            }
+            return View(testCaseEntity);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

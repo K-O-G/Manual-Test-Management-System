@@ -34,11 +34,16 @@ namespace WebUI.Controllers
         }
 
         // GET: CheckListItems/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            SelectList checkList = new SelectList(db.CheckLists, "CheckListEntityId", "CheckListName");
-            ViewBag.CheckLists = checkList;
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            CheckListEntity checkListEntity = db.CheckLists.Find(id);
+            var checkListItem = new CheckListItem(){CheckListEntity = checkListEntity};
+            return View(checkListItem);
         }
 
         // POST: CheckListItems/Create

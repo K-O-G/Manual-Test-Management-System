@@ -11,7 +11,7 @@
 {
     @Html.AntiForgeryToken()
     <div>
-        <hr/>
+        <hr />
         <dl class="dl-horizontal">
             <dt>
                 Check List:
@@ -32,20 +32,18 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Priority.PriorityDescription)
+                <span style="color: @Model.Priority.PriorityColor">@Model.Priority.PriorityName</span>
             </dd>
             <dt>
                 Components
             </dt>
-            <dd class="tooltip">
-                @foreach (Component c in Model.Components)
-                {
-                    <ul>
+            <dd>
+                <ul>
+                    @foreach (Component c in Model.Components)
+                    {
                         <li>@c.ComponentName</li>
-
-                    </ul>
-                    <span class="tooltip-arrow">@c.ComponentDescription</span>
-                }
+                    }
+                </ul>
             </dd>
 
         </dl>
@@ -106,8 +104,8 @@
 
     </div>
     <p>
-        @Html.ActionLink("Edit", "Edit", new {id = Model.CheckListEntityId},new { @class = "btn btn-default" })
-        @Html.ActionLink("Back to List", "CheckLists",null,new { @class = "btn btn-default" })
+        @Html.ActionLink("Edit", "Edit", new { id = Model.CheckListEntityId }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Back to List", "CheckLists", null, new { @class = "btn btn-default" })
     </p>
 }
 

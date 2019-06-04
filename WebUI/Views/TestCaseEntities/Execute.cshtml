@@ -67,6 +67,7 @@
             <th>
                 Test result
             </th>
+            <th></th>
             <th>
                 Comment
             </th>
@@ -74,7 +75,7 @@
                 Last Executor
             </th>
             <th>
-                Last Excecution
+                Last Execution
             </th>
 
             <th></th>
@@ -103,14 +104,18 @@
                         @Html.DisplayFor(caseStep=>step.CaseStepExpectedResult)
                     </td>
                     <td>
-                        @Html.DisplayFor(caseStep=>step.CaseStepResult.TestResultValue)
+                        @Html.DropDownListFor(caseStep=>step.CaseStepResult.TestResultId, ViewBag.TestResult as SelectList)
+                    </td>
+                    <td>
+                        @*todo кнопка для скрипта сохраняющего результат для CaseStep (вся цепочка - TescCaseEntity.Case.CaseStep. Результат сохраняем только для CaseStep)  *@
+                        <input value="Save Execute" type="button" class="btn btn-default _saveExecute" data-id="@step.CaseStepId"/>
                     </td>
                 </tr>
                 }
             </table>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CaseComment)
+            @Html.EditorFor(modelItem => item.CaseComment)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.LastExecutorCaseUser.UserName)
