@@ -1829,25 +1829,8 @@ pre {
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
-    margin-left: auto
-}
-
-@media (min-width:768px) {
-    .container {
-        width: 750px
-    }
-}
-
-@media (min-width:992px) {
-    .container {
-        width: 970px
-    }
-}
-
-@media (min-width:1200px) {
-    .container {
-        width: 1170px
-    }
+    margin-left: auto;
+    width: 95%
 }
 
 .container-fluid {
@@ -2776,6 +2759,11 @@ th {
 
 .table-condensed > tbody > tr > td, .table-condensed > tbody > tr > th, .table-condensed > tfoot > tr > td, .table-condensed > tfoot > tr > th, .table-condensed > thead > tr > td, .table-condensed > thead > tr > th {
     padding: 5px
+}
+
+.table-sm th,
+.table-sm td {
+    padding: 0.3rem;
 }
 
 .table-bordered {

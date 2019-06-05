@@ -69,7 +69,7 @@ namespace WebUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CheckListEntityId,CheckListName,LastEditionDateTime,Priority")] CheckListEntity checkListEntity, int[] selectedComponents)
+        public ActionResult Create([Bind(Include = "CheckListEntityId,CheckListItemIdSuffix,CheckListName,LastEditionDateTime,Priority")] CheckListEntity checkListEntity, int[] selectedComponents)
         {
             if (ModelState.IsValid)
             {
@@ -171,7 +171,7 @@ namespace WebUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CheckListEntityId,CheckListName,LastEditionDateTime")] CheckListEntity checkListEntity, int[] selectedComponents)
+        public ActionResult Edit([Bind(Include = "CheckListEntityId,CheckListItemIdSuffix,CheckListName,LastEditionDateTime")] CheckListEntity checkListEntity, int[] selectedComponents)
         {
             if (ModelState.IsValid)
             {
@@ -182,13 +182,21 @@ namespace WebUI.Controllers
                 if (selectedComponents != null)
                 {
                     List<Component> components = new List<Component>();
-                    //получаем выбранные курсы
+                    //получаем выбранные компоненты
                     foreach (var c in db.Components.Where(co => selectedComponents.Contains(co.ComponentId)))
                     {
                         components.Add(c);
                     }
 
                     checkListEntity.Components = components;
+                }
+
+                for (int i = 0; i < checkListEntity.CheckListItems.Count; i++)
+                {
+                    checkListEntity.CheckListItems[i].CheckListItemIdPublic =
+                        $"{checkListEntity.CheckListItemIdSuffix}{i+1}";
+                    db.Entry(checkListEntity.CheckListItems[i]).State = EntityState.Modified;
+                    db.SaveChanges();
                 }
                 db.Entry(checkListEntity).State = EntityState.Modified;
                 db.SaveChanges();

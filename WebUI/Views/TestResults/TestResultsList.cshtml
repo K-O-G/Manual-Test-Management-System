@@ -1,4 +1,5 @@
 ﻿@using System.Drawing
+@using Domain.Helpers
 @model IEnumerable<Domain.Entities.TestResult>
 
 @{
@@ -31,8 +32,11 @@
     </td>
 
     <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.TestResultId }, new { @class = "btn btn-default" })
-        @Html.ActionLink("Delete", "Delete", new { id = item.TestResultId }, new { @class = "btn btn-default" })
+        @if (Repository.CurrentUser.UserAdmin)
+        {
+            @Html.ActionLink("Edit", "Edit", new {id = item.TestResultId}, new {@class = "btn btn-default"})
+            @Html.ActionLink("Delete", "Delete", new {id = item.TestResultId}, new {@class = "btn btn-default"})
+        }
     </td>
 </tr>
 }

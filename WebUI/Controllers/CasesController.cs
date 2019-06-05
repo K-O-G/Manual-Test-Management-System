@@ -18,26 +18,6 @@ namespace WebUI.Controllers
     {
         private EFDbContext db = new EFDbContext();
 
-        // GET: Cases
-        public ActionResult Index()
-        {
-            return View(db.Cases.ToList());
-        }
-
-        // GET: Cases/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Case @case = db.Cases.Find(id);
-            if (@case == null)
-            {
-                return HttpNotFound();
-            }
-            return View(@case);
-        }
 
         // GET: Cases/Create
         public ActionResult Create(int? id)
@@ -59,17 +39,28 @@ namespace WebUI.Controllers
         public ActionResult Create(string caseModelJson)
         {
             TestCaseViewModel caseModel = (TestCaseViewModel)JsonConvert.DeserializeObject(caseModelJson, typeof(TestCaseViewModel));
-            var dbCase = new Case() { TestCaseId = caseModel.TestCaseId, CaseId = caseModel.CaseId, CaseSummary = caseModel.CaseSummary, CasePreconditions = caseModel.CasePreconditions };
-            dbCase.LastExecutionDateTime = DateTime.Now;
-            dbCase.LastExecutorCaseUser = Repository.CurrentUser;
+            var dbCase = new Case()
+            {
+                TestCaseId = caseModel.TestCaseId, CaseId = caseModel.CaseId, CaseSummary = caseModel.CaseSummary,
+                CasePreconditions = caseModel.CasePreconditions
+            };
+            dbCase.CaseIdPublic = $"{dbCase.TestCase.TestCaseItemsIdSuffix}{dbCase.TestCase.Cases.Count+1}";
+//            dbCase.LastExecutionDateTime = DateTime.Now;
+//            dbCase.LastExecutorCaseUser = db.Users.FirstOrDefault(t=>t.UserId==Repository.CurrentUser.UserId);
             if (dbCase.CaseSteps == null) dbCase.CaseSteps = new List<CaseStep>();
             foreach (var caseModelCaseStep in caseModel.CaseSteps)
             {
-                dbCase.CaseSteps.Add(new CaseStep() { CaseStepNumber = caseModelCaseStep.CaseStepNumber, CaseStepDescription = caseModelCaseStep.CaseStepDescription, CaseStepExpectedResult = caseModelCaseStep.CaseStepExpectedResult });
+                dbCase.CaseSteps.Add(new CaseStep()
+                {
+                    CaseStepNumber = caseModelCaseStep.CaseStepNumber,
+                    CaseStepDescription = caseModelCaseStep.CaseStepDescription,
+                    CaseStepExpectedResult = caseModelCaseStep.CaseStepExpectedResult,
+                    CaseStepResult = db.TestResults.FirstOrDefault(t => t.TestResultId == 1)
+                });
             }
             db.Cases.Add(dbCase);
             db.SaveChanges();
-            return Json(new { @url = Url.Action("Index") });
+            return Json(new { @url = Url.Action("Details","TestCaseEntities") });
         }
 
         // GET: Cases/Edit/5
@@ -98,7 +89,7 @@ namespace WebUI.Controllers
             {
                 db.Entry(@case).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details","TestCaseEntities",new{id=@case.TestCaseId});
             }
             return View(@case);
         }
@@ -124,9 +115,10 @@ namespace WebUI.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Case @case = db.Cases.Find(id);
+            var idTestCase = @case.TestCaseId;
             db.Cases.Remove(@case);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "TestCaseEntities", new {id = idTestCase});
         }
 
         protected override void Dispose(bool disposing)

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Domain.Entities.Priority>
+﻿@using Domain.Helpers
+@model IEnumerable<Domain.Entities.Priority>
 
 @{
     ViewBag.Title = "Priorities";
@@ -33,8 +34,11 @@
 
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.PriorityId }, new { @class = "btn btn-default" })
-            @Html.ActionLink("Delete", "Delete", new { id = item.PriorityId }, new { @class = "btn btn-default" })
+            @if (Repository.CurrentUser.UserAdmin)
+            {
+                @Html.ActionLink("Edit", "Edit", new {id = item.PriorityId}, new {@class = "btn btn-default"})
+                @Html.ActionLink("Delete", "Delete", new {id = item.PriorityId}, new {@class = "btn btn-default"})
+            }
         </td>
     </tr>
 }

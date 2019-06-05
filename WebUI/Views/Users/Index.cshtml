@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Domain.Entities.User>
+﻿@using Domain.Helpers
+@model IEnumerable<Domain.Entities.User>
 
 @{
     ViewBag.Title = "Users";
@@ -49,8 +50,14 @@
             @Html.DisplayFor(modelItem => item.UserTestExecutor)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserId },new { @class = "btn btn-default" })
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserId },new { @class = "btn btn-default" })
+            @if ((Repository.CurrentUser.UserId==item.UserId)||Repository.CurrentUser.UserAdmin)
+            {
+                @Html.ActionLink("Edit", "Edit", new {id = item.UserId}, new {@class = "btn btn-default"})
+            }
+            @if (Repository.CurrentUser.UserAdmin)
+            {
+                @Html.ActionLink("Delete", "Delete", new {id = item.UserId}, new {@class = "btn btn-default"})
+            }
         </td>
     </tr>
 }

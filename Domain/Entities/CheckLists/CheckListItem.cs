@@ -12,6 +12,7 @@ namespace Domain.Entities.CheckLists
         public int CheckListItemId { get; set; }
         public int? CheckListId { get; set; }
         public CheckListEntity CheckListEntity { get; set; }
+        public string CheckListItemIdPublic { get; set; }
         public string Procedure { get; set; }
         public string ExpectedResult { get; set; }
         public virtual TestResult CheckListTestResult { get; set; }

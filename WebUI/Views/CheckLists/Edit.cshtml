@@ -24,6 +24,14 @@
                 @Html.ValidationMessageFor(model => model.CheckListName, "", new { @class = "text-danger" })
             </div>
         </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.CheckListItemIdSuffix, "Suffix to ID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CheckListItemIdSuffix, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CheckListItemIdSuffix, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

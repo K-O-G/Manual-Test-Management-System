@@ -7,7 +7,7 @@
 
 <h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Are you sure you want to delete this case?</h3>
 <div>
     <h4>Case</h4>
     <hr />
@@ -59,7 +59,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back to List", "Details","TestCaseEntities",new{id=Model.TestCaseId},new {@class = "btn btn-default btn-danger"})
         </div>
     }
 </div>

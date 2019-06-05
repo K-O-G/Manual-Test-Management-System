@@ -53,19 +53,34 @@
     <p>
         @Html.ActionLink("Create New", "Create", "Cases", new { id = Model.TestCaseEntityId }, new { @class = "btn btn-default" })
     </p>
-    <table class="table">
+    <table class="table table-bordered table-sm">
         <tr>
-            <th style="max-width: 25%">
+            <th style="max-width: 20%">
                 Summary
             </th>
-            <th>
+            <th style="max-width: 20%">
                 Preconditions
             </th>
             <th>
-                Case steps
-            </th>
-            <th>
-                Test result
+                <table class="table table-bordered table-sm">
+                    <tr >
+                        <th style="text-align: center" colspan="4">Case Steps</th>
+                    </tr>
+                    <tr>
+                        <th style="width: 2%">
+                            #
+                        </th>
+                        <th style="width: 37%">
+                            Action
+                        </th>
+                        <th style="width: 37%">
+                            Expected result
+                        </th>
+                        <th style="width: 24%">
+                            Test result
+                        </th>
+                    </tr>
+                </table>
             </th>
             <th>
                 Comment
@@ -74,7 +89,7 @@
                 Last Executor
             </th>
             <th>
-                Last Excecution
+                Last Execution
             </th>
 
             <th></th>
@@ -89,23 +104,24 @@
             @Html.DisplayFor(modelItem => item.CasePreconditions)
         </td>
         <td>
-            <table class="table">
+            <table class="table table-bordered table-sm">
+                
                 @foreach (var step in item.CaseSteps)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(caseStep => step.CaseStepNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(caseStep => step.CaseStepDescription)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(caseStep=>step.CaseStepExpectedResult)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(caseStep=>step.CaseStepResult.TestResultValue)
-                    </td>
-                </tr>
+                    <tr>
+                        <td style="width: 2%">
+                            @Html.DisplayFor(caseStep => step.CaseStepNumber)
+                        </td>
+                        <td style="width: 37%">
+                            @Html.DisplayFor(caseStep => step.CaseStepDescription)
+                        </td>
+                        <td style="width: 37%">
+                            @Html.DisplayFor(caseStep => step.CaseStepExpectedResult)
+                        </td>
+                        <td style="width: 24%">
+                            <span style="color: @step.CaseStepResult.TestResultColor">@step.CaseStepResult.TestResultValue</span>
+                        </td>
+                    </tr>
                 }
             </table>
         </td>
@@ -116,7 +132,7 @@
             @Html.DisplayFor(modelItem => item.LastExecutorCaseUser.UserName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LastExecutionDateTime)
+            @Html.DisplayFor(modelItem => item.LastExecutionDateTime.Date)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", "CheckListItems", new { id = item.TestCaseId }, new { @class = "btn btn-default" })

@@ -81,53 +81,52 @@
             <th></th>
         </tr>
 
-        @foreach (var item in Model.Cases) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CaseSummary)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CasePreconditions)
-        </td>
-        <td>
-            <table class="table">
-                @foreach (var step in item.CaseSteps)
-                {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(caseStep => step.CaseStepNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(caseStep => step.CaseStepDescription)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(caseStep=>step.CaseStepExpectedResult)
-                    </td>
-                    <td>
-                        @Html.DropDownListFor(caseStep=>step.CaseStepResult.TestResultId, ViewBag.TestResult as SelectList)
-                    </td>
-                    <td>
-                        @*todo кнопка для скрипта сохраняющего результат для CaseStep (вся цепочка - TescCaseEntity.Case.CaseStep. Результат сохраняем только для CaseStep)  *@
-                        <input value="Save Execute" type="button" class="btn btn-default _saveExecute" data-id="@step.CaseStepId"/>
-                    </td>
-                </tr>
-                }
-            </table>
-        </td>
-        <td>
-            @Html.EditorFor(modelItem => item.CaseComment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastExecutorCaseUser.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastExecutionDateTime)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", "CheckListItems", new { id = item.TestCaseId }, new { @class = "btn btn-default" })
-            @Html.ActionLink("Delete", "Delete", "CheckListItems", new { id = item.TestCaseId}, new { @class = "btn btn-default" })
-        </td>
-    </tr>
+        @foreach (var item in Model.Cases)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CaseSummary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CasePreconditions)
+                </td>
+                <td>
+                    <table class="table">
+                        @foreach (var step in item.CaseSteps)
+                        {
+                            <tr data-stepid="@step.CaseStepId">
+                                <td>
+                                    @Html.DisplayFor(caseStep => step.CaseStepNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(caseStep => step.CaseStepDescription)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(caseStep => step.CaseStepExpectedResult)
+                                </td>
+                                <td>
+                                    @Html.DropDownListFor(caseStep => step.CaseStepResult.TestResultId, ViewBag.TestResults as SelectList)
+                                </td>
+                                <td>
+                                    @*todo кнопка для скрипта сохраняющего результат для CaseStep (вся цепочка - TescCaseEntity.Case.CaseStep. Результат сохраняем только для CaseStep)  *@
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => item.CaseComment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastExecutorCaseUser.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastExecutionDateTime)
+                </td>
+                <td>
+                    <input value="Save Execute" type="button" class="btn btn-default _saveTestEntitiesExecute" data-id="@item.CaseId" />
+                </td>
+            </tr>
         }
     </table>
 </div>

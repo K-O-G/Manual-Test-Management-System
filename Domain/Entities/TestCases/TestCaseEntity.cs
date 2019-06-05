@@ -13,6 +13,7 @@ namespace Domain.Entities.TestCases
         [Column("TestCaseId")]
         public int TestCaseEntityId { get; set; }
         public string TestCaseName { get; set; }
+        public string TestCaseItemsIdSuffix { get; set; }
         public string TestCaseDescription { get; set; }
         public virtual Priority Priority { get; set; }
         public virtual List<Case> Cases { get; set; }

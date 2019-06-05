@@ -1,4 +1,4 @@
-﻿@using Domain.Entities
+﻿
 @model Domain.Entities.CheckLists.CheckListEntity
 
 @{
@@ -37,7 +37,7 @@
         </dt>
         <dd class="tooltip">
             <ul>
-                @foreach (Component c in Model.Components)
+                @foreach (var c in Model.Components)
                 {
 
                     <li>@c.ComponentName</li>
@@ -51,7 +51,10 @@
     </p>
 
     <table class="table">
-        <tr>
+        <tr style="max-width: 10%">
+            <th>
+                Id
+            </th>
             <th style="max-width: 25%">
                 Procedure
             </th>
@@ -61,7 +64,7 @@
             <th style="max-width: 25%">
                 Test Result
             </th>
-            <th style="max-width: 25%">
+            <th style="max-width: 20%">
                 Comment
             </th>
             <th>
@@ -76,6 +79,9 @@
         @foreach (var item in Model.CheckListItems)
         {
             <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckListItemIdPublic)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Procedure)
                 </td>
@@ -95,8 +101,8 @@
                     @Html.DisplayFor(modelItem => item.LastExecutionDateTime)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", "CheckListItems", new { id = item.CheckListItemId }, new { @class = "btn btn-default" })
-                    @Html.ActionLink("Delete", "Delete", "CheckListItems", new { id = item.CheckListItemId }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Edit", "Edit", "CheckListItems", new {id = item.CheckListItemId}, new {@class = "btn btn-default"})
+                    @Html.ActionLink("Delete", "Delete", "CheckListItems", new {id = item.CheckListItemId}, new {@class = "btn btn-default"})
                 </td>
             </tr>
         }

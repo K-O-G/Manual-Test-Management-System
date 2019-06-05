@@ -49,8 +49,9 @@
                 @Html.DisplayFor(modelItem => item.LastEditionDateTime)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.TestCaseEntityId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.TestCaseEntityId }) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.TestCaseEntityId })
+                @Html.ActionLink("Execute", "Execute", new { id = item.TestCaseEntityId })
+                @Html.ActionLink("Details", "Details", new { id = item.TestCaseEntityId })
                 @Html.ActionLink("Delete", "Delete", new { id = item.TestCaseEntityId })
             </td>
         </tr>

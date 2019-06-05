@@ -1,4 +1,5 @@
 ﻿@using System.Data.Entity.Core.Mapping
+@using Domain.Helpers
 @model IEnumerable<Domain.Entities.Component>
 
 @{
@@ -30,8 +31,11 @@
             @Html.DisplayFor(modelItem => item.ComponentDescription)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ComponentId }, new { @class = "btn btn-default" })
-            @Html.ActionLink("Delete", "Delete", new { id=item.ComponentId }, new { @class = "btn btn-default" })
+            @if (Repository.CurrentUser.UserAdmin)
+            {
+                @Html.ActionLink("Edit", "Edit", new {id = item.ComponentId}, new {@class = "btn btn-default"})
+                @Html.ActionLink("Delete", "Delete", new {id = item.ComponentId}, new {@class = "btn btn-default"})
+            }
         </td>
     </tr>
 }

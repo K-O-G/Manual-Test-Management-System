@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    var body = $(document.body);
     $("._saveExecute").click(function () {
         var id = $(this).data("id");
         var parent = $(this).parent().parent();
@@ -64,8 +65,46 @@
         stepCounter++;
         row.insertBefore("._footerTr");
     });
-    $("._removeStep").click(function () {
-        stepCounter--;
-        $(this).parent().parent().remove();
+
+    body.on("click",
+        "._removeStep",
+        function () {
+            stepCounter--;
+            $(this).parent().parent().remove();
+        });
+
+    $("._saveTestEntitiesExecute").click(function () {
+        var caseId = $(this).data("id");
+        var parent = $(this).parent().parent();
+        var selectListItems = parent.find("select");
+        var stepResultsDictionary = new Object();
+        selectListItems.each(function () {
+            stepResultsDictionary[parseInt($(this).parent().parent().data("stepid"))] = parseInt($(this).val());
+        });
+
+        var commentInput = parent.find("#item_CaseComment");
+        $.ajax({
+            url: '/TestCaseEntities/SaveExecute',
+            type: 'Post',
+            data: {
+                caseId: caseId,
+                stepResultsJson: JSON.stringify(stepResultsDictionary),
+                comment: commentInput.val()
+            },
+            success: function (data) {
+                var results = JSON.parse(data.stepResultsResult);
+                for (var key in results) {
+                    var selector = "[data-stepid='" + key + "']";
+                    var select = $(selector).find("select");
+                    var resultValue = select.find(':selected').text();
+                    var parentTD = select.parent();
+                    select.remove();
+                    parentTD[0].innerHTML = '<p style="color:' + results[key] + '">' + resultValue + '</p>';
+                };
+                var commentParent = commentInput.parent();
+                commentParent[0].innerHTML = '<p>' + commentInput.val() + '</p>';
+            }
+        });
     });
+
 });

@@ -11,6 +11,7 @@ namespace Domain.Entities.TestCases
         public int CaseId { get; set; }
         public int? TestCaseId { get; set; }
         public TestCaseEntity TestCase { get; set; }
+        public string CaseIdPublic { get; set; }
         public string CaseSummary { get; set; }
         public string CasePreconditions { get; set; }
         public virtual List<CaseStep> CaseSteps { get; set; }

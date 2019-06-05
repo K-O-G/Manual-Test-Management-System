@@ -11,12 +11,11 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-left">
-                @if (Repository.CurrentUser.UserAdmin)
+                @if (Repository.CurrentUser.UserAdmin||Repository.CurrentUser.UserTestExecutor || Repository.CurrentUser.UserTestCreator)
                 {
                     <li>@Html.ActionLink("Users", "Index", "Users")</li>
                     <li>@Html.ActionLink("Test results", "TestResultsList", "TestResults")</li>
-                    <li>@Html.ActionLink("Priorities" +
-                                         "", "Index", "Priorities")</li>
+                    <li>@Html.ActionLink("Priorities", "Index", "Priorities")</li>
                     <li>@Html.ActionLink("Components", "ComponentsList", "Components")</li>
                 }
                 @if (Repository.CurrentUser.UserTestExecutor || Repository.CurrentUser.UserTestCreator)
@@ -26,7 +25,7 @@
                 }
             </ul>
             <<div class="navbar-collapse collapse pull-right" style="margin-top: 8px">
-                @Html.Label(Repository.CurrentUser.UserName, new { style = "color:#BEBEBE; margin-top: 7px;" })
+                @Html.ActionLink(Repository.CurrentUser.UserName, "Edit","Users",Repository.CurrentUser.UserId,new { style = "color:#BEBEBE; margin-top: 7px;" })
                 @Html.ActionLink("Logout", "Logout", "Users", null, new { @class = "btn btn-default pull-right", style = "margin-left: 10px; background-color:#222; color:#BEBEBE; border-color:#BEBEBE;" })
             </div>
         </div>

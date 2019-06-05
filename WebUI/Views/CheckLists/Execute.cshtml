@@ -49,23 +49,26 @@
         </dl>
 
         <table class="table">
-            <tr>
+            <tr style="max-width: 10%">
                 <th>
+                    Id
+                </th>
+                <th style="max-width: 25%">
                     Procedure
                 </th>
                 <th>
                     Expected Result
                 </th>
-                <th>
+                <th style="max-width: 25%">
                     Test Result
                 </th>
-                <th>
+                <th style="max-width: 20%">
                     Comment
                 </th>
                 <th>
                     Last Executor
                 </th>
-                <th>
+                <th style="max-width: 20%">
                     Last Execution
                 </th>
                 <th></th>
@@ -74,6 +77,9 @@
             @foreach (var item in Model.CheckListItems)
             {
                 <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CheckListItemIdPublic)
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Procedure)
                     </td>
