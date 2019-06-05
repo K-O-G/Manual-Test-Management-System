@@ -17,6 +17,6 @@ namespace Domain.Entities.TestCases
         public virtual List<CaseStep> CaseSteps { get; set; }
         public virtual string CaseComment { get; set; }
         public virtual User LastExecutorCaseUser { get; set; }
-        public virtual DateTime LastExecutionDateTime { get; set; }
+        public virtual DateTime? LastExecutionDateTime { get; set; }
     }
 }

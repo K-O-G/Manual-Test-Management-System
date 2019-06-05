@@ -1,4 +1,5 @@
-﻿@model Domain.Entities.User
+﻿@using Domain.Helpers
+@model Domain.Entities.User
 
 @{
     ViewBag.Title = "Edit";
@@ -41,35 +42,39 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserAdmin,"Admin right", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.UserAdmin)
-                    @Html.ValidationMessageFor(model => model.UserAdmin, "", new { @class = "text-danger" })
+        @if (!Repository.CurrentUser.UserAdmin)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserAdmin,"Admin right", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.UserAdmin)
+                        @Html.ValidationMessageFor(model => model.UserAdmin, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserTestCreator,"Test Creator right", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.UserTestCreator)
-                    @Html.ValidationMessageFor(model => model.UserTestCreator, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserTestCreator,"Test Creator right", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.UserTestCreator)
+                        @Html.ValidationMessageFor(model => model.UserTestCreator, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserTestExecutor,"Test Executor right", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.UserTestExecutor)
-                    @Html.ValidationMessageFor(model => model.UserTestExecutor, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserTestExecutor,"Test Executor right", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.UserTestExecutor)
+                        @Html.ValidationMessageFor(model => model.UserTestExecutor, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
-        </div>
+        }
+        
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -80,5 +85,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", null, new{@class="btn btn-default"})
 </div>

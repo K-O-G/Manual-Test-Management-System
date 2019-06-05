@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Domain.Entities.TestCases.TestCaseEntity>
+﻿@using Domain.Helpers
+@model IEnumerable<Domain.Entities.TestCases.TestCaseEntity>
 
 @{
     ViewBag.Title = "Index";
@@ -49,10 +50,19 @@
                 @Html.DisplayFor(modelItem => item.LastEditionDateTime)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.TestCaseEntityId })
-                @Html.ActionLink("Execute", "Execute", new { id = item.TestCaseEntityId })
-                @Html.ActionLink("Details", "Details", new { id = item.TestCaseEntityId })
-                @Html.ActionLink("Delete", "Delete", new { id = item.TestCaseEntityId })
+                @if (Repository.CurrentUser.UserTestCreator)
+                {
+                    @Html.ActionLink("Edit", "Edit", new {id = item.TestCaseEntityId}, new {@class = "btn btn-default"})
+                }
+                @if (Repository.CurrentUser.UserTestExecutor)
+                {
+                    @Html.ActionLink("Execute", "Execute", new {id = item.TestCaseEntityId}, new {@class = "btn btn-default"})
+                }
+                @Html.ActionLink("Details", "Details", new {id = item.TestCaseEntityId}, new {@class = "btn btn-default"})
+                @if ((Repository.CurrentUser.UserId==item.CreatorCaseUser.UserId) || Repository.CurrentUser.UserAdmin)
+                {
+                    @Html.ActionLink("Delete", "Delete", new {id = item.TestCaseEntityId}, new {@class = "btn btn-default"})
+                }
             </td>
         </tr>
     }

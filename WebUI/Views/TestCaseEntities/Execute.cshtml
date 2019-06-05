@@ -107,9 +107,6 @@
                                 <td>
                                     @Html.DropDownListFor(caseStep => step.CaseStepResult.TestResultId, ViewBag.TestResults as SelectList)
                                 </td>
-                                <td>
-                                    @*todo кнопка для скрипта сохраняющего результат для CaseStep (вся цепочка - TescCaseEntity.Case.CaseStep. Результат сохраняем только для CaseStep)  *@
-                                </td>
                             </tr>
                         }
                     </table>
@@ -131,6 +128,6 @@
     </table>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TestCaseEntityId }) |
-    @Html.ActionLink("Back to List", "Index")
+   
+    @Html.ActionLink("Back to List", "Index",null,new{@class="btn btn-default"})
 </p>

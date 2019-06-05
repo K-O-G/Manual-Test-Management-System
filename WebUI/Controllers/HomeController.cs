@@ -19,26 +19,42 @@ namespace WebUI.Controllers
         {
             List<DataPoint> checkLists = new List<DataPoint>();
             var allCountCL = db.CheckListItems.Count();
-            foreach (var testResult in db.TestResults)
+            if (allCountCL != 0)
             {
-                var count = db.CheckListItems
-                    .Count(t => t.CheckListTestResult.TestResultId == testResult.TestResultId);
-                count = (count * 100) / allCountCL;
-                checkLists.Add(new DataPoint(testResult.TestResultValue, count));
+                foreach (var testResult in db.TestResults)
+                {
+                    var count = db.CheckListItems
+                        .Count(t => t.CheckListTestResult.TestResultId == testResult.TestResultId);
+                    count = (count * 100) / allCountCL;
+                    checkLists.Add(new DataPoint(testResult.TestResultValue, count));
+                }
+            }
+            else
+            {
+                checkLists.Add(new DataPoint("CheckLists are not created", 100));
             }
             ViewBag.CheckLists = JsonConvert.SerializeObject(checkLists);
 
+
             List<DataPoint> testCases = new List<DataPoint>();
 
-            var allCountTC = db.CaseSteps.Count(); 
-            foreach (var testResult in db.TestResults)
+            var allCountTC = db.CaseSteps.Count();
+            if (allCountTC != 0)
             {
-                var count = db.CaseSteps
-                    .Count(t => t.CaseStepResult.TestResultId == testResult.TestResultId);
-                count = (count * 100) / allCountTC;
-                testCases.Add(new DataPoint(testResult.TestResultValue, count));
+                foreach (var testResult in db.TestResults)
+                {
+                    var count = db.CaseSteps
+                        .Count(t => t.CaseStepResult.TestResultId == testResult.TestResultId);
+                    count = (count * 100) / allCountTC;
+                    testCases.Add(new DataPoint(testResult.TestResultValue, count));
+                }
+            }
+            else
+            {
+                testCases.Add(new DataPoint("Test cases not created ", 100));
             }
             ViewBag.TestCases = JsonConvert.SerializeObject(testCases);
+
             return View();
         }
     }

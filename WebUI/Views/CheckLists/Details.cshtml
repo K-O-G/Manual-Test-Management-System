@@ -98,7 +98,9 @@
                     @Html.DisplayFor(modelItem => item.LastExecutorCheckListUser.UserName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LastExecutionDateTime)
+                    <span>
+                        @(item.LastExecutionDateTime.HasValue ? item.LastExecutionDateTime.Value.ToShortDateString() : "")
+                    </span>
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", "CheckListItems", new {id = item.CheckListItemId}, new {@class = "btn btn-default"})

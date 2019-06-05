@@ -190,13 +190,16 @@ namespace WebUI.Controllers
 
                     checkListEntity.Components = components;
                 }
-
-                for (int i = 0; i < checkListEntity.CheckListItems.Count; i++)
+                checkListEntity.CheckListItems = db.CheckListItems.Where(tc => tc.CheckListId == checkListEntity.CheckListEntityId).ToList();
+                if (checkListEntity.CheckListItems != null)
                 {
-                    checkListEntity.CheckListItems[i].CheckListItemIdPublic =
-                        $"{checkListEntity.CheckListItemIdSuffix}{i+1}";
-                    db.Entry(checkListEntity.CheckListItems[i]).State = EntityState.Modified;
-                    db.SaveChanges();
+                    for (int i = 0; i < checkListEntity.CheckListItems.Count; i++)
+                    {
+                        checkListEntity.CheckListItems[i].CheckListItemIdPublic =
+                            $"{checkListEntity.CheckListItemIdSuffix}{i + 1}";
+                        db.Entry(checkListEntity.CheckListItems[i]).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
                 }
                 db.Entry(checkListEntity).State = EntityState.Modified;
                 db.SaveChanges();

@@ -142,7 +142,7 @@ namespace WebUI.Controllers
                 if (selectedComponents != null)
                 {
                     List<Component> components = new List<Component>();
-                    //получаем выбранные курсы
+                    //получаем выбранные компоненты
                     foreach (var c in db.Components.Where(co => selectedComponents.Contains(co.ComponentId)))
                     {
                         components.Add(c);
@@ -151,9 +151,15 @@ namespace WebUI.Controllers
                     testCaseEntity.Components = components;
                 }
 
-                for (int i = 0; i < testCaseEntity.Cases.Count; i++)
+                testCaseEntity.Cases = db.Cases.Where(tc => tc.TestCaseId==testCaseEntity.TestCaseEntityId).ToList();
+                if (testCaseEntity.Cases != null)
                 {
-                    testCaseEntity.Cases[i].CaseIdPublic = $"{testCaseEntity.TestCaseItemsIdSuffix}{i+1}";
+                    for (int i = 0; i < testCaseEntity.Cases.Count; i++)
+                    {
+                        testCaseEntity.Cases[i].CaseIdPublic = $"{testCaseEntity.TestCaseItemsIdSuffix}{i + 1}";
+                        db.Entry(testCaseEntity.Cases[i]).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
                 }
                 testCaseEntity.LastEditionDateTime = DateTime.Now;
                 testCaseEntity.LastEditorCaseUser = db.Users.FirstOrDefault(t => t.UserId == Repository.CurrentUser.UserId);

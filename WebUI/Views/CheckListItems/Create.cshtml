@@ -10,40 +10,41 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>CheckList Item</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.CheckListId, "CheckList", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10" style="margin-top: 6px;">
-                @Html.DisplayFor(model=>model.CheckListEntity.CheckListName)
-                </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Procedure,"Procedure", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Procedure, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Procedure, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ExpectedResult,"Expected Result", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ExpectedResult, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ExpectedResult, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+<div class="form-horizontal">
+    <h4>CheckList Item</h4>
+    <hr />
+    @Html.HiddenFor(model => model.CheckListId)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.CheckListEntity.CheckListName, "CheckList", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10" style="margin-top: 6px;">
+            @Html.DisplayFor(model => model.CheckListEntity.CheckListName)
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Procedure, "Procedure", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Procedure, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Procedure, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ExpectedResult, "Expected Result", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ExpectedResult, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ExpectedResult, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
 @*todo bug "Object Reference" *@

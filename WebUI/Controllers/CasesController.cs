@@ -28,7 +28,8 @@ namespace WebUI.Controllers
             }
 
             TestCaseEntity testCaseEntity = db.TestCases.Find(id);
-            var @case = new Case() { TestCase = testCaseEntity };
+            var @case = new Case() { TestCase = testCaseEntity, TestCaseId = id};
+
             return View(@case);
         }
 
@@ -44,9 +45,10 @@ namespace WebUI.Controllers
                 TestCaseId = caseModel.TestCaseId, CaseId = caseModel.CaseId, CaseSummary = caseModel.CaseSummary,
                 CasePreconditions = caseModel.CasePreconditions
             };
-            dbCase.CaseIdPublic = $"{dbCase.TestCase.TestCaseItemsIdSuffix}{dbCase.TestCase.Cases.Count+1}";
-//            dbCase.LastExecutionDateTime = DateTime.Now;
-//            dbCase.LastExecutorCaseUser = db.Users.FirstOrDefault(t=>t.UserId==Repository.CurrentUser.UserId);
+            dbCase.TestCase = db.TestCases.Find(dbCase.TestCaseId);
+            if (dbCase.TestCase != null)
+                dbCase.CaseIdPublic = $"{dbCase.TestCase.TestCaseItemsIdSuffix}{dbCase.TestCase.Cases.Count()+ 1}";
+//                db.Users.FirstOrDefault(t=>t.UserId==Repository.CurrentUser.UserId);
             if (dbCase.CaseSteps == null) dbCase.CaseSteps = new List<CaseStep>();
             foreach (var caseModelCaseStep in caseModel.CaseSteps)
             {
@@ -87,6 +89,9 @@ namespace WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
+                @case.CaseComment = "";
+                @case.LastExecutorCaseUser = null;
+                @case.LastExecutionDateTime = null;
                 db.Entry(@case).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Details","TestCaseEntities",new{id=@case.TestCaseId});

@@ -42,7 +42,7 @@ namespace WebUI.Controllers
             }
 
             CheckListEntity checkListEntity = db.CheckLists.Find(id);
-            var checkListItem = new CheckListItem(){CheckListEntity = checkListEntity};
+            var checkListItem = new CheckListItem() { CheckListEntity = checkListEntity ,CheckListId = id};
             return View(checkListItem);
         }
 
@@ -56,17 +56,22 @@ namespace WebUI.Controllers
             if (ModelState.IsValid)
             {
                 checkListItem.CheckListTestResult = db.TestResults.FirstOrDefault(t => t.TestResultId == 1);
-//                checkListItem.LastExecutionDateTime = null;
+                //                checkListItem.LastExecutionDateTime = null;
                 checkListItem.CheckListEntity = db.CheckLists.Find(checkListItem.CheckListId);
                 if (checkListItem.CheckListEntity != null)
+                {
+                    checkListItem.CheckListEntity.CheckListItems = db.CheckListItems
+                        .Where(cl => cl.CheckListId == checkListItem.CheckListId).ToList();
                     checkListItem.CheckListItemIdPublic =
-                        $"{checkListItem.CheckListEntity.CheckListItemIdSuffix}{(checkListItem.CheckListEntity.CheckListItems.Count + 1)}";
-                db.CheckListItems.Add(checkListItem);
-                db.SaveChanges();
-                return RedirectToAction("Details","CheckLists",new{id=checkListItem.CheckListId});
+                        $"{checkListItem.CheckListEntity.CheckListItemIdSuffix}{checkListItem.CheckListEntity.CheckListItems.Count() + 1}";
+                    db.CheckListItems.Add(checkListItem);
+                    db.SaveChanges();
+                    return RedirectToAction("Details", "CheckLists",
+                        new { id = checkListItem.CheckListEntity.CheckListEntityId });
+                }
             }
 
-            return View(checkListItem);
+            return RedirectToAction("Details", "CheckLists", new { id = checkListItem.CheckListId });
         }
 
         // GET: CheckListItems/Edit/5
@@ -96,12 +101,15 @@ namespace WebUI.Controllers
             if (ModelState.IsValid)
             {
                 checkListItem.CheckListTestResult =
-                    db.TestResults.FirstOrDefault(t => t.TestResultId==0);
+                    db.TestResults.FirstOrDefault(t => t.TestResultId == 0);
                 checkListItem.CheckListComment = "";
                 checkListItem.LastExecutionDateTime = null;
+                checkListItem.CheckListEntity = db.CheckLists.Find(checkListItem.CheckListId);
+                checkListItem.CheckListItemIdPublic =
+                    $"{checkListItem.CheckListEntity.CheckListItemIdSuffix}{checkListItem.CheckListEntity.CheckListItems.Count()+1}";
                 db.Entry(checkListItem).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Details","CheckLists",new{id=checkListItem.CheckListId});
+                return RedirectToAction("Details", "CheckLists", new { id = checkListItem.CheckListId });
             }
             return View(checkListItem);
         }
@@ -132,9 +140,9 @@ namespace WebUI.Controllers
                 var idCheckList = checkListItem.CheckListId;
                 db.CheckListItems.Remove(checkListItem);
                 db.SaveChanges();
-                return RedirectToAction("Details","CheckLists", new{id=idCheckList});
+                return RedirectToAction("Details", "CheckLists", new { id = idCheckList });
             }
-            return RedirectToAction("CheckLists","CheckLists");
+            return RedirectToAction("CheckLists", "CheckLists");
         }
 
         protected override void Dispose(bool disposing)

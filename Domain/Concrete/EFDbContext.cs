@@ -62,12 +62,19 @@ namespace Domain.Concrete
                 .HasOptional<TestCaseEntity>(c => c.TestCase)
                 .WithMany()
                 .WillCascadeOnDelete(true);
-            
+            modelBuilder
+                .Entity<Case>()
+                .HasOptional<User>(u => u.LastExecutorCaseUser)
+                .WithOptionalPrincipal();
+            modelBuilder
+                .Entity<CheckListItem>()
+                .HasOptional<User>(u => u.LastExecutorCheckListUser)
+                .WithOptionalPrincipal();
         }
     }
 }
 
-public class TestInitializerDb : CreateDatabaseIfNotExists<EFDbContext>
+public class TestInitializerDb : DropCreateDatabaseIfModelChanges<EFDbContext>
 {
     protected override void Seed(EFDbContext context)
     {
