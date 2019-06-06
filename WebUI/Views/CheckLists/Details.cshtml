@@ -123,6 +123,9 @@
     </table>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CheckListEntityId }) |
-    @Html.ActionLink("Back to List", "CheckLists")
+    @if (Repository.CurrentUser.UserTestCreator)
+    {
+        @Html.ActionLink("Edit", "Edit", new {id = Model.CheckListEntityId},new{@class="btn btn-default"})
+    }
+    @Html.ActionLink("Back to List", "CheckLists",null,new{@class="btn btn-default"})
 </p>

@@ -8,10 +8,12 @@
 }
 
 <h2>CheckLists</h2>
-
-<p>
-    @Html.ActionLink("Create new CheckList", "Create",null,new{@class="btn btn-success"})
-</p>
+@if (Repository.CurrentUser.UserTestCreator)
+{
+    <p>
+        @Html.ActionLink("Create new CheckList", "Create", null, new {@class = "btn btn-success"})
+    </p>
+}
 <table class="table table-bordered">
     <tr>
         <th>
@@ -55,11 +57,10 @@
                 {
                     @Html.ActionLink("Execute", "Execute", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
                 }
-                @if (!Repository.CurrentUser.UserAdmin && !Repository.CurrentUser.UserTestExecutor)
-                {
+
                     @Html.ActionLink("Details", "Details", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
-                }
-                @if (Repository.CurrentUser.UserTestCreator)
+
+                @if ((Repository.CurrentUser.UserTestCreator &&Repository.CurrentUser.UserId==item.CreatorCheckListUser.UserId)||Repository.CurrentUser.UserAdmin)
                 {
                     @Html.ActionLink("Delete", "Delete", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
                 }

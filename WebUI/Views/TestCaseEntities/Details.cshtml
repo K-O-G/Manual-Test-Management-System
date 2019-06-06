@@ -51,9 +51,12 @@
         </dd>
 
     </dl>
-    <p>
-        @Html.ActionLink("Create New", "Create", "Cases", new { id = Model.TestCaseEntityId }, new { @class = "btn btn-default" })
-    </p>
+    @if (Repository.CurrentUser.UserTestCreator)
+    {
+        <p>
+            @Html.ActionLink("Create New", "Create", "Cases", new { id = Model.TestCaseEntityId }, new { @class = "btn btn-default" })
+        </p>
+    }
     <table class="table table-bordered table-sm">
         <tr>
             <th>
@@ -160,6 +163,9 @@
     </table>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TestCaseEntityId },new { @class = "btn btn-default" })
-    @Html.ActionLink("Back to List", "Index",null,new { @class = "btn btn-default" })
+    @if (Repository.CurrentUser.UserTestCreator)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.TestCaseEntityId }, new { @class = "btn btn-default" })
+    }
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
 </p>

@@ -99,6 +99,10 @@
             resetSequence();
         });
 
+    $(document).ready(function () {
+        resetSequence();
+    });
+
     function resetSequence() {
         $("._stepRow").each(function () {
             var rowIndex = $(this).parent().children().index($(this));

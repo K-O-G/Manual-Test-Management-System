@@ -42,16 +42,9 @@ namespace WebUI.Controllers
             foreach (var @case in testCaseEntity.Cases)
             {
                 @case.CaseSteps = new List<CaseStep>(db.CaseSteps.Where(cs => cs.CaseId == @case.CaseId));
+                @case.CaseSteps.OrderBy(t=>t.CaseStepNumber);
             }
-            //            if (!checkListEntity.CheckListItems.IsNullOrEmpty())
-            //            {
-            //                foreach (var item in checkListEntity.CheckListItems)
-            //                {
-            //                    item.CheckListTestResult = db.TestResults.FirstOrDefault(c => c.TestResultValue == "Not Executed");
-            //                    db.Entry(item).State = EntityState.Modified;
-            //                    db.SaveChanges();
-            //                }
-            //            }
+            
             if (testCaseEntity.Cases == null)
             {
                 return HttpNotFound();
@@ -59,7 +52,7 @@ namespace WebUI.Controllers
 
             foreach (var csCase in testCaseEntity.Cases)
             {
-                csCase.CaseSteps.OrderBy(cstep => cstep.CaseStepId);
+//                csCase.CaseSteps.OrderBy(cstep => cstep.CaseStepId);
                 if (csCase.CaseSteps != null)
                 {
                     foreach (var item in csCase.CaseSteps)
@@ -137,7 +130,6 @@ namespace WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "TestCaseEntityId,TestCaseItemsIdSuffix,TestCaseName,TestCaseDescription,LastEditionDateTime,LastEditorCaseUser")] TestCaseEntity testCaseEntity, int[] selectedComponents)
         {
-            //todo переписать скрипт и сделать через десериализатор
             if (ModelState.IsValid)
             {
                 if (selectedComponents != null)
@@ -255,7 +247,7 @@ namespace WebUI.Controllers
 
             foreach (var csCase in testCaseEntity.Cases)
             {
-                csCase.CaseSteps.OrderBy(cstep => cstep.CaseStepId);
+                csCase.CaseSteps.OrderBy(cstep => cstep.CaseStepNumber);
             }
             return View(testCaseEntity);
         }

@@ -28,7 +28,7 @@ namespace WebUI.Controllers
             }
 
             TestCaseEntity testCaseEntity = db.TestCases.Find(id);
-            var @case = new Case() { TestCase = testCaseEntity, TestCaseId = id};
+            var @case = new Case() { TestCase = testCaseEntity, TestCaseId = id };
 
             return View(@case);
         }
@@ -42,15 +42,17 @@ namespace WebUI.Controllers
             TestCaseViewModel caseModel = (TestCaseViewModel)JsonConvert.DeserializeObject(caseModelJson, typeof(TestCaseViewModel));
             var tCase = new Case()
             {
-                TestCaseId = caseModel.TestCaseId, CaseId = caseModel.CaseId, CaseSummary = caseModel.CaseSummary,
+                TestCaseId = caseModel.TestCaseId,
+                CaseId = caseModel.CaseId,
+                CaseSummary = caseModel.CaseSummary,
                 CasePreconditions = caseModel.CasePreconditions
             };
-            var dbCase = db.Cases.FirstOrDefault(c=>c.CaseId==caseModel.CaseId);
+            var dbCase = db.Cases.FirstOrDefault(c => c.CaseId == caseModel.CaseId);
             dbCase = tCase;
             dbCase.TestCase = db.TestCases.Find(dbCase.TestCaseId);
             if (dbCase.TestCase != null)
-                dbCase.CaseIdPublic = $"{dbCase.TestCase.TestCaseItemsIdSuffix}{dbCase.TestCase.Cases.Count()+ 1}";
-//                db.Users.FirstOrDefault(t=>t.UserId==Repository.CurrentUser.UserId);
+                dbCase.CaseIdPublic = $"{dbCase.TestCase.TestCaseItemsIdSuffix}{dbCase.TestCase.Cases.Count() + 1}";
+            //                db.Users.FirstOrDefault(t=>t.UserId==Repository.CurrentUser.UserId);
             if (dbCase.CaseSteps == null) dbCase.CaseSteps = new List<CaseStep>();
             foreach (var caseModelCaseStep in caseModel.CaseSteps)
             {
@@ -64,7 +66,7 @@ namespace WebUI.Controllers
             }
             db.Cases.Add(dbCase);
             db.SaveChanges();
-            return Json(new { @url = Url.Action("Details","TestCaseEntities",new{id=dbCase.TestCaseId}) });
+            return Json(new { @url = Url.Action("Details", "TestCaseEntities", new { id = dbCase.TestCaseId }) });
         }
 
         // GET: Cases/Edit/5
@@ -100,12 +102,12 @@ namespace WebUI.Controllers
             };
             //                db.Users.FirstOrDefault(t=>t.UserId==Repository.CurrentUser.UserId);
             dbCase.CaseSteps = db.CaseSteps.Where(cs => cs.CaseId == dbCase.CaseId).ToList();
-            foreach (var caseStep in dbCase.CaseSteps)
-            {
-                db.CaseSteps.Remove(caseStep);
-            }
+
+            db.CaseSteps.RemoveRange(dbCase.CaseSteps);
+            db.SaveChanges();
+
             if (dbCase.CaseSteps == null) dbCase.CaseSteps = new List<CaseStep>();
-            
+
             foreach (var caseModelCaseStep in caseModel.CaseSteps)
             {
                 dbCase.CaseSteps.Add(new CaseStep()
@@ -117,6 +119,7 @@ namespace WebUI.Controllers
                     CaseStepResult = db.TestResults.FirstOrDefault(t => t.TestResultId == 1)
                 });
             }
+            db.CaseSteps.AddRange(dbCase.CaseSteps);
 
             dbCase.TestCase = db.TestCases.FirstOrDefault(tc => tc.TestCaseEntityId == dbCase.TestCaseId);
             if (dbCase.TestCase == null)
@@ -159,7 +162,7 @@ namespace WebUI.Controllers
             @case.CaseSteps = db.CaseSteps.Where(cs => cs.CaseId == @case.CaseId).ToList();
             db.Cases.Remove(@case);
             db.SaveChanges();
-            return RedirectToAction("Details", "TestCaseEntities", new {id = idTestCase});
+            return RedirectToAction("Details", "TestCaseEntities", new { id = idTestCase });
         }
 
         protected override void Dispose(bool disposing)
