@@ -228,30 +228,30 @@ namespace WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            //todo recursively delete items?
             CheckListEntity checkListEntity = db.CheckLists.Find(id);
-            if (checkListEntity != null)
+            if (checkListEntity == null)
             {
-                //                foreach (var item in checkListEntity.CheckListItems)
-                //                {
-                //                    var it = db.CheckListItems.Find(item);
-                //                    db.CheckListItems.Remove(it ?? throw new InvalidOperationException());
-                //
-                //                }
-                db.CheckLists.Remove(checkListEntity);
+                return HttpNotFound();
             }
-
+            checkListEntity.CheckListItems = db.CheckListItems
+                .Where(i => i.CheckListId == checkListEntity.CheckListEntityId).ToList();
+            checkListEntity.Components = db.Components.Include(p => p.ComponentId).ToList();
+            foreach (var c in checkListEntity.Components)
+            {
+                db.Entry(c).State = EntityState.Deleted;
+            }
+            db.CheckLists.Remove(checkListEntity);
             db.SaveChanges();
             return RedirectToAction("CheckLists");
         }
 
-        protected override void Dispose(bool disposing)
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            db.Dispose();
         }
+        base.Dispose(disposing);
     }
+}
 }

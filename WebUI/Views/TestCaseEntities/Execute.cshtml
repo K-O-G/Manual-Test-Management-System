@@ -2,11 +2,11 @@
 @model Domain.Entities.TestCases.TestCaseEntity
 
 @{
-    ViewBag.Title = "Test Case run";
+    ViewBag.Title = "Test Case execute";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Test Case Run</h2>
+<h2>Test Case Execute</h2>
 
 <div>
     <hr />
@@ -131,7 +131,7 @@
                     @Html.DisplayFor(modelItem => item.LastExecutionDateTime)
                 </td>
                 <td>
-                    <input value="Save Run" type="button" class="btn btn-success _saveTestEntitiesRun" data-id="@item.CaseId" />
+                    <input value="Save Run" type="button" class="btn btn-success _saveTestEntitiesExecute" data-id="@item.CaseId" />
                 </td>
             </tr>
         }

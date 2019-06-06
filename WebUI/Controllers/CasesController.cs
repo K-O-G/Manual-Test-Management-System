@@ -40,11 +40,13 @@ namespace WebUI.Controllers
         public ActionResult Create(string caseModelJson)
         {
             TestCaseViewModel caseModel = (TestCaseViewModel)JsonConvert.DeserializeObject(caseModelJson, typeof(TestCaseViewModel));
-            var dbCase = new Case()
+            var tCase = new Case()
             {
                 TestCaseId = caseModel.TestCaseId, CaseId = caseModel.CaseId, CaseSummary = caseModel.CaseSummary,
                 CasePreconditions = caseModel.CasePreconditions
             };
+            var dbCase = db.Cases.FirstOrDefault(c=>c.CaseId==caseModel.CaseId);
+            dbCase = tCase;
             dbCase.TestCase = db.TestCases.Find(dbCase.TestCaseId);
             if (dbCase.TestCase != null)
                 dbCase.CaseIdPublic = $"{dbCase.TestCase.TestCaseItemsIdSuffix}{dbCase.TestCase.Cases.Count()+ 1}";
@@ -86,7 +88,6 @@ namespace WebUI.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(string caseModelJson)
         {
             TestCaseViewModel caseModel = (TestCaseViewModel)JsonConvert.DeserializeObject(caseModelJson, typeof(TestCaseViewModel));
@@ -98,11 +99,18 @@ namespace WebUI.Controllers
                 CasePreconditions = caseModel.CasePreconditions
             };
             //                db.Users.FirstOrDefault(t=>t.UserId==Repository.CurrentUser.UserId);
+            dbCase.CaseSteps = db.CaseSteps.Where(cs => cs.CaseId == dbCase.CaseId).ToList();
+            foreach (var caseStep in dbCase.CaseSteps)
+            {
+                db.CaseSteps.Remove(caseStep);
+            }
             if (dbCase.CaseSteps == null) dbCase.CaseSteps = new List<CaseStep>();
+            
             foreach (var caseModelCaseStep in caseModel.CaseSteps)
             {
                 dbCase.CaseSteps.Add(new CaseStep()
                 {
+                    CaseId = dbCase.CaseId,
                     CaseStepNumber = caseModelCaseStep.CaseStepNumber,
                     CaseStepDescription = caseModelCaseStep.CaseStepDescription,
                     CaseStepExpectedResult = caseModelCaseStep.CaseStepExpectedResult,
@@ -136,6 +144,8 @@ namespace WebUI.Controllers
             {
                 return HttpNotFound();
             }
+
+            @case.CaseSteps = db.CaseSteps.Where(cs => cs.CaseId == @case.CaseId).ToList();
             return View(@case);
         }
 
@@ -146,6 +156,7 @@ namespace WebUI.Controllers
         {
             Case @case = db.Cases.Find(id);
             var idTestCase = @case.TestCaseId;
+            @case.CaseSteps = db.CaseSteps.Where(cs => cs.CaseId == @case.CaseId).ToList();
             db.Cases.Remove(@case);
             db.SaveChanges();
             return RedirectToAction("Details", "TestCaseEntities", new {id = idTestCase});

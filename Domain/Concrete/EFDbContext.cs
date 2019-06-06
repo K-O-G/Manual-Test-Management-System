@@ -50,18 +50,7 @@ namespace Domain.Concrete
                     cs.MapRightKey("CourseRefId");
                     cs.ToTable("TestCase_Component");
                 });
-            modelBuilder.Entity<CheckListItem>()
-                .HasOptional<CheckListEntity>( c=>c.CheckListEntity)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-            modelBuilder.Entity<CaseStep>()
-                .HasOptional<Case>(c => c.Case)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-            modelBuilder.Entity<Case>()
-                .HasOptional<TestCaseEntity>(c => c.TestCase)
-                .WithMany()
-                .WillCascadeOnDelete(true);
+
             modelBuilder
                 .Entity<Case>()
                 .HasOptional<User>(u => u.LastExecutorCaseUser)

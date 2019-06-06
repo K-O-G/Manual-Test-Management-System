@@ -192,7 +192,25 @@ namespace WebUI.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             TestCaseEntity testCaseEntity = db.TestCases.Find(id);
-            db.TestCases.Remove(testCaseEntity ?? throw new InvalidOperationException());
+            if (testCaseEntity == null)
+            {
+                return HttpNotFound();
+            }
+
+            testCaseEntity.Cases = db.Cases.Include(c => c.TestCaseId).ToList();
+            if (testCaseEntity.Cases!=null)
+            {
+                foreach (var dbCase in testCaseEntity.Cases)
+                {
+                    dbCase.CaseSteps = db.CaseSteps.Include(cs => cs.CaseId).ToList();
+                }
+            }
+            testCaseEntity.Components = db.Components.Include(p => p.ComponentId).ToList();
+            foreach (var c in testCaseEntity.Components)
+            {
+                db.Entry(c).State = EntityState.Deleted;
+            }
+            db.TestCases.Remove(testCaseEntity);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
