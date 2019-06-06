@@ -35,7 +35,10 @@
         @if (Repository.CurrentUser.UserAdmin)
         {
             @Html.ActionLink("Edit", "Edit", new {id = item.TestResultId}, new {@class = "btn btn-default"})
-            @Html.ActionLink("Delete", "Delete", new {id = item.TestResultId}, new {@class = "btn btn-default"})
+            if (item.TestResultId!=1)
+            {
+                @Html.ActionLink("Delete", "Delete", new {id = item.TestResultId}, new {@class = "btn btn-default"})
+            }
         }
     </td>
 </tr>

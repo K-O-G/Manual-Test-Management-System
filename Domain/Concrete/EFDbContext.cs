@@ -78,11 +78,29 @@ public class TestInitializerDb : DropCreateDatabaseIfModelChanges<EFDbContext>
 {
     protected override void Seed(EFDbContext context)
     {
-        TestResult testResult = new TestResult { TestResultId = 1, TestResultValue = "Not Executed", TestResultDescription = "Test failed and the problem is in the test object.", TestResultColor = "#454545" };
-        Priority priority = new Priority { PriorityId = 1, PriorityName = "Minor", PriorityDescription = "In this category, all the suggestions, and small UI changes or product improvements will be included. They will not affect the software usage in anyway and can be avoided if there is tight deadline.", PriorityColor = "#00ac00" };
+        TestResult testResult = new TestResult
+        {
+            TestResultId = 1, TestResultValue = "Not Running",
+            TestResultDescription = "Test was not running", TestResultColor = "#454545"
+        };
+        Priority priority = new Priority
+        {
+            PriorityId = 1, PriorityName = "Minor",
+            PriorityDescription =
+                "In this category, all the suggestions, and small UI changes or product improvements will be included. They will not affect the software usage in anyway and can be avoided if there is tight deadline.",
+            PriorityColor = "#00ac00"
+        };
         string pass = new UserSecurity().CalculateMD5Hash("12345");
-        User user = new User { UserId = 1, UserName = "Admin", UserEmail = "akatyryna@ukr.net", UserPassword = pass, UserAdmin = true, UserTestCreator = true, UserTestExecutor = true };
-        User user1 = new User {UserId = 2,UserName = "V_I_I",UserEmail = "irina.vitkovska@livenau.net",UserPassword = pass, UserAdmin = true, UserTestCreator = true, UserTestExecutor = true };
+        User user = new User
+        {
+            UserId = 1, UserName = "Admin", UserEmail = "akatyryna@ukr.net", UserPassword = pass, UserAdmin = true,
+            UserTestCreator = true, UserTestExecutor = true
+        };
+        User user1 = new User
+        {
+            UserId = 2, UserName = "V_I_I", UserEmail = "irina.vitkovska@livenau.net", UserPassword = pass,
+            UserAdmin = true, UserTestCreator = true, UserTestExecutor = true
+        };
         context.TestResults.Add(testResult);
         context.Priorities.Add(priority);
         context.Users.Add(user);

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.WebPages;
 using Domain.Concrete;
 using Domain.Entities;
 using Domain.Helpers;
@@ -119,6 +120,10 @@ namespace WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (model.UserPassword.IsEmpty())
+                {
+                    ModelState.AddModelError("", "Please, put password");
+                }
                 // поиск пользователя в бд
                 User user = null;
                 UserSecurity security = new UserSecurity();

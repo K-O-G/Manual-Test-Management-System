@@ -18,14 +18,12 @@
                     <li>@Html.ActionLink("Priorities", "Index", "Priorities")</li>
                     <li>@Html.ActionLink("Components", "ComponentsList", "Components")</li>
                 }
-                @if (Repository.CurrentUser.UserTestExecutor || Repository.CurrentUser.UserTestCreator)
-                {
+
                     <li>@Html.ActionLink("Test Cases", "Index", "TestCaseEntities")</li>
                     <li>@Html.ActionLink("CheckLists", "CheckLists", "CheckLists")</li>
-                }
             </ul>
             <<div class="navbar-collapse collapse pull-right" style="margin-top: 8px">
-                @Html.ActionLink(Repository.CurrentUser.UserName, "Edit","Users",Repository.CurrentUser.UserId,new {@class="pull-left", style = "color:#BEBEBE; margin-top: 7px;" })
+                @Html.ActionLink(Repository.CurrentUser.UserName, "Edit","Users",new{id=Repository.CurrentUser.UserId},new {@class="pull-left", style = "color:#BEBEBE; margin-top: 7px;" })
                 @Html.ActionLink("Logout", "Logout", "Users", null, new { @class = "btn btn-default pull-right", style = "margin-left: 10px; background-color:#222; color:#BEBEBE; border-color:#BEBEBE;" })
             </div>
         </div>

@@ -52,16 +52,18 @@
             <td>
                 @if (Repository.CurrentUser.UserTestCreator)
                 {
-                    @Html.ActionLink("Edit", "Edit", new {id = item.TestCaseEntityId}, new {@class = "btn btn-default"})
+                    @Html.ActionLink("Edit", "Edit", new { id = item.TestCaseEntityId }, new { @class = "btn btn-default" })
                 }
                 @if (Repository.CurrentUser.UserTestExecutor)
                 {
-                    @Html.ActionLink("Execute", "Execute", new {id = item.TestCaseEntityId}, new {@class = "btn btn-default"})
+                    @Html.ActionLink("Execute", "Execute", new { id = item.TestCaseEntityId }, new { @class = "btn btn-default" })
                 }
-                @Html.ActionLink("Details", "Details", new {id = item.TestCaseEntityId}, new {@class = "btn btn-default"})
-                @if ((Repository.CurrentUser.UserId==item.CreatorCaseUser.UserId) || Repository.CurrentUser.UserAdmin)
+
+                @Html.ActionLink("Details", "Details", new { id = item.TestCaseEntityId }, new { @class = "btn btn-default" })
+
+                @if ((Repository.CurrentUser.UserId == item.CreatorCaseUser.UserId) || Repository.CurrentUser.UserAdmin)
                 {
-                    @Html.ActionLink("Delete", "Delete", new {id = item.TestCaseEntityId}, new {@class = "btn btn-default"})
+                    @Html.ActionLink("Delete", "Delete", new { id = item.TestCaseEntityId }, new { @class = "btn btn-default" })
                 }
             </td>
         </tr>

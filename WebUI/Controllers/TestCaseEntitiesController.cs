@@ -135,8 +135,9 @@ namespace WebUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TestCaseEntityId,TestCaseItemsIdSuffix,TestCaseName,TestCaseDescription,LastEditionDateTime")] TestCaseEntity testCaseEntity, int[] selectedComponents)
+        public ActionResult Edit([Bind(Include = "TestCaseEntityId,TestCaseItemsIdSuffix,TestCaseName,TestCaseDescription,LastEditionDateTime,LastEditorCaseUser")] TestCaseEntity testCaseEntity, int[] selectedComponents)
         {
+            //todo переписать скрипт и сделать через десериализатор
             if (ModelState.IsValid)
             {
                 if (selectedComponents != null)
@@ -162,7 +163,7 @@ namespace WebUI.Controllers
                     }
                 }
                 testCaseEntity.LastEditionDateTime = DateTime.Now;
-                testCaseEntity.LastEditorCaseUser = db.Users.FirstOrDefault(t => t.UserId == Repository.CurrentUser.UserId);
+                testCaseEntity.CreatorCaseUser = db.Users.FirstOrDefault(t => t.UserId == Repository.CurrentUser.UserId); 
                 db.Entry(testCaseEntity).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -207,6 +208,9 @@ namespace WebUI.Controllers
             {
                 return HttpNotFound();
             }
+
+            testCaseEntity.LastEditorCaseUser =
+                db.Users.FirstOrDefault(u => u.UserId == testCaseEntity.LastEditorCaseUser.UserId);
             SelectList testResult = new SelectList(db.TestResults, "TestResultId", "TestResultValue");
             ViewBag.TestResults = testResult;
             ViewBag.Components = db.Components.ToList();
@@ -216,7 +220,8 @@ namespace WebUI.Controllers
             {
                 @case.CaseSteps = new List<CaseStep>(db.CaseSteps.Where(cs => cs.CaseId == @case.CaseId));
             }
-            //            if (!checkListEntity.CheckListItems.IsNullOrEmpty())
+            //todo посмотреть по времени, может успею запилить кнопку
+            //if (!checkListEntity.CheckListItems.IsNullOrEmpty())
             //            {
             //                foreach (var item in checkListEntity.CheckListItems)
             //                {

@@ -55,9 +55,12 @@
                 {
                     @Html.ActionLink("Execute", "Execute", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
                 }
-                @if (Repository.CurrentUser.UserTestCreator)
+                @if (!Repository.CurrentUser.UserAdmin && !Repository.CurrentUser.UserTestExecutor)
                 {
                     @Html.ActionLink("Details", "Details", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
+                }
+                @if (Repository.CurrentUser.UserTestCreator)
+                {
                     @Html.ActionLink("Delete", "Delete", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
                 }
             </td>

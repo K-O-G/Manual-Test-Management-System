@@ -13,11 +13,7 @@
     @Html.HiddenFor(model => model.TestCaseId)
     @Html.HiddenFor(model => model.CaseId)
     <div class="form-horizontal">
-        <div class="form-group">
-            <div class=" col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" id="Create" />
-            </div>
-        </div>
+        
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -55,26 +51,27 @@
                         Description
                     </th>
                     <th>Expected Result</th>
+                    <th></th>
                 </tr>
 
                 <tr class="_footerTr">
-                    <td colspan="3">
+                    <td colspan="4">
                         <button type="button" id="add_step" , class="btn btn-default" style="width: 100%"> Add Step </button>
                     </td>
                 </tr>
-
+                
                 <tr id="rowTemplate" style="display: none">
                     <td>
                         <p class="_stepNumber"></p>
                     </td>
                     <td>
-                        <input type="text" class="_stepDescription" />
+                        <input type="text" class="_stepDescription form-control" />
                     </td>
                     <td>
-                        <input type="text" class="_stepExpectedResult" />
+                        <input type="text" class="_stepExpectedResult form-control" style="width: 100%"/>
                     </td>
                     <td>
-                        <button type="button" class="_removeStep btn btn-default" value="Remove">Remove</button>
+                        <button type="button" class="_removeStep btn btn-danger" value="Remove">Remove</button>
                     </td>
                 </tr>
             </table>
@@ -84,6 +81,10 @@
     </div>
 }
 
-<div>
+<div class="pull-left">
     @Html.ActionLink("Back to List", "Details", "TestCaseEntities", new { id = Model.TestCase.TestCaseEntityId }, new { @class = "btn btn-default" })
+</div>
+<div class="pull-right">
+    
+        <input type="submit" value="Create" class="btn btn-success" id="Create" />
 </div>

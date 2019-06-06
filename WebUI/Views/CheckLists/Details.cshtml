@@ -1,4 +1,5 @@
 ﻿
+@using Domain.Helpers
 @model Domain.Entities.CheckLists.CheckListEntity
 
 @{
@@ -46,9 +47,12 @@
         </dd>
 
     </dl>
-    <p>
-        @Html.ActionLink("Create New", "Create", "CheckListItems", new { id = Model.CheckListEntityId }, new { @class = "btn btn-default" })
-    </p>
+    @if (Repository.CurrentUser.UserTestCreator)
+    {
+        <p>
+            @Html.ActionLink("Create New", "Create", "CheckListItems", new { id = Model.CheckListEntityId }, new { @class = "btn btn-default" })
+        </p>
+    }
 
     <table class="table">
         <tr style="max-width: 10%">
@@ -73,7 +77,10 @@
             <th style="max-width: 20%">
                 Last Execution
             </th>
-            <th></th>
+            @if (Repository.CurrentUser.UserTestCreator)
+            {
+                <th></th>
+            }
         </tr>
 
         @foreach (var item in Model.CheckListItems)
@@ -102,10 +109,15 @@
                         @(item.LastExecutionDateTime.HasValue ? item.LastExecutionDateTime.Value.ToShortDateString() : "")
                     </span>
                 </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", "CheckListItems", new {id = item.CheckListItemId}, new {@class = "btn btn-default"})
-                    @Html.ActionLink("Delete", "Delete", "CheckListItems", new {id = item.CheckListItemId}, new {@class = "btn btn-default"})
-                </td>
+                @if (Repository.CurrentUser.UserTestCreator)
+                {
+                    <td>
+
+                        @Html.ActionLink("Edit", "Edit", "CheckListItems", new { id = item.CheckListItemId }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Delete", "Delete", "CheckListItems", new { id = item.CheckListItemId }, new { @class = "btn btn-default" })
+
+                    </td>
+                }
             </tr>
         }
     </table>

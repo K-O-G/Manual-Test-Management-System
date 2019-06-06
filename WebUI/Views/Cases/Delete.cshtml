@@ -54,12 +54,13 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Details","TestCaseEntities",new{id=Model.TestCaseId},new {@class = "btn btn-default btn-danger"})
+            @Html.ActionLink("Back to List", "Details", "TestCaseEntities", new { id = Model.TestCaseId }, new { @class = "btn btn-default " })
+            <input type="submit" value="Delete" class="btn btn-danger" style="margin-left: 10%"/>
         </div>
     }
 </div>

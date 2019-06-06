@@ -21,7 +21,7 @@ namespace WebUI.Controllers
             return View(db.TestResults.ToList());
         }
 
-        
+
         // GET: TestResults/Create
         public ActionResult Create()
         {
@@ -37,7 +37,7 @@ namespace WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-//                testResult.TestResultColor.ToString();
+                //                testResult.TestResultColor.ToString();
                 db.TestResults.Add(testResult);
                 db.SaveChanges();
                 return RedirectToAction("TestResultsList");
@@ -97,9 +97,10 @@ namespace WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            TestResult testResult = db.TestResults.Find(id);
-            db.TestResults.Remove(testResult);
-            db.SaveChanges();
+ 
+                TestResult testResult = db.TestResults.Find(id);
+                db.TestResults.Remove(testResult);
+                db.SaveChanges();
             return RedirectToAction("TestResultsList");
         }
 

@@ -2,14 +2,13 @@
 @model Domain.Entities.TestCases.TestCaseEntity
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Test Case run";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Test Case Run</h2>
 
 <div>
-    <h4>TestCaseEntity</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -50,10 +49,7 @@
         </dd>
 
     </dl>
-    <p>
-        @Html.ActionLink("Create New", "Create", "Cases", new { id = Model.TestCaseEntityId }, new { @class = "btn btn-default" })
-    </p>
-    <table class="table">
+    <table class="table table-bordered">
         <tr>
             <th style="max-width: 25%">
                 Summary
@@ -61,13 +57,27 @@
             <th>
                 Preconditions
             </th>
-            <th>
-                Case steps
+            <th style="padding: 0">
+                <table class="table-bordered">
+                    <tr>
+                        <th style="text-align: center" colspan="4">Case Steps</th>
+                    </tr>
+                    <tr>
+                        <th style="width: 2%">
+                            #
+                        </th>
+                        <th style="width: 37%">
+                            Action
+                        </th>
+                        <th style="width: 37%">
+                            Expected result
+                        </th>
+                        <th style="width: 24%">
+                            Test result
+                        </th>
+                    </tr>
+                </table>
             </th>
-            <th>
-                Test result
-            </th>
-            <th></th>
             <th>
                 Comment
             </th>
@@ -90,8 +100,8 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.CasePreconditions)
                 </td>
-                <td>
-                    <table class="table">
+                <td style="padding: 0">
+                    <table class="table table-bordered">
                         @foreach (var step in item.CaseSteps)
                         {
                             <tr data-stepid="@step.CaseStepId">
@@ -105,14 +115,14 @@
                                     @Html.DisplayFor(caseStep => step.CaseStepExpectedResult)
                                 </td>
                                 <td>
-                                    @Html.DropDownListFor(caseStep => step.CaseStepResult.TestResultId, ViewBag.TestResults as SelectList)
+                                    @Html.DropDownListFor(caseStep => step.CaseStepResult.TestResultId, ViewBag.TestResults as SelectList,new{@class="form-control"})
                                 </td>
                             </tr>
                         }
                     </table>
                 </td>
                 <td>
-                    @Html.EditorFor(modelItem => item.CaseComment)
+                    @Html.EditorFor(modelItem => item.CaseComment,new { htmlAttributes = new { @class = "form-control" } })
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.LastExecutorCaseUser.UserName)
@@ -121,7 +131,7 @@
                     @Html.DisplayFor(modelItem => item.LastExecutionDateTime)
                 </td>
                 <td>
-                    <input value="Save Execute" type="button" class="btn btn-default _saveTestEntitiesExecute" data-id="@item.CaseId" />
+                    <input value="Save Run" type="button" class="btn btn-success _saveTestEntitiesRun" data-id="@item.CaseId" />
                 </td>
             </tr>
         }

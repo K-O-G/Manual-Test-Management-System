@@ -62,7 +62,7 @@ namespace WebUI.Controllers
             }
             db.Cases.Add(dbCase);
             db.SaveChanges();
-            return Json(new { @url = Url.Action("Details","TestCaseEntities") });
+            return Json(new { @url = Url.Action("Details","TestCaseEntities",new{id=dbCase.TestCaseId}) });
         }
 
         // GET: Cases/Edit/5
@@ -77,6 +77,8 @@ namespace WebUI.Controllers
             {
                 return HttpNotFound();
             }
+            @case.TestCase = db.TestCases.FirstOrDefault(t => t.TestCaseEntityId == @case.TestCaseId);
+            @case.CaseSteps = db.CaseSteps.Where(cs => cs.CaseId == @case.CaseId).ToList();
             return View(@case);
         }
 
@@ -85,18 +87,41 @@ namespace WebUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CaseId,TestCaseId,CaseSummary,CasePreconditions,CaseComment,LastExecutionDateTime")] Case @case)
+        public ActionResult Edit(string caseModelJson)
         {
-            if (ModelState.IsValid)
+            TestCaseViewModel caseModel = (TestCaseViewModel)JsonConvert.DeserializeObject(caseModelJson, typeof(TestCaseViewModel));
+            var dbCase = new Case()
             {
-                @case.CaseComment = "";
-                @case.LastExecutorCaseUser = null;
-                @case.LastExecutionDateTime = null;
-                db.Entry(@case).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Details","TestCaseEntities",new{id=@case.TestCaseId});
+                TestCaseId = caseModel.TestCaseId,
+                CaseId = caseModel.CaseId,
+                CaseSummary = caseModel.CaseSummary,
+                CasePreconditions = caseModel.CasePreconditions
+            };
+            //                db.Users.FirstOrDefault(t=>t.UserId==Repository.CurrentUser.UserId);
+            if (dbCase.CaseSteps == null) dbCase.CaseSteps = new List<CaseStep>();
+            foreach (var caseModelCaseStep in caseModel.CaseSteps)
+            {
+                dbCase.CaseSteps.Add(new CaseStep()
+                {
+                    CaseStepNumber = caseModelCaseStep.CaseStepNumber,
+                    CaseStepDescription = caseModelCaseStep.CaseStepDescription,
+                    CaseStepExpectedResult = caseModelCaseStep.CaseStepExpectedResult,
+                    CaseStepResult = db.TestResults.FirstOrDefault(t => t.TestResultId == 1)
+                });
             }
-            return View(@case);
+
+            dbCase.TestCase = db.TestCases.FirstOrDefault(tc => tc.TestCaseEntityId == dbCase.TestCaseId);
+            if (dbCase.TestCase == null)
+            {
+                return HttpNotFound();
+            }
+            dbCase.TestCase.LastEditorCaseUser =
+                db.Users.FirstOrDefault(u => u.UserId == Repository.CurrentUser.UserId);
+            dbCase.LastExecutionDateTime = null;
+            dbCase.LastExecutorCaseUser = null;
+            db.Entry(dbCase).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(new { @url = Url.Action("Details", "TestCaseEntities", new { id = dbCase.TestCaseId }) });
         }
 
         // GET: Cases/Delete/5
