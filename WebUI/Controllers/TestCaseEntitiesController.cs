@@ -36,15 +36,14 @@ namespace WebUI.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Components = db.Components.ToList();
             testCaseEntity.Cases =
                 new List<Case>(db.Cases.Where(c => c.TestCaseId == testCaseEntity.TestCaseEntityId));
             foreach (var @case in testCaseEntity.Cases)
             {
                 @case.CaseSteps = new List<CaseStep>(db.CaseSteps.Where(cs => cs.CaseId == @case.CaseId));
-                @case.CaseSteps.OrderBy(t=>t.CaseStepNumber);
+                @case.CaseSteps.OrderBy(t => t.CaseStepNumber);
             }
-            
+
             if (testCaseEntity.Cases == null)
             {
                 return HttpNotFound();
@@ -52,7 +51,7 @@ namespace WebUI.Controllers
 
             foreach (var csCase in testCaseEntity.Cases)
             {
-//                csCase.CaseSteps.OrderBy(cstep => cstep.CaseStepId);
+                //                csCase.CaseSteps.OrderBy(cstep => cstep.CaseStepId);
                 if (csCase.CaseSteps != null)
                 {
                     foreach (var item in csCase.CaseSteps)
@@ -80,12 +79,14 @@ namespace WebUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TestCaseEntityId,TestCaseItemsIdSuffix,TestCaseName,TestCaseDescription,LastEditionDateTime")] TestCaseEntity testCaseEntity, int[] selectedComponents)
+        public ActionResult Create([Bind(Include = "TestCaseEntityId,TestCaseItemsIdSuffix,TestCaseName,TestCaseDescription,Priority,LastEditionDateTime")] TestCaseEntity testCaseEntity, int[] selectedComponents)
         {
             if (ModelState.IsValid)
             {
                 testCaseEntity.LastEditionDateTime = DateTime.Now;
                 testCaseEntity.CreatorCaseUser = db.Users.FirstOrDefault(t => t.UserId == Repository.CurrentUser.UserId);
+                var priority = db.Priorities.FirstOrDefault(r => r.PriorityId == testCaseEntity.Priority.PriorityId);
+                testCaseEntity.Priority = priority;
                 if (selectedComponents != null)
                 {
                     List<Component> components = new List<Component>();
@@ -128,7 +129,7 @@ namespace WebUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TestCaseEntityId,TestCaseItemsIdSuffix,TestCaseName,TestCaseDescription,LastEditionDateTime,LastEditorCaseUser")] TestCaseEntity testCaseEntity, int[] selectedComponents)
+        public ActionResult Edit([Bind(Include = "TestCaseEntityId,TestCaseItemsIdSuffix,TestCaseName,TestCaseDescription,Priority,LastEditionDateTime,LastEditorCaseUser")] TestCaseEntity testCaseEntity, int[] selectedComponents)
         {
             if (ModelState.IsValid)
             {
@@ -143,8 +144,9 @@ namespace WebUI.Controllers
 
                     testCaseEntity.Components = components;
                 }
-
-                testCaseEntity.Cases = db.Cases.Where(tc => tc.TestCaseId==testCaseEntity.TestCaseEntityId).ToList();
+                var priority = db.Priorities.FirstOrDefault(r => r.PriorityId == testCaseEntity.Priority.PriorityId);
+                testCaseEntity.Priority = priority;
+                testCaseEntity.Cases = db.Cases.Where(tc => tc.TestCaseId == testCaseEntity.TestCaseEntityId).ToList();
                 if (testCaseEntity.Cases != null)
                 {
                     for (int i = 0; i < testCaseEntity.Cases.Count; i++)
@@ -155,7 +157,7 @@ namespace WebUI.Controllers
                     }
                 }
                 testCaseEntity.LastEditionDateTime = DateTime.Now;
-                testCaseEntity.CreatorCaseUser = db.Users.FirstOrDefault(t => t.UserId == Repository.CurrentUser.UserId); 
+                testCaseEntity.CreatorCaseUser = db.Users.FirstOrDefault(t => t.UserId == Repository.CurrentUser.UserId);
                 db.Entry(testCaseEntity).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -190,7 +192,7 @@ namespace WebUI.Controllers
             }
 
             testCaseEntity.Cases = db.Cases.Include(c => c.TestCaseId).ToList();
-            if (testCaseEntity.Cases!=null)
+            if (testCaseEntity.Cases != null)
             {
                 foreach (var dbCase in testCaseEntity.Cases)
                 {
@@ -219,11 +221,9 @@ namespace WebUI.Controllers
                 return HttpNotFound();
             }
 
-            testCaseEntity.LastEditorCaseUser =
-                db.Users.FirstOrDefault(u => u.UserId == testCaseEntity.LastEditorCaseUser.UserId);
             SelectList testResult = new SelectList(db.TestResults, "TestResultId", "TestResultValue");
             ViewBag.TestResults = testResult;
-            ViewBag.Components = db.Components.ToList();
+            //            ViewBag.Components = db.Components.ToList();
             testCaseEntity.Cases =
                 new List<Case>(db.Cases.Where(c => c.TestCaseId == testCaseEntity.TestCaseEntityId));
             foreach (var @case in testCaseEntity.Cases)
@@ -267,12 +267,17 @@ namespace WebUI.Controllers
                 {
                     var testResult = db.TestResults.FirstOrDefault(r => r.TestResultId == stepResult.Value);
                     var caseStep = caseSteps.FirstOrDefault(c => c.CaseStepId == stepResult.Key);
-                    if (caseStep != null)
+                    if (caseStep != null && testResult != null)
                     {
                         caseStep.CaseStepResult = testResult;
                         stepResultsResult.Add(stepResult.Key, testResult.TestResultColor);
+                        var neccessaryStep =caseSteps.First(caseStepToFind => caseStepToFind.CaseStepId == stepResult.Key);
+                        neccessaryStep.CaseStepResult = caseStep.CaseStepResult;
                     }
                 }
+
+
+                @case.CaseSteps = caseSteps;
                 @case.CaseComment = comment;
                 db.SaveChanges();
                 return Json(new { stepResultsResult = JsonConvert.SerializeObject(stepResultsResult) });

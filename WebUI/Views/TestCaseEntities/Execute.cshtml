@@ -1,4 +1,5 @@
-﻿@using Domain.Entities.TestCases
+﻿@using Domain.Entities
+@using Domain.Entities.TestCases
 @model Domain.Entities.TestCases.TestCaseEntity
 
 @{
@@ -45,7 +46,25 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LastEditionDateTime)
+            <p>@Model.LastEditionDateTime.ToShortDateString()</p>
+        </dd>
+        <dt>
+            Priority
+        </dt>
+
+        <dd>
+            <span style="color: @Model.Priority.PriorityColor">@Model.Priority.PriorityName</span>
+        </dd>
+        <dt>
+            Components
+        </dt>
+        <dd>
+            <ul>
+                @foreach (Component c in Model.Components)
+                {
+                    <li>@c.ComponentName</li>
+                }
+            </ul>
         </dd>
 
     </dl>
@@ -101,7 +120,7 @@
                     @Html.DisplayFor(modelItem => item.CasePreconditions)
                 </td>
                 <td style="padding: 0">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" style="margin-bottom: 0;">
                         @foreach (var step in item.CaseSteps)
                         {
                             <tr data-stepid="@step.CaseStepId">

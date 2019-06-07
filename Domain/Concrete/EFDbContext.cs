@@ -37,7 +37,7 @@ namespace Domain.Concrete
                 .Map(cs =>
                 {
                     cs.MapLeftKey("CheckListId");
-                    cs.MapRightKey("CourseRefId");
+                    cs.MapRightKey("ComponentId");
                     cs.ToTable("CheckList_Component");
                 });
 
@@ -47,7 +47,7 @@ namespace Domain.Concrete
                 .Map(cs =>
                 {
                     cs.MapLeftKey("TestCaseId");
-                    cs.MapRightKey("CourseRefId");
+                    cs.MapRightKey("ComponentId");
                     cs.ToTable("TestCase_Component");
                 });
 
