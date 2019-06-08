@@ -19,6 +19,9 @@
             Test Case
         </th>
         <th>
+            Priority
+        </th>
+        <th>
             Description
         </th>
         <th>
@@ -40,6 +43,12 @@
                 @Html.DisplayFor(modelItem => item.TestCaseName)
             </td>
             <td>
+                @if (Model != null)
+                {
+                    <span style="color: @item.Priority.PriorityColor">@item.Priority.PriorityName</span>
+                }
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.TestCaseDescription)
             </td>
             <td>
@@ -58,14 +67,14 @@
                 }
                 @if (Repository.CurrentUser.UserTestExecutor)
                 {
-                    @Html.ActionLink("Execute", "Execute", new { id = item.TestCaseEntityId }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Execute", "Execute", new { id = item.TestCaseEntityId }, new { @class = "btn btn-warning" })
                 }
 
-                @Html.ActionLink("Details", "Details", new { id = item.TestCaseEntityId }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Details", "Details", new { id = item.TestCaseEntityId }, new { @class = "btn btn-info" })
 
                 @if ((Repository.CurrentUser.UserId == item.CreatorCaseUser.UserId && Repository.CurrentUser.UserTestCreator) || Repository.CurrentUser.UserAdmin)
                 {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.TestCaseEntityId }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.TestCaseEntityId }, new { @class = "btn btn-danger" })
                 }
             </td>
         </tr>

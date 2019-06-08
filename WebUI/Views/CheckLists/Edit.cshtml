@@ -2,10 +2,10 @@
 @model Domain.Entities.CheckLists.CheckListEntity
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit CheckList";
 }
 
-<h2>Edit</h2>
+<h2>Edit CheckList</h2>
 
 @using (Html.BeginForm())
 {
@@ -18,7 +18,7 @@
         @Html.HiddenFor(model => model.CheckListEntityId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CheckListName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CheckListName,"CheckList", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CheckListName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CheckListName, "", new { @class = "text-danger" })
@@ -26,7 +26,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CheckListItemIdSuffix, "Suffix to ID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CheckListItemIdSuffix, "Suffix to Id for items", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CheckListItemIdSuffix, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CheckListItemIdSuffix, "", new { @class = "text-danger" })
@@ -55,13 +55,9 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+                @Html.ActionLink("Back to List", "CheckLists",null,new{@class="btn btn-default pull-left"})
+                <input type="submit" value="Save" class="btn btn-success pull-right" />
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "CheckLists")
-</div>

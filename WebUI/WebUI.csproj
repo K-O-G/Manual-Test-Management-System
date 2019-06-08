@@ -201,7 +201,6 @@
     <Content Include="Views\CheckLists\CheckLists.cshtml" />
     <Content Include="Views\CheckListItems\Create.cshtml" />
     <Content Include="Views\CheckListItems\Delete.cshtml" />
-    <Content Include="Views\CheckListItems\Details.cshtml" />
     <Content Include="Views\CheckListItems\Edit.cshtml" />
     <Content Include="Views\CheckLists\Execute.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />

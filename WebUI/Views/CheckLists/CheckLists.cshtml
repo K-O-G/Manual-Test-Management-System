@@ -55,14 +55,14 @@
                     @Html.ActionLink("Edit", "Edit", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
                 }@if (Repository.CurrentUser.UserTestExecutor)
                 {
-                    @Html.ActionLink("Execute", "Execute", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Execute", "Execute", new { id = item.CheckListEntityId }, new { @class = "btn btn-warning" })
                 }
 
-                    @Html.ActionLink("Details", "Details", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Details", "Details", new { id = item.CheckListEntityId }, new { @class = "btn btn-info" })
 
                 @if ((Repository.CurrentUser.UserTestCreator &&Repository.CurrentUser.UserId==item.CreatorCheckListUser.UserId)||Repository.CurrentUser.UserAdmin)
                 {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CheckListEntityId }, new { @class = "btn btn-danger" })
                 }
             </td>
         </tr>

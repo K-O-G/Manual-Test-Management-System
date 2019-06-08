@@ -157,7 +157,7 @@ namespace WebUI.Controllers
                     }
                 }
                 testCaseEntity.LastEditionDateTime = DateTime.Now;
-                testCaseEntity.CreatorCaseUser = db.Users.FirstOrDefault(t => t.UserId == Repository.CurrentUser.UserId);
+                testCaseEntity.LastEditorCaseUser = db.Users.FirstOrDefault(t => t.UserId == Repository.CurrentUser.UserId);
                 db.Entry(testCaseEntity).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

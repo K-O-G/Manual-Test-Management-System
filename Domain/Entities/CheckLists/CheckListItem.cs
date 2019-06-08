@@ -10,6 +10,7 @@ namespace Domain.Entities.CheckLists
     public class CheckListItem
     {
         public int CheckListItemId { get; set; }
+        [ForeignKey("CheckListEntity")]
         public int? CheckListId { get; set; }
         public CheckListEntity CheckListEntity { get; set; }
         public string CheckListItemIdPublic { get; set; }

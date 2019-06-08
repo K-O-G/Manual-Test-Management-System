@@ -9,7 +9,7 @@
 <h2>Components</h2>
 
 <p>
-    @Html.ActionLink("Create new Component", "Create", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Create new Component", "Create", null, new { @class = "btn btn-success" })
 </p>
 <table class="table table-bordered">
     <tr>
@@ -34,7 +34,7 @@
             @if (Repository.CurrentUser.UserAdmin)
             {
                 @Html.ActionLink("Edit", "Edit", new {id = item.ComponentId}, new {@class = "btn btn-default"})
-                @Html.ActionLink("Delete", "Delete", new {id = item.ComponentId}, new {@class = "btn btn-default"})
+                @Html.ActionLink("Delete", "Delete", new {id = item.ComponentId}, new {@class = "btn btn-danger"})
             }
         </td>
     </tr>

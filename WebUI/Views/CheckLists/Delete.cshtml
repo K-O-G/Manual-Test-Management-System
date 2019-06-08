@@ -24,7 +24,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Priority)
+            <span style="color: @Model.Priority.PriorityColor">@Model.Priority.PriorityName</span>
         </dd>
 
         <dt>
@@ -37,7 +37,7 @@
         <dt>
             Components
         </dt>
-        <dd class="tooltip">
+        <dd>
             <ul>
                 @foreach (var c in Model.Components)
                 {
@@ -49,12 +49,13 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "CheckLists",null,null,new{@class="btn btn-default"})
+        <div class="form-actions">
+            @Html.ActionLink("Back to List", "CheckLists", null, null, new { @class = "btn btn-default pull-left" })
+            <input type="submit" value="Delete" class="btn btn-danger pull-right" />
         </div>
     }
 </div>

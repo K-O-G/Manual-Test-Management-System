@@ -6,10 +6,9 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>CheckList details</h2>
 
 <div>
-    <h4>CheckListEntity</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -24,7 +23,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LastEditionDateTime)
+            @Html.DisplayFor(model => model.LastEditionDateTime.ToShortDateString())
         </dd>
         <dt>
             Priority
@@ -50,7 +49,7 @@
     @if (Repository.CurrentUser.UserTestCreator)
     {
         <p>
-            @Html.ActionLink("Create New", "Create", "CheckListItems", new { id = Model.CheckListEntityId }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Create New", "Create", "CheckListItems", new { id = Model.CheckListEntityId }, new { @class = "btn btn-success" })
         </p>
     }
 
@@ -114,7 +113,7 @@
                     <td>
 
                         @Html.ActionLink("Edit", "Edit", "CheckListItems", new { id = item.CheckListItemId }, new { @class = "btn btn-default" })
-                        @Html.ActionLink("Delete", "Delete", "CheckListItems", new { id = item.CheckListItemId }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Delete", "Delete", "CheckListItems", new { id = item.CheckListItemId }, new { @class = "btn btn-danger" })
 
                     </td>
                 }
@@ -123,9 +122,9 @@
     </table>
 </div>
 <p>
+    @Html.ActionLink("Back to List", "CheckLists", null, new { @class = "btn btn-default pull-left" })
     @if (Repository.CurrentUser.UserTestCreator)
     {
-        @Html.ActionLink("Edit", "Edit", new {id = Model.CheckListEntityId},new{@class="btn btn-default"})
+        @Html.ActionLink("Edit", "Edit", new { id = Model.CheckListEntityId }, new { @class = "btn btn-default pull-right" })
     }
-    @Html.ActionLink("Back to List", "CheckLists",null,new{@class="btn btn-default"})
 </p>

@@ -56,7 +56,7 @@
             }
             @if (Repository.CurrentUser.UserAdmin)
             {
-                @Html.ActionLink("Delete", "Delete", new {id = item.UserId}, new {@class = "btn btn-default"})
+                @Html.ActionLink("Delete", "Delete", new {id = item.UserId}, new {@class = "btn btn-danger"})
             }
         </td>
     </tr>

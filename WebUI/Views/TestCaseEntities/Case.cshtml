@@ -1,0 +1,44 @@
+﻿@model Domain.Entities.TestCases.CaseStep
+
+<div>
+    <h4>CaseStep</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Case.CaseSummary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Case.CaseSummary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CaseStepNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CaseStepNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CaseStepDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CaseStepDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CaseStepExpectedResult)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CaseStepExpectedResult)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CaseStepId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

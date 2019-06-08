@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Domain.Entities.TestCases.Case>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TestCaseId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CaseSummary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CasePreconditions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CaseComment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastExecutionDateTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestCaseId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CaseSummary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CasePreconditions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CaseComment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastExecutionDateTime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CaseId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CaseId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CaseId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -18,21 +18,6 @@ namespace WebUI.Controllers
         private EFDbContext db = new EFDbContext();
 
 
-        // GET: CheckListItems/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CheckListItem checkListItem = db.CheckListItems.Find(id);
-            if (checkListItem == null)
-            {
-                return HttpNotFound();
-            }
-            return View(checkListItem);
-        }
-
         // GET: CheckListItems/Create
         public ActionResult Create(int? id)
         {
@@ -82,12 +67,12 @@ namespace WebUI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             CheckListItem checkListItem = db.CheckListItems.Find(id);
-            SelectList checkList = new SelectList(db.CheckLists, "CheckListEntityId", "CheckListName");
-            ViewBag.CheckLists = checkList;
             if (checkListItem == null)
             {
                 return HttpNotFound();
             }
+            var checkList = db.CheckLists.FirstOrDefault(c=>c.CheckListEntityId==checkListItem.CheckListId);
+            checkListItem.CheckListEntity = checkList;
             return View(checkListItem);
         }
 
@@ -104,7 +89,6 @@ namespace WebUI.Controllers
                     db.TestResults.FirstOrDefault(t => t.TestResultId == 0);
                 checkListItem.CheckListComment = "";
                 checkListItem.LastExecutionDateTime = null;
-                checkListItem.CheckListEntity = db.CheckLists.Find(checkListItem.CheckListId);
                 checkListItem.CheckListItemIdPublic =
                     $"{checkListItem.CheckListEntity.CheckListItemIdSuffix}{checkListItem.CheckListEntity.CheckListItems.Count()+1}";
                 db.Entry(checkListItem).State = EntityState.Modified;

@@ -19,7 +19,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CheckListId,"CheckList: ", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.CheckListId, ViewBag.CheckLists as SelectList,new { htmlAttributes = new { @class = "form-control" }})
+                @Html.LabelFor(model => model.CheckListEntity.CheckListName,new { @class = "form-control" })
             </div>
         </div>
 
@@ -41,13 +41,9 @@
         
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+            @Html.ActionLink("Back to List", "Details", "CheckLists", new { id = Model.CheckListId }, new { @class = "btn btn-default pull-left" })
+            <input type="submit" value="Save" class="btn btn-success pull-right" />
         </div>
-    </div>
-    <div>
-        @Html.ActionLink("Back to List", "Details","CheckLists",new { id = Model.CheckListId}, new { @class = "btn btn-default" })
     </div>
 }
 
