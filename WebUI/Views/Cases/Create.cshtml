@@ -47,7 +47,7 @@
                         Case Step #
                     </th>
                     <th>
-                        Description
+                        Step
                     </th>
                     <th>Expected Result</th>
                     <th></th>
@@ -55,7 +55,7 @@
 
                 <tr class="_footerTr">
                     <td colspan="4">
-                        <button type="button" id="add_step" , class="btn btn-default" style="width: 100%"> Add Step </button>
+                        <button type="button" id="add_step" , class="btn btn-block" style="width: 100%"> Add Step </button>
                     </td>
                 </tr>
                 
@@ -69,7 +69,7 @@
                     <td>
                         <input type="text" class="_stepExpectedResult form-control" style="width: 100%"/>
                     </td>
-                    <td>
+                    <td style="text-align: center">
                         <button type="button" class="_removeStep btn btn-danger" value="Remove">Remove</button>
                     </td>
                 </tr>
@@ -80,7 +80,7 @@
     </div>
 }
 
-<div>
+<div class="form-actions">
     @Html.ActionLink("Back to List", "Details", "TestCaseEntities", new { id = Model.TestCase.TestCaseEntityId }, new { @class = "btn btn-default pull-left" })
     <input type="submit" value="Create" class="btn btn-success pull-right" id="Create"/>
 </div>

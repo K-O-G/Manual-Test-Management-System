@@ -15,28 +15,28 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Test Case:
+            Test Case :
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.TestCaseName)
         </dd>
         <dt>
-            Description:
+            Description :
         </dt>
 
-        <dd>
+        <dd style="width: 50%;">
             @Html.DisplayFor(model => model.TestCaseDescription)
         </dd>
         <dt>
-            Creator:
+            Creator :
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.CreatorCaseUser.UserName)
         </dd>
         <dt>
-            Last Editor:
+            Last Editor :
         </dt>
 
         <dd>
@@ -44,24 +44,24 @@
         </dd>
 
         <dt>
-            Last Edition:
+            Last Edition Date :
         </dt>
 
         <dd>
             <p>@Model.LastEditionDateTime.ToShortDateString()</p>
         </dd>
         <dt>
-            Priority
+            Priority :
         </dt>
 
         <dd>
             <span style="color: @Model.Priority.PriorityColor">@Model.Priority.PriorityName</span>
         </dd>
         <dt>
-            Components
+            Components :
         </dt>
         <dd>
-            <ul>
+            <ul style="margin-left: -1.5%;">
                 @foreach (Component c in Model.Components)
                 {
                     <li>@c.ComponentName</li>
@@ -73,22 +73,22 @@
     @if (Repository.CurrentUser.UserTestCreator)
     {
         <p>
-            @Html.ActionLink("Create New", "Create", "Cases", new { id = Model.TestCaseEntityId }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Create new Case", "Create", "Cases", new { id = Model.TestCaseEntityId }, new { @class = "btn btn-success" })
         </p>
     }
     <table class="table table-bordered table-sm">
         <tr>
-            <th>
+            <th style="width: 3%">
                 Id
             </th>
-            <th style="max-width: 20%">
+            <th style="width: 12%">
                 Summary
             </th>
-            <th style="max-width: 20%">
+            <th style="width: 12%">
                 Preconditions
             </th>
-            <th style="padding: 0">
-                <table class="table-bordered">
+            <th style="padding: 0; width: 40%">
+                <table class="table-bordered" style="width:100%">
                     <tr>
                         <th style="text-align: center" colspan="4">Case Steps</th>
                     </tr>
@@ -111,32 +111,32 @@
             <th>
                 Comment
             </th>
-            <th>
+            <th style="width: 7%">
                 Last Executor
             </th>
-            <th>
-                Last Execution
+            <th style="width: 9%">
+                Last Execution Date
             </th>
             @if (Repository.CurrentUser.UserTestCreator)
             {
-                <th></th>
+                <th style="width: 8%"></th>
             }
         </tr>
 
         @foreach (var item in Model.Cases)
         {
             <tr>
-                <td>
+                <td style="width: 3%">
                     @Html.DisplayFor(modelItem => item.CaseIdPublic)
                 </td>
-                <td>
+                <td style="width: 12%">
                     @Html.DisplayFor(modelItem => item.CaseSummary)
                 </td>
-                <td>
+                <td style="width: 12%">
                     @Html.DisplayFor(modelItem => item.CasePreconditions)
                 </td>
                 <td style="padding: 0">
-                    <table class="table-bordered">
+                    <table class="table-bordered"style="width: 100%">
 
                         @foreach (var step in item.CaseSteps)
                         {
@@ -160,17 +160,17 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.CaseComment)
                 </td>
-                <td>
+                <td style="width: 7%">
                     @Html.DisplayFor(modelItem => item.LastExecutorCaseUser.UserName)
                 </td>
-                <td>
+                <td style="width: 8%">
                     <span>
                         @(item.LastExecutionDateTime.HasValue ? item.LastExecutionDateTime.Value.ToShortDateString() : "")
                     </span>
                 </td>
                 @if (Repository.CurrentUser.UserTestCreator)
                 {
-                    <td>
+                    <td style="text-align: center;width: 8%">
 
                         @Html.ActionLink("Edit", "Edit", "Cases", new { id = item.CaseId }, new { @class = "btn btn-default" })
                         @Html.ActionLink("Delete", "Delete", "Cases", new { id = item.CaseId }, new { @class = "btn btn-danger" })
@@ -184,7 +184,7 @@
 <p>
     @if (Repository.CurrentUser.UserTestCreator)
     {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.TestCaseEntityId }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Edit", "Edit", new { id = Model.TestCaseEntityId }, new { @class = "btn btn-default pull-right" })
     }
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default pull-left" })
 </p>

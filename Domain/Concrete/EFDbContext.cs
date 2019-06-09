@@ -55,10 +55,21 @@ namespace Domain.Concrete
                 .Entity<Case>()
                 .HasOptional<User>(u => u.LastExecutorCaseUser)
                 .WithOptionalPrincipal();
+
             modelBuilder
                 .Entity<CheckListItem>()
                 .HasOptional<User>(u => u.LastExecutorCheckListUser)
                 .WithOptionalPrincipal();
+
+            modelBuilder.Entity<Case>()
+                .HasRequired<TestCaseEntity>(s => s.TestCase)
+                .WithMany(g => g.Cases)
+                .HasForeignKey<int>(s => s.TestCaseId);
+
+            modelBuilder.Entity<CheckListItem>()
+                .HasRequired<CheckListEntity>(s => s.CheckListEntity)
+                .WithMany(g => g.CheckListItems)
+                .HasForeignKey<int>(s => s.CheckListId);
         }
     }
 }

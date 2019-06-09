@@ -23,6 +23,9 @@
             Priority
         </th>
         <th>
+            Creator
+        </th>
+        <th>
             Last Editor
         </th>
         <th>
@@ -33,39 +36,42 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CheckListName)
-            </td>
-            <td>
-                @if (Model != null)
-                {
-                    <span style="color: @item.Priority.PriorityColor">@item.Priority.PriorityName</span>
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastEditorCheckListUser.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastEditionDateTime)
-            </td>
-            <td>
-                @if (Repository.CurrentUser.UserTestCreator)
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
-                }@if (Repository.CurrentUser.UserTestExecutor)
-                {
-                    @Html.ActionLink("Execute", "Execute", new { id = item.CheckListEntityId }, new { @class = "btn btn-warning" })
-                }
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.CheckListName)
+    </td>
+    <td>
+        @if (Model != null)
+        {
+            <span style="color: @item.Priority.PriorityColor">@item.Priority.PriorityName</span>
+        }
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CreatorCheckListUser.UserName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LastEditorCheckListUser.UserName)
+    </td>
+    <td>
+        <p> @item.LastEditionDateTime.ToShortDateString()</p>
+    </td>
+    <td style="text-align: center">
+        @if (Repository.CurrentUser.UserTestCreator)
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = item.CheckListEntityId }, new { @class = "btn btn-default" })
+        }@if (Repository.CurrentUser.UserTestExecutor)
+        {
+            @Html.ActionLink("Execute", "Execute", new { id = item.CheckListEntityId }, new { @class = "btn btn-warning" })
+        }
 
-                    @Html.ActionLink("Details", "Details", new { id = item.CheckListEntityId }, new { @class = "btn btn-info" })
+        @Html.ActionLink("Details", "Details", new { id = item.CheckListEntityId }, new { @class = "btn btn-info" })
 
-                @if ((Repository.CurrentUser.UserTestCreator &&Repository.CurrentUser.UserId==item.CreatorCheckListUser.UserId)||Repository.CurrentUser.UserAdmin)
-                {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.CheckListEntityId }, new { @class = "btn btn-danger" })
-                }
-            </td>
-        </tr>
+        @if ((Repository.CurrentUser.UserTestCreator && Repository.CurrentUser.UserId == item.CreatorCheckListUser.UserId) || Repository.CurrentUser.UserAdmin)
+        {
+            @Html.ActionLink("Delete", "Delete", new { id = item.CheckListEntityId }, new { @class = "btn btn-danger" })
+        }
+    </td>
+</tr>
     }
 
 </table>

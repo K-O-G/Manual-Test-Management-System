@@ -9,8 +9,7 @@ namespace Domain.Entities.TestCases
     public class Case
     {
         public int CaseId { get; set; }
-        [ForeignKey("TestCaseEntity")]
-        public int? TestCaseId { get; set; }
+        public int TestCaseId { get; set; }
         public TestCaseEntity TestCase { get; set; }
         public string CaseIdPublic { get; set; }
         public string CaseSummary { get; set; }

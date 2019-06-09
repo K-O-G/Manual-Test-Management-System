@@ -7,10 +7,12 @@
 }
 
 <h2>Components</h2>
-
-<p>
-    @Html.ActionLink("Create new Component", "Create", null, new { @class = "btn btn-success" })
-</p>
+@if (Repository.CurrentUser.UserAdmin)
+{
+    <p>
+        @Html.ActionLink("Create new Component", "Create", null, new {@class = "btn btn-success"})
+    </p>
+}
 <table class="table table-bordered">
     <tr>
         <th style="width: 20%">
@@ -19,25 +21,31 @@
         <th style="width: 60%">
             Description
         </th>
-        <th></th>
+        @if (Repository.CurrentUser.UserAdmin)
+        {
+            <th></th>
+        }
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ComponentName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ComponentDescription)
-        </td>
-        <td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ComponentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ComponentDescription)
+            </td>
             @if (Repository.CurrentUser.UserAdmin)
             {
-                @Html.ActionLink("Edit", "Edit", new {id = item.ComponentId}, new {@class = "btn btn-default"})
-                @Html.ActionLink("Delete", "Delete", new {id = item.ComponentId}, new {@class = "btn btn-danger"})
+                <td style="text-align: center">
+
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ComponentId }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ComponentId }, new { @class = "btn btn-danger" })
+
+                </td>
             }
-        </td>
-    </tr>
-}
+        </tr>
+    }
 
 </table>

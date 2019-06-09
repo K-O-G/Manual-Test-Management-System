@@ -21,7 +21,7 @@
         <th>
             Priority
         </th>
-        <th>
+        <th style="width: 45%;">
             Description
         </th>
         <th>
@@ -31,7 +31,7 @@
             Last Editor
         </th>
         <th>
-            Last Edition
+            Last Edition Date
         </th>
         <th></th>
     </tr>
@@ -48,7 +48,7 @@
                     <span style="color: @item.Priority.PriorityColor">@item.Priority.PriorityName</span>
                 }
             </td>
-            <td>
+            <td style="width: 45%;">
                 @Html.DisplayFor(modelItem => item.TestCaseDescription)
             </td>
             <td>
@@ -58,9 +58,9 @@
                 @Html.DisplayFor(modelItem => item.LastEditorCaseUser.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastEditionDateTime)
+                <span>@item.LastEditionDateTime.ToShortDateString()</span>
             </td>
-            <td>
+            <td style="text-align: center">
                 @if (Repository.CurrentUser.UserTestCreator)
                 {
                     @Html.ActionLink("Edit", "Edit", new { id = item.TestCaseEntityId }, new { @class = "btn btn-default" })

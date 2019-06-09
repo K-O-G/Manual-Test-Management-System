@@ -12,7 +12,7 @@ namespace Domain.Entities.TestCases
     {
 
         public int CaseStepId { get; set; }
-        public int? CaseId { get; set; }
+        public int CaseId { get; set; }
         public virtual Case Case { get; set; }
         public int CaseStepNumber { get; set; }
         public string CaseStepDescription { get; set; }

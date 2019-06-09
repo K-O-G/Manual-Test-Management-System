@@ -13,28 +13,28 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Test Case:
+            Test Case :
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.TestCaseName)
         </dd>
         <dt>
-            Description:
+            Description :
         </dt>
 
-        <dd>
+        <dd style="width: 50%;">
             @Html.DisplayFor(model => model.TestCaseDescription)
         </dd>
         <dt>
-            Creator:
+            Creator :
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.CreatorCaseUser.UserName)
         </dd>
         <dt>
-            Last Editor:
+            Last Editor :
         </dt>
 
         <dd>
@@ -42,24 +42,24 @@
         </dd>
 
         <dt>
-            Last Edition:
+            Last Edition :
         </dt>
 
         <dd>
-            <p>@Model.LastEditionDateTime.ToShortDateString()</p>
+            <span>@Model.LastEditionDateTime.ToShortDateString()</span>
         </dd>
         <dt>
-            Priority
+            Priority :
         </dt>
 
         <dd>
             <span style="color: @Model.Priority.PriorityColor">@Model.Priority.PriorityName</span>
         </dd>
         <dt>
-            Components
+            Components :
         </dt>
         <dd>
-            <ul>
+            <ul style="margin-left: -1.5%;">
                 @foreach (Component c in Model.Components)
                 {
                     <li>@c.ComponentName</li>
@@ -70,14 +70,17 @@
     </dl>
     <table class="table table-bordered">
         <tr>
-            <th style="max-width: 25%">
+            <th style="width: 3%">
+                Id
+            </th>
+            <th style="width: 12%">
                 Summary
             </th>
-            <th>
+            <th style="width: 12%">
                 Preconditions
             </th>
-            <th style="padding: 0">
-                <table class="table-bordered">
+            <th style="padding: 0; width: 40%">
+                <table class=" table table-bordered" style="width: 100%;margin-bottom: 0">
                     <tr>
                         <th style="text-align: center" colspan="4">Case Steps</th>
                     </tr>
@@ -97,66 +100,71 @@
                     </tr>
                 </table>
             </th>
-            <th>
+            <th style="width: 7%">
                 Comment
             </th>
-            <th>
+            <th style="width: 7%">
                 Last Executor
             </th>
-            <th>
-                Last Execution
+            <th style="width: 9%">
+                Last Execution Date
             </th>
 
-            <th></th>
+            <th style="width: 8%"></th>
         </tr>
 
         @foreach (var item in Model.Cases)
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem=>item.CaseIdPublic)
+                </td>
+                <td style="width: 12%">
                     @Html.DisplayFor(modelItem => item.CaseSummary)
                 </td>
-                <td>
+                <td style="width: 12%">
                     @Html.DisplayFor(modelItem => item.CasePreconditions)
                 </td>
-                <td style="padding: 0">
-                    <table class="table table-bordered" style="margin-bottom: 0;">
+                <td style="padding: 0; width: 40%">
+                    <table class="table table-bordered" style="margin-bottom: 0; width: 100%">
                         @foreach (var step in item.CaseSteps)
                         {
                             <tr data-stepid="@step.CaseStepId">
-                                <td>
-                                    @Html.DisplayFor(caseStep => step.CaseStepNumber)
+                                <td style="width: 2%">
+                                    <span>@step.CaseStepNumber</span>
                                 </td>
-                                <td>
+                                <td style="width: 37%">
                                     @Html.DisplayFor(caseStep => step.CaseStepDescription)
                                 </td>
-                                <td>
+                                <td style="width: 37%">
                                     @Html.DisplayFor(caseStep => step.CaseStepExpectedResult)
                                 </td>
-                                <td>
-                                    @Html.DropDownListFor(caseStep => step.CaseStepResult.TestResultId, ViewBag.TestResults as SelectList,new{@class="form-control"})
+                                <td style="width: 24%">
+                                    @Html.DropDownListFor(caseStep => step.CaseStepResult.TestResultId, ViewBag.TestResults as SelectList, new {@class = "form-control"})
                                 </td>
                             </tr>
                         }
                     </table>
                 </td>
-                <td>
-                    @Html.EditorFor(modelItem => item.CaseComment,new { htmlAttributes = new { @class = "form-control" } })
+                <td style="width: 7%">
+                    @Html.TextAreaFor(modelItem => item.CaseComment, new {htmlAttributes = new {@class = "form-control"}})
                 </td>
-                <td>
+                <td style="width: 7%">
                     @Html.DisplayFor(modelItem => item.LastExecutorCaseUser.UserName)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastExecutionDateTime)
+                <td style="width: 9%">
+                    <span>
+                        @(item.LastExecutionDateTime.HasValue ? item.LastExecutionDateTime.Value.ToShortDateString() : "")
+                    </span>
                 </td>
-                <td>
-                    <input value="Save Run" type="button" class="btn btn-success _saveTestEntitiesExecute" data-id="@item.CaseId" />
+                <td style="width: 8%;text-align: center">
+                    <input value="Save Run" type="button" class="btn btn-success _saveTestEntitiesExecute" data-id="@item.CaseId"/>
                 </td>
             </tr>
         }
     </table>
 </div>
 <p>
-   
-    @Html.ActionLink("Back to List", "Index",null,new{@class="btn btn-default"})
+
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
 </p>

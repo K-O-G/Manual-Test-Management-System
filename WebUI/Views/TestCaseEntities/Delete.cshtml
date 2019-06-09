@@ -7,35 +7,47 @@
 
 <h2>Delete</h2>
 
-<h3>Are you sure you want to delete this Test Case?</h3>
+<h4>Are you sure you want to delete this Test Case?</h4>
 <div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Test Case
+            Test Case :
         </dt>
-        <dt>
-            @Html.DisplayNameFor(model => model.TestCaseName)
-        </dt>
-
         <dd>
-            Descriptions
+            @Html.DisplayFor(model => model.TestCaseName)
+        </dd>
+
+        <dt>
+            Descriptions :
+        </dt>
+        <dd style="width: 50%">
+            @Html.DisplayFor(model => model.TestCaseDescription)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.TestCaseDescription)
-        </dt>
-        <dt>
-            Priority
+            Priority :
         </dt>
 
         <dd>
             <span style="color: @Model.Priority.PriorityColor">@Model.Priority.PriorityName</span>
         </dd>
         <dt>
-            Last Edition
+            Last Edition :
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.LastEditionDateTime)
+            <span>@Model.LastEditionDateTime.ToShortDateString()</span>
+        </dd>
+        <dt>
+            Components :
+        </dt>
+        <dd>
+            <ul style="margin-left: -1.5%;">
+                @foreach (var c in Model.Components)
+                {
+
+                    <li>@c.ComponentName</li>
+                }
+            </ul>
         </dd>
 
     </dl>
@@ -44,7 +56,7 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions">
+        <div class="form-actions" style=" margin-left: 3%; max-width: 22.5%;">
             @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default pull-left" })
             <input type="submit" value="Delete" class="btn btn-danger pull-right" />
         </div>

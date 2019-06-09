@@ -112,15 +112,6 @@ namespace WebUI.Controllers
             ViewBag.Components = db.Components.ToList();
             checkListEntity.CheckListItems =
                 new List<CheckListItem>(db.CheckListItems.Where(c => c.CheckListId == checkListEntity.CheckListEntityId));
-            //            if (!checkListEntity.CheckListItems.IsNullOrEmpty())
-            //            {
-            //                foreach (var item in checkListEntity.CheckListItems)
-            //                {
-            //                    item.CheckListTestResult = db.TestResults.FirstOrDefault(c => c.TestResultValue == "Not Executed");
-            //                    db.Entry(item).State = EntityState.Modified;
-            //                    db.SaveChanges();
-            //                }
-            //            }
             if (checkListEntity.CheckListItems == null)
             {
                 return HttpNotFound();

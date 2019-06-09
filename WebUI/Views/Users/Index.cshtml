@@ -7,10 +7,12 @@
 }
 
 <h2>Users</h2>
-
-<p>
-    @Html.ActionLink("Add user", "Create",null,new { @class = "btn btn-default" })
-</p>
+@if (Repository.CurrentUser.UserAdmin)
+{
+    <p>
+        @Html.ActionLink("Add user", "Create", null, new { @class = "btn btn-success" })
+    </p>
+}
 <table class="table table-bordered">
     <tr>
         <th>
@@ -31,35 +33,35 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserEmail)
-        </td>
-        <td style="text-align: center">
-            @Html.DisplayFor(modelItem => item.UserAdmin)
-        </td>
-        <td style="text-align: center">
-            @Html.DisplayFor(modelItem => item.UserTestCreator)
-        </td>
-        <td style="text-align: center">
-            @Html.DisplayFor(modelItem => item.UserTestExecutor)
-        </td>
-        <td>
-            @if ((Repository.CurrentUser.UserId==item.UserId)||Repository.CurrentUser.UserAdmin)
-            {
-                @Html.ActionLink("Edit", "Edit", new {id = item.UserId}, new {@class = "btn btn-default"})
-            }
-            @if (Repository.CurrentUser.UserAdmin)
-            {
-                @Html.ActionLink("Delete", "Delete", new {id = item.UserId}, new {@class = "btn btn-danger"})
-            }
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserEmail)
+            </td>
+            <td style="text-align: center">
+                @Html.DisplayFor(modelItem => item.UserAdmin)
+            </td>
+            <td style="text-align: center">
+                @Html.DisplayFor(modelItem => item.UserTestCreator)
+            </td>
+            <td style="text-align: center">
+                @Html.DisplayFor(modelItem => item.UserTestExecutor)
+            </td>
+            <td style="text-align: center">
+                @if ((Repository.CurrentUser.UserId == item.UserId) || Repository.CurrentUser.UserAdmin)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.UserId }, new { @class = "btn btn-default" })
+                }
+                @if (Repository.CurrentUser.UserAdmin)
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.UserId }, new { @class = "btn btn-danger" })
+                }
+            </td>
+        </tr>
+    }
 
 </table>

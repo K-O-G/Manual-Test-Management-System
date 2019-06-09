@@ -12,31 +12,47 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Check List:
+            Check List :
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.CheckListName)
         </dd>
         <dt>
-            Last Edition:
+            Creator :
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LastEditionDateTime.ToShortDateString())
+            @Html.DisplayFor(model => model.CreatorCheckListUser.UserName)
         </dd>
         <dt>
-            Priority
+            Last Editor :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastEditorCheckListUser.UserName)
+        </dd>
+        <dt>
+            Last Edition Date :
+        </dt>
+
+        <dd>
+            <span>
+                @Model.LastEditionDateTime.ToShortDateString()
+            </span>
+        </dd>
+        <dt>
+            Priority :
         </dt>
 
         <dd>
             <span style="color: @Model.Priority.PriorityColor">@Model.Priority.PriorityName</span>
         </dd>
         <dt>
-            Components
+            Components :
         </dt>
         <dd>
-            <ul>
+            <ul style="margin-left: -1.5%;">
                 @foreach (var c in Model.Components)
                 {
 
@@ -53,7 +69,7 @@
         </p>
     }
 
-    <table class="table">
+    <table class="table table-bordered">
         <tr style="max-width: 10%">
             <th>
                 Id
@@ -110,7 +126,7 @@
                 </td>
                 @if (Repository.CurrentUser.UserTestCreator)
                 {
-                    <td>
+                    <td style="text-align: center">
 
                         @Html.ActionLink("Edit", "Edit", "CheckListItems", new { id = item.CheckListItemId }, new { @class = "btn btn-default" })
                         @Html.ActionLink("Delete", "Delete", "CheckListItems", new { id = item.CheckListItemId }, new { @class = "btn btn-danger" })

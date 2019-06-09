@@ -11,15 +11,14 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>CheckListItem</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.CheckListItemId)
 
-        <div class="form-group">
+        <div class="form-group" style="margin-bottom: 0px;">
             @Html.LabelFor(model => model.CheckListId,"CheckList: ", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.LabelFor(model => model.CheckListEntity.CheckListName,new { @class = "form-control" })
+                <p style="margin-top:7px; margin-left: 13px;">@Model.CheckListEntity.CheckListName</p>
             </div>
         </div>
 
@@ -40,7 +39,7 @@
         </div>
         
 
-        <div class="form-group">
+        <div class="form-group" style=" margin-left: 10%; max-width: 22.5%;">
             @Html.ActionLink("Back to List", "Details", "CheckLists", new { id = Model.CheckListId }, new { @class = "btn btn-default pull-left" })
             <input type="submit" value="Save" class="btn btn-success pull-right" />
         </div>

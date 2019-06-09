@@ -28,7 +28,7 @@ namespace WebUI.Controllers
             }
 
             TestCaseEntity testCaseEntity = db.TestCases.Find(id);
-            var @case = new Case() { TestCase = testCaseEntity, TestCaseId = id };
+            var @case = new Case() { TestCase = testCaseEntity, TestCaseId = testCaseEntity.TestCaseEntityId };
 
             return View(@case);
         }

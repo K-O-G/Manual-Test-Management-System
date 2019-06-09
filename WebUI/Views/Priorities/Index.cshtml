@@ -8,10 +8,13 @@
 
 <h2>Priorities</h2>
 
-<p>
-    @Html.ActionLink("Create new Priority", "Create", null, new { @class = "btn btn-default" }) 
-</p>
-<table class="table">
+@if (Repository.CurrentUser.UserAdmin)
+{
+    <p>
+        @Html.ActionLink("Create new Priority", "Create", null, new { @class = "btn btn-success" })
+    </p>
+}
+<table class="table table-bordered">
     <tr>
         <th>
             Priority
@@ -19,28 +22,34 @@
         <th>
             Description
         </th>
-        <th></th>
+        @if (Repository.CurrentUser.UserAdmin)
+        {
+            <th style="width: 10%"></th>
+        }
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <span style="color: @item.PriorityColor">@item.PriorityName</span>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PriorityDescription)
-        </td>
-        <td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <span style="color: @item.PriorityColor">@item.PriorityName</span>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PriorityDescription)
+            </td>
 
-        </td>
-        <td>
             @if (Repository.CurrentUser.UserAdmin)
             {
-                @Html.ActionLink("Edit", "Edit", new {id = item.PriorityId}, new {@class = "btn btn-default"})
-                @Html.ActionLink("Delete", "Delete", new {id = item.PriorityId}, new {@class = "btn btn-danger"})
+                <td style="width: 10%; text-align: center;">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.PriorityId }, new { @class = "btn btn-default" })
+                    if (item.PriorityId != 1)
+                    {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.PriorityId }, new { @class = "btn btn-danger" })
+                    }
+                </td>
             }
-        </td>
-    </tr>
-}
+
+        </tr>
+    }
 
 </table>

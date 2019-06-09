@@ -33,7 +33,7 @@
                 @Html.ValidationMessageFor(model => model.UserEmail, "", new {@class = "text-danger"})
             </div>
         </div>
-
+        @Html.HiddenFor(model=>model.UserPassword)
         <div class="form-group">
             @Html.LabelFor(model => model.UserPassword, "Password", htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
@@ -47,7 +47,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.UserAdmin, "Admin right", htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
-                    <div class="checkbox" style="margin-left: 0%;">
+                    <div class="checkbox" style="left:1%">
                         @Html.EditorFor(model => model.UserAdmin)
                         @Html.ValidationMessageFor(model => model.UserAdmin, "", new {@class = "text-danger"})
                     </div>
@@ -57,7 +57,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.UserTestCreator, "Test Creator right", htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
-                    <div class="checkbox" style="margin-left: 0%;">
+                    <div class="checkbox" style="left:1%">
                         @Html.EditorFor(model => model.UserTestCreator)
                         @Html.ValidationMessageFor(model => model.UserTestCreator, "", new {@class = "text-danger"})
                     </div>
@@ -67,7 +67,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.UserTestExecutor, "Test Executor right", htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
-                    <div class="checkbox" style="margin-left: 0%;">
+                    <div class="checkbox" style="left:1%">
                         @Html.EditorFor(model => model.UserTestExecutor)
                         @Html.ValidationMessageFor(model => model.UserTestExecutor, "", new {@class = "text-danger"})
                     </div>
@@ -82,7 +82,7 @@
         }
 
 
-        <div class="form-group">
+        <div class="form-group" style=" margin-left: 10%; max-width: 22.5%;">
             @Html.ActionLink("Back to List", "Index", null, new{@class="btn btn-default pull-left"})
             <input type="submit" value="Save" class="btn btn-success pull-right"/>
         </div>

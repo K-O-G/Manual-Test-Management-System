@@ -48,15 +48,17 @@
         <div class="editor-label">
             @Html.LabelFor(model => model.Components, "Components", htmlAttributes: new { @class = "control-label col-md-2" })
         </div>
-        @{
-            List<Component> components = ViewBag.Components;
-            foreach (var c in components)
-            {
-                <input type="checkbox" name="selectedComponents" value="@c.ComponentId" />@c.ComponentName <br />
+        <div class="col-md-10">
+            @{
+                List<Component> components = ViewBag.Components;
+                foreach (var c in components)
+                {
+                    <input type="checkbox" name="selectedComponents" value="@c.ComponentId" />@c.ComponentName <br />
+                }
             }
-        }
+        </div>
 
-        <div class="form-group">
+        <div class="form-group" style="margin-left: 10%; max-width: 22.5%;">
             @Html.ActionLink("Back to List", "Index",null,new{@class="btn btn-default pull-left"})
             <input type="submit" value="Create" class="btn btn-success pull-right"/>
         </div>

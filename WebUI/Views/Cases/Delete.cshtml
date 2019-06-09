@@ -86,7 +86,7 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
+        <div class="form-actions" style=" margin-left: 1%; max-width: 22.5%;">
             @Html.ActionLink("Back to List", "Details", "TestCaseEntities", new { id = Model.TestCaseId }, new { @class = "btn btn-default pull-left" })
             <input type="submit" value="Delete" class="btn btn-danger pull-right" />
         </div>

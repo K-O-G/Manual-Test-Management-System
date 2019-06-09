@@ -27,7 +27,7 @@ namespace WebUI.Controllers
             }
 
             CheckListEntity checkListEntity = db.CheckLists.Find(id);
-            var checkListItem = new CheckListItem() { CheckListEntity = checkListEntity ,CheckListId = id};
+            var checkListItem = new CheckListItem() { CheckListEntity = checkListEntity ,CheckListId =checkListEntity.CheckListEntityId};
             return View(checkListItem);
         }
 
@@ -62,6 +62,7 @@ namespace WebUI.Controllers
         // GET: CheckListItems/Edit/5
         public ActionResult Edit(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -86,7 +87,7 @@ namespace WebUI.Controllers
             if (ModelState.IsValid)
             {
                 checkListItem.CheckListTestResult =
-                    db.TestResults.FirstOrDefault(t => t.TestResultId == 0);
+                    db.TestResults.FirstOrDefault(t => t.TestResultId == 1);
                 checkListItem.CheckListComment = "";
                 checkListItem.LastExecutionDateTime = null;
                 checkListItem.CheckListItemIdPublic =
@@ -110,6 +111,12 @@ namespace WebUI.Controllers
             {
                 return HttpNotFound();
             }
+
+            checkListItem.CheckListEntity =
+                db.CheckLists.FirstOrDefault(c => c.CheckListEntityId == checkListItem.CheckListId);
+            var resultId = checkListItem.CheckListTestResult.TestResultId;
+            if (checkListItem.CheckListTestResult != null)
+                checkListItem.CheckListTestResult = db.TestResults.FirstOrDefault(r => r.TestResultId == resultId);
             return View(checkListItem);
         }
 

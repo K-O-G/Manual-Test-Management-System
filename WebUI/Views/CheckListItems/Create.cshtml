@@ -11,7 +11,6 @@
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <h4>CheckList Item</h4>
     <hr />
     @Html.HiddenFor(model => model.CheckListId)
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -39,9 +38,9 @@
     </div>
 
 
-    <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-success pull-left" />
-            @Html.ActionLink("Back to List", "Details","CheckLists",new { id = Model.CheckListEntity.CheckListEntityId}, new { @class = "btn btn-default pull-right" })
+    <div class="form-group" style="margin-left: 10%; max-width: 22.5%;">
+        @Html.ActionLink("Back to List", "Details","CheckLists",new { id = Model.CheckListEntity.CheckListEntityId}, new { @class = "btn btn-default pull-left" })
+        <input type="submit" value="Create" class="btn btn-success pull-right"/>
     </div>
 </div>
 }
